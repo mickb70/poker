@@ -6,6 +6,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class GameNodeTest extends TestCase {
+	//changed on pc
 
 	public void testGetNumberNodes() {
 		double betShowDownPayoffs[] = {0,0};

@@ -116,7 +116,7 @@ public class GameTree {
 		}
 	}
 
-	public void setBestResponse(int heroIdx, int villIdx) {
+	public void setBestResponse(int heroIdx) {
 		int maxDepth = root.getMaxDepth(0);
 		Pair[] pairs = new Pair[2];
 		boolean computeRegret = true;
