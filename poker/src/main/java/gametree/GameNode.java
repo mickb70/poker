@@ -98,7 +98,7 @@ public class GameNode {
 		double[] localRegrets = regrets[ordinal];
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		if (aces.ordinal == ordinal) {
-			int i  = 0;
+			System.currentTimeMillis();
 		}
 		
 		boolean maxFound = false;
@@ -153,6 +153,9 @@ public class GameNode {
 			double[] localStrats = strats[pairs[actIdx].ordinal];
 			double[] atomicStrats = new double[kids.length];
 			for (int i = 0; i < kids.length; i++) {
+				if (aces.ordinal == pairs[0].ordinal) {
+					System.currentTimeMillis();
+				}
 				double newMultiplier = multiplier * this.strats[pairs[actIdx].ordinal][i];
 				tmpRet = kids[i].getPairValues(newMultiplier, pairs, computeRegret);
 				
@@ -162,9 +165,7 @@ public class GameNode {
 				currStrat += localStrats[i] * ret[actIdx];
 				atomicStrats[i] = tmpRet[actIdx];
 				
-				if (aces.ordinal == pairs[1].ordinal) {
-					System.currentTimeMillis();
-				}
+				
 			}
 			if (computeRegret) {
 				visits[pairs[actIdx].ordinal]++;
