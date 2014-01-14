@@ -13,6 +13,7 @@ import junit.framework.TestCase;
 public class GameTreeTest extends TestCase {
 	
 	private GameTree getFullHouseTree() {
+		//changed on laptop
 		Hand board = new Hand();	
 		board.addCard(Card.get(Rank.Three, Suit.Clubs).ordinal);
 		board.addCard(Card.get(Rank.Three, Suit.Diamonds).ordinal);
