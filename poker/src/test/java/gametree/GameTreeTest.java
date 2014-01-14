@@ -141,7 +141,7 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.getRoot().setStrats(betAllStrats);
 		
-		tree.setBestResponse(1,0);
+		tree.setBestResponse(1);
 		
 		Assert.assertEquals((double)0, tree.getRoot().getKids()[1].getStrats()[aces.ordinal][0]);
 		Assert.assertEquals((double)1, tree.getRoot().getKids()[1].getStrats()[aces.ordinal][1]);
@@ -163,13 +163,13 @@ public class GameTreeTest extends TestCase {
 		freqs[0][aces.ordinal] = 1;freqs[0][kings.ordinal] = 1;freqs[0][QTrey.ordinal] = 1; freqs[0][JTrey.ordinal] = 1;
 		freqs[1][aces.ordinal] = 1;freqs[1][kings.ordinal] = 1;freqs[1][QTrey.ordinal] = 1; freqs[1][JTrey.ordinal] = 1;
 
-		callAcesOnly[0][aces.ordinal] = 0;callAcesOnly[0][kings.ordinal] = 1;callAcesOnly[0][QTrey.ordinal] = 1; callAcesOnly[0][JTrey.ordinal] = 1;
-		callAcesOnly[1][aces.ordinal] = 1;callAcesOnly[1][kings.ordinal] = 0;callAcesOnly[1][QTrey.ordinal] = 0; callAcesOnly[1][JTrey.ordinal] = 0;
+		callAcesOnly[aces.ordinal][0] = 0;callAcesOnly[kings.ordinal][0] = 0;callAcesOnly[QTrey.ordinal][0] = 1; callAcesOnly[JTrey.ordinal][0] = 1;
+		callAcesOnly[aces.ordinal][1] = 1;callAcesOnly[kings.ordinal][1] = 1;callAcesOnly[QTrey.ordinal][1] = 0; callAcesOnly[JTrey.ordinal][1] = 0;
 		
 		tree.setFreqs(freqs);
 		tree.getRoot().getKids()[1].setStrats(callAcesOnly);
 		
-		tree.setBestResponse(0,1);
+		tree.setBestResponse(0);
 		
 		Assert.assertEquals((double)0, tree.getRoot().getStrats()[aces.ordinal][0]);
 		Assert.assertEquals((double)1, tree.getRoot().getStrats()[aces.ordinal][1]);
