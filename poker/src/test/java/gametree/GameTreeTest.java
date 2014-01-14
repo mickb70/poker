@@ -2,11 +2,7 @@ package gametree;
 
 import java.util.Arrays;
 
-import spears2p2.Card;
-import spears2p2.Hand;
-import spears2p2.Pair;
-import spears2p2.Rank;
-import spears2p2.Suit;
+import spears2p2.*;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
