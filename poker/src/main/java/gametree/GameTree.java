@@ -80,13 +80,16 @@ public class GameTree {
 		for (Pair pair0: Pair.values()) {
 			for (Pair pair1: Pair.values()) {
 				if (!pair0.intersects(pair1)) {
-					pairs[0] = pair0;
-					pairs[1] = pair1;
-					tmpStratValues = this.root.getPairValues(1,pairs, computeRegret);
-					valueNumer[0][pair0.ordinal] += freqs[1][pair1.ordinal] * tmpStratValues[0];
-					valueDenom[0][pair0.ordinal] += freqs[1][pair1.ordinal];
-					valueNumer[1][pair1.ordinal] += freqs[0][pair0.ordinal] * tmpStratValues[1];
-					valueDenom[1][pair1.ordinal] += freqs[0][pair0.ordinal];
+					if ((freqs[0][pair0.ordinal]>0)&&(freqs[1][pair1.ordinal]>0)) {
+						pairs[0] = pair0;
+						pairs[1] = pair1;
+						double multiplier = freqs[0][pair0.ordinal] * freqs[1][pair1.ordinal];
+						tmpStratValues = this.root.getPairValues(multiplier,pairs, computeRegret);
+						valueNumer[0][pair0.ordinal] += freqs[1][pair1.ordinal] * tmpStratValues[0];
+						valueDenom[0][pair0.ordinal] += freqs[1][pair1.ordinal];
+						valueNumer[1][pair1.ordinal] += freqs[0][pair0.ordinal] * tmpStratValues[1];
+						valueDenom[1][pair1.ordinal] += freqs[0][pair0.ordinal];
+					}
 				}
 			}
 		}
@@ -108,22 +111,35 @@ public class GameTree {
 		this.freqs = new double[2][1326];
 		
 		//TODO set only possible freqs???
-		for (Pair pair0: Pair.values()) {
-			for (Pair pair1: Pair.values()) {
-				if (!pair0.intersects(pair1)) {
-					if ((freqs[0][pair0.ordinal]>0)&&(freqs[1][pair1.ordinal]>0)) {
-						this.freqs[0][pair0.ordinal] = freqs[0][pair0.ordinal];
-						this.freqs[1][pair1.ordinal] = freqs[1][pair1.ordinal];
-					}
-				}
+//		for (Pair pair0: Pair.values()) {
+//			for (Pair pair1: Pair.values()) {
+//				if (!pair0.intersects(pair1)) {
+//					if ((freqs[0][pair0.ordinal]>0)&&(freqs[1][pair1.ordinal]>0)) {
+//						this.freqs[0][pair0.ordinal] = freqs[0][pair0.ordinal];
+//						this.freqs[1][pair1.ordinal] = freqs[1][pair1.ordinal];
+//					}
+//				}
+//			}
+//		}
+		
+		for (int i = 0; i < freqs.length; i++) {
+			for (int j = 0; j < freqs[i].length; j++) {
+				this.freqs[i][j] = freqs[i][j];
 			}
 		}
+			
+	}
+	
+	public void validateTree() throws TreeInvalidException {
+		root.validateTree(freqs);
 	}
 
-	public void setBestResponse(int heroIdx) {
+	public void setBestResponse(int heroIdx) throws TreeInvalidException {
 		int maxDepth = root.getMaxDepth(0);
 		Pair[] pairs = new Pair[2];
 		boolean computeRegret = true;
+		
+		root.validateTree(freqs);
 		
 		for (int k = maxDepth; k >= 0; k--) {
 			root.resetStratsAndRegrets(k,heroIdx);

@@ -209,6 +209,31 @@ public class GameNode {
 		
 		return Math.max(depth, newMaxDepth);
 	}
+	
+	private boolean validateStrat(int ordinal) {
+		double sum = 0;
+		
+		for (double d:strats[ordinal]) {
+			sum += d;
+		}
+		
+		return (Math.abs(sum - 1) <= .01);
+	}
+
+	public void validateTree(double[][] freqs) throws TreeInvalidException {
+		if (kids != null) {
+			for (int i = 0; i < kids.length; i++) {
+				kids[i].validateTree(freqs);
+
+				for (int j = 0; j < freqs[actIdx].length; j ++) {
+					double localFreq  = freqs[actIdx][j];
+					if (localFreq > 0) {
+						validateStrat(j);
+					}
+				}
+			}
+		}
+	}
 
 	public double[][] getStrats() {
 		return strats;

@@ -6,14 +6,13 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class GameNodeTest extends TestCase {
-	//changed on pc
 
 	public void testGetNumberNodes() {
 		double betShowDownPayoffs[] = {0,0};
 		double betShowDownPot = 3;
 		double checkShowDownPayoffs[] = {1,1};
 		double checkShowDownPot = 1;
-		double foldPayoffs[] = {1,2};
+		double foldPayoffs[] = {2,1};
 		double emptyArr[] = {};
 		
 		double[][] allOnes = new double[2][1326];

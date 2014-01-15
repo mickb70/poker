@@ -131,7 +131,7 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals((double)0, tree.getPairValues()[1][aces.ordinal]);
 	}
 	
-	public void testRiverExploitCall() {
+	public void testRiverExploitCall() throws TreeInvalidException {
 		GameTree tree = getFullHouseTree();
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair kingTrey = Pair.get(Card.get(Rank.King, Suit.Spades), Card.get(Rank.Three, Suit.Spades));
@@ -166,7 +166,29 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals((double)0, tree.getRoot().getKids()[1].getStrats()[kingTrey.ordinal][1]);
 	}
 	
-	public void testRiverStrategyFindValueRange() {
+	public void testTreeValidation() {
+		GameTree tree = getRainBowTree();
+		Pair smallest = Pair.values()[0];
+		
+		double[][] freqs = new double[2][1326];
+		double[][] smallOnly = new double[1326][2];
+		
+		freqs[0][smallest.ordinal] = 1;
+
+		smallOnly[smallest.ordinal][0] = 0;
+		smallOnly[smallest.ordinal][1] = 0.5;
+		
+		tree.setFreqs(freqs);
+		tree.getRoot().setStrats(smallOnly);
+		
+		try {
+			tree.validateTree();
+			fail("did not throw exception");
+		} catch (TreeInvalidException e) {
+		}
+	}
+	
+	public void testRiverStrategyFindValueRange() throws TreeInvalidException {
 		GameTree tree = getRainBowTree();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
