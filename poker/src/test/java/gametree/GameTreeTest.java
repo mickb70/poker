@@ -8,6 +8,25 @@ import junit.framework.TestCase;
 
 public class GameTreeTest extends TestCase {
 	
+	private GameTree getRainBowTree() {
+		Hand board = new Hand();	
+		board.addCard(Card.get(Rank.Deuce, Suit.Clubs).ordinal);
+		board.addCard(Card.get(Rank.Three, Suit.Diamonds).ordinal);
+		board.addCard(Card.get(Rank.Seven, Suit.Hearts).ordinal);
+		board.addCard(Card.get(Rank.Eight, Suit.Spades).ordinal);
+		board.addCard(Card.get(Rank.Jack, Suit.Clubs).ordinal);
+		
+		BoardNode boardNode = new BoardNode(board, BoardNodeType.River);
+		
+		double betShowDownPayoffs[] = {0,0};
+		double betShowDownPot = 3;
+		double checkShowDownPayoffs[] = {1,1};
+		double checkShowDownPot = 1;
+		double foldPayoffs[] = {2,1};
+		
+		return GameTree.getRiverCheckOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
+	}
+	
 	private GameTree getFullHouseTree() {
 		//changed on laptop again work this time
 		Hand board = new Hand();	
@@ -23,7 +42,7 @@ public class GameTreeTest extends TestCase {
 		double betShowDownPot = 3;
 		double checkShowDownPayoffs[] = {1,1};
 		double checkShowDownPot = 1;
-		double foldPayoffs[] = {1,2};
+		double foldPayoffs[] = {2,1};
 		
 		return GameTree.getRiverCheckOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
 	}
@@ -148,30 +167,43 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testRiverStrategyFindValueRange() {
-		GameTree tree = getFullHouseTree();
-		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
-		Pair kings = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
-		Pair QTrey = Pair.get(Card.get(Rank.Jack, Suit.Spades), Card.get(Rank.Three, Suit.Spades));
-		Pair JTrey = Pair.get(Card.get(Rank.Queen, Suit.Spades), Card.get(Rank.Three, Suit.Spades));
+		GameTree tree = getRainBowTree();
+		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
+		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
+		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
+		Pair blkAs = Pair.get(Card.get(Rank.Ace, Suit.Clubs), Card.get(Rank.Ace, Suit.Spades));
+		Pair blkKs = Pair.get(Card.get(Rank.King, Suit.Clubs), Card.get(Rank.King, Suit.Spades));
+		Pair blkQs = Pair.get(Card.get(Rank.Queen, Suit.Clubs), Card.get(Rank.Queen, Suit.Spades));
 		
 		double[][] freqs = new double[2][1326];
-		double[][] callAcesOnly = new double[1326][2];
+		double[][] callAsKsOnly = new double[1326][2];
 		
-		freqs[0][aces.ordinal] = 1;freqs[0][kings.ordinal] = 1;freqs[0][QTrey.ordinal] = 1; freqs[0][JTrey.ordinal] = 1;
-		freqs[1][aces.ordinal] = 1;freqs[1][kings.ordinal] = 1;freqs[1][QTrey.ordinal] = 1; freqs[1][JTrey.ordinal] = 1;
+		freqs[0][redAs.ordinal] = 1;
+		freqs[0][redKs.ordinal] = 1;
+		freqs[0][redQs.ordinal] = 1;
+		freqs[1][blkAs.ordinal] = .9;
+		freqs[1][blkKs.ordinal] = 1;
+		freqs[1][blkQs.ordinal] = 1;
 
-		callAcesOnly[aces.ordinal][0] = 0;callAcesOnly[kings.ordinal][0] = 0;callAcesOnly[QTrey.ordinal][0] = 1; callAcesOnly[JTrey.ordinal][0] = 1;
-		callAcesOnly[aces.ordinal][1] = 1;callAcesOnly[kings.ordinal][1] = 1;callAcesOnly[QTrey.ordinal][1] = 0; callAcesOnly[JTrey.ordinal][1] = 0;
+		callAsKsOnly[blkAs.ordinal][0] = 0;
+		callAsKsOnly[blkKs.ordinal][0] = 0;
+//		callAsKsOnly[blkQs.ordinal][0] = 0;
+		callAsKsOnly[blkAs.ordinal][1] = 1;
+		callAsKsOnly[blkKs.ordinal][1] = 1;
+//		callAsKsOnly[blkQs.ordinal][1] = 1;
 		
 		tree.setFreqs(freqs);
-		tree.getRoot().getKids()[1].setStrats(callAcesOnly);
+		tree.getRoot().getKids()[1].setStrats(callAsKsOnly);
 		
 		tree.setBestResponse(0);
 		
-		Assert.assertEquals((double)0, tree.getRoot().getStrats()[aces.ordinal][0]);
-		Assert.assertEquals((double)1, tree.getRoot().getStrats()[aces.ordinal][1]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redAs.ordinal][0]);
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redAs.ordinal][1]);
 		
-		Assert.assertEquals((double)0, tree.getRoot().getStrats()[kings.ordinal][0]);
-		Assert.assertEquals((double)1, tree.getRoot().getStrats()[kings.ordinal][1]);
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redKs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redKs.ordinal][1]);
+		
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redQs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redQs.ordinal][1]);
 	}
 }

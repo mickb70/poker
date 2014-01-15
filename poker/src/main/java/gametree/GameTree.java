@@ -1,8 +1,12 @@
 package gametree;
 
+import org.apache.log4j.Logger;
+
 import spears2p2.Pair;
 
 public class GameTree {
+	private static Logger logger = Logger.getLogger(GameTree.class);
+	
 	private GameNode root;
 	private double[][] freqs;
 	
@@ -130,7 +134,7 @@ public class GameTree {
 							pairs[0] = pair0;
 							pairs[1] = pair1;
 							double multiplier = freqs[0][pair0.ordinal] * freqs[1][pair1.ordinal];
-//							System.out.println(pair0+","+pair1);
+							logger.debug("pair0 = "+pair0+"["+freqs[0][pair0.ordinal]+"], pair1 = "+pair1+"["+freqs[1][pair1.ordinal]+"], multiplier = "+multiplier);
 							root.getPairValues(multiplier, pairs, computeRegret);
 						}
 					}

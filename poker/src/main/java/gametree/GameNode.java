@@ -2,12 +2,16 @@ package gametree;
 
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
+
 import spears2p2.Card;
 import spears2p2.Pair;
 import spears2p2.Rank;
 import spears2p2.Suit;
 
 public class GameNode {
+	private static Logger logger = Logger.getLogger(GameNode.class);
+	
 	private final GameNode dad;
 	private final int actIdx;
 	private final ActionNode actionNode;
@@ -146,16 +150,11 @@ public class GameNode {
 		double[] ret = new double[2];
 		double[] tmpRet = new double[2];
 		double currStrat = 0;
-		//TODO debug only
-		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		
 		if (kids != null) {
 			double[] localStrats = strats[pairs[actIdx].ordinal];
 			double[] atomicStrats = new double[kids.length];
 			for (int i = 0; i < kids.length; i++) {
-				if (aces.ordinal == pairs[0].ordinal) {
-					System.currentTimeMillis();
-				}
 				double newMultiplier = multiplier * this.strats[pairs[actIdx].ordinal][i];
 				tmpRet = kids[i].getPairValues(newMultiplier, pairs, computeRegret);
 				
@@ -164,11 +163,10 @@ public class GameNode {
 				
 				currStrat += localStrats[i] * ret[actIdx];
 				atomicStrats[i] = tmpRet[actIdx];
-				
-				
 			}
 			if (computeRegret) {
 				visits[pairs[actIdx].ordinal]++;
+				logger.debug("pair0 = "+pairs[0]+", pair1 = "+pairs[1]+", currentStrat = "+currStrat+", atomic = "+Arrays.toString(atomicStrats));
 				calculateRegret(multiplier, pairs[actIdx], currStrat, atomicStrats);
 			}
 		} else {
