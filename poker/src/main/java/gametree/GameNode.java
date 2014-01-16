@@ -210,14 +210,16 @@ public class GameNode {
 		return Math.max(depth, newMaxDepth);
 	}
 	
-	private boolean validateStrat(int ordinal) {
+	private void validateStrat(int ordinal) throws TreeInvalidException {
 		double sum = 0;
 		
 		for (double d:strats[ordinal]) {
 			sum += d;
 		}
 		
-		return (Math.abs(sum - 1) <= .01);
+		if (Math.abs(sum - 1) >= .01) {
+			throw new TreeInvalidException();
+		}
 	}
 
 	public void validateTree(double[][] freqs) throws TreeInvalidException {

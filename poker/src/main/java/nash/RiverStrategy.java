@@ -29,7 +29,7 @@ public abstract class RiverStrategy {
 		return ret;
 	}
 	
-	public static int calcCallOrFold(double betSize, double[] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
+	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
 		int callThresh = 0;
 		double callPct = 1 / (betSize + 1);
 		double totCallFreqs = getDoubleArrayTotal(callFreqs);
@@ -45,7 +45,8 @@ public abstract class RiverStrategy {
 				callThresh = nutsRank;
 				for (PairRank pairRank: pairRankSets.get(key)) {
 					if (pairRank.getRank() == nutsRank) {
-						callStrats[pairRank.getOrdinal()] = 1;
+						callStrats[pairRank.getOrdinal()][0] = 0;
+						callStrats[pairRank.getOrdinal()][1] = 1;
 						remCallFreq -= callFreqs[pairRank.getOrdinal()];
 					}
 				}
@@ -62,25 +63,13 @@ public abstract class RiverStrategy {
 				}
 				
 				for (PairRank pairRank: pairRankSets.get(key)) {
-					callStrats[pairRank.getOrdinal()] = partialFreq;
+					callStrats[pairRank.getOrdinal()][0] = 1 - partialFreq;
+					callStrats[pairRank.getOrdinal()][1] = partialFreq;
 					remCallFreq -= partialFreq;
 				}
 			}
 		}
 		
 		return callThresh;
-	}
-
-	public static void calcBetOrCheckPair(double betSize,double[] betStrats, double[] betFreqs, double[] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
-		double bluffPct = 1 / (betSize + 1);
-		double sumBetFreqs = 0;
-		
-		for (double freq : betFreqs) {
-			sumBetFreqs += freq;
-		}
-		
-		int callThresh = calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets);
-		
-		
 	}
 }

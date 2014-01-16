@@ -9,6 +9,8 @@ public class GameTree {
 	
 	private GameNode root;
 	private double[][] freqs;
+	// Adjusted Frequencies to allow for opponent range
+	private double[][] adjFreqs;
 	
 	public GameTree() {
 		
@@ -57,8 +59,8 @@ public class GameTree {
 		
 		for (int i = 0; i < stratValues.length ; i++) {
 			for (int j = 0; j < stratValues[i].length; j++) {
-				valueNumer[i] += freqs[i][j] * stratValues[i][j];
-				valueDenom[i] += freqs[i][j];
+				valueNumer[i] += adjFreqs[i][j] * stratValues[i][j];
+				valueDenom[i] += adjFreqs[i][j];
 			}
 		}
 		
@@ -127,6 +129,17 @@ public class GameTree {
 				this.freqs[i][j] = freqs[i][j];
 			}
 		}
+		
+		this.adjFreqs = new double[2][1326];
+		
+		for (Pair pair0 : Pair.values()) {
+			for (Pair pair1 : Pair.values()) {
+				if (!pair0.intersects(pair1)) {
+					adjFreqs[0][pair0.ordinal] += (freqs[0][pair0.ordinal]*freqs[1][pair1.ordinal]);
+					adjFreqs[1][pair1.ordinal] += (freqs[0][pair0.ordinal]*freqs[1][pair1.ordinal]);
+				}
+			}
+		}
 			
 	}
 	
@@ -160,5 +173,9 @@ public class GameTree {
 		}
 		
 		return;
+	}
+
+	public double[][] getAdjFreqs() {
+		return adjFreqs;
 	}
 }
