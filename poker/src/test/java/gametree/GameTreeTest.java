@@ -197,7 +197,7 @@ public class GameTreeTest extends TestCase {
 		}
 	}
 	
-	public void testRiverStrategyFindValueRange() throws TreeInvalidException {
+	public void testRiverExploitBet() throws TreeInvalidException {
 		GameTree tree = getRainBowTree();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
@@ -221,8 +221,10 @@ public class GameTreeTest extends TestCase {
 		betAll[redKs.ordinal][0] = 1;
 		betAll[redQs.ordinal][0] = 1;
 		callAll[blkAs.ordinal][1] = 1;
-		callAll[blkKs.ordinal][1] = 1;
-		callAll[blkQs.ordinal][1] = 1;
+		callAll[blkKs.ordinal][0] = 0.9;
+		callAll[blkKs.ordinal][1] = 0.1;
+		callAll[blkQs.ordinal][0] = 0.5;
+		callAll[blkQs.ordinal][1] = 0.5;
 		
 		tree.setFreqs(freqs);
 		tree.getRoot().setStrats(betAll);
@@ -236,30 +238,86 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redKs.ordinal][0]);
 		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redKs.ordinal][1]);
 		
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redQs.ordinal][0]);
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redQs.ordinal][1]);
+	}
+	
+	public void testRiverFindValueRange() throws TreeInvalidException {
+		GameTree tree = getRainBowTree();
+		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
+		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
+		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
+		Pair blkAs = Pair.get(Card.get(Rank.Ace, Suit.Clubs), Card.get(Rank.Ace, Suit.Spades));
+		Pair blkKs = Pair.get(Card.get(Rank.King, Suit.Clubs), Card.get(Rank.King, Suit.Spades));
+		Pair blkQs = Pair.get(Card.get(Rank.Queen, Suit.Clubs), Card.get(Rank.Queen, Suit.Spades));
+		
+		double[][] freqs = new double[2][1326];
+		double[][] betAll = new double[1326][2];
+		double[][] callAll = new double[1326][2];
+		
+		freqs[0][redAs.ordinal] = 1;
+		freqs[0][redKs.ordinal] = 1;
+		freqs[0][redQs.ordinal] = 1;
+		freqs[1][blkAs.ordinal] = 1;
+		freqs[1][blkKs.ordinal] = 1;
+		freqs[1][blkQs.ordinal] = 1;
+
+		betAll[redAs.ordinal][0] = 1;
+		betAll[redKs.ordinal][0] = 1;
+		betAll[redQs.ordinal][0] = 1;
+		callAll[blkAs.ordinal][1] = 1;
+		callAll[blkKs.ordinal][0] = 0.9;
+		callAll[blkKs.ordinal][1] = 0.1;
+		callAll[blkQs.ordinal][0] = 0.5;
+		callAll[blkQs.ordinal][1] = 0.5;
+		
+		tree.setFreqs(freqs);
+		tree.getRoot().setStrats(betAll);
+		tree.getRoot().getKids()[1].setStrats(callAll);
+		
+		//remove bluff value
+		tree.getRoot().removeBluffValue();
+		
+		tree.setBestResponse(0);
+		
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redAs.ordinal][0]);
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redAs.ordinal][1]);
+		
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redKs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redKs.ordinal][1]);
+		
 		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redQs.ordinal][0]);
 		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redQs.ordinal][1]);
 	}
 	
-	public void testGuessingStrategy() throws TreeInvalidException {
-		GameTree tree = getRainBowTree();
+	public void testGuessBetStrategy() {
 		
-		double[][] freqs = new double[2][1326];
-		
-		Arrays.fill(freqs[0], 1);
-		Arrays.fill(freqs[1], 1);
-		
-		tree.setFreqs(freqs);
-		tree.initialiseAllStrats();
-		
-		//guess calling strategy
-		double[][] callStrats = new double[1326][2];
-		double[] callFreqs = tree.getAdjFreqs()[1];
-		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
-		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
-		
-		
-		
-		tree.setBestResponse(0);
 	}
+	
+	public void testGuessBetStrategyCantBluff() {
+		
+	}
+	
+//	public void testGuessingStrategy() throws TreeInvalidException {
+//		GameTree tree = getRainBowTree();
+//		
+//		double[][] freqs = new double[2][1326];
+//		
+//		Arrays.fill(freqs[0], 1);
+//		Arrays.fill(freqs[1], 1);
+//		
+//		tree.setFreqs(freqs);
+//		tree.initialiseAllStrats();
+//		
+//		//guess calling strategy
+//		double[][] callStrats = new double[1326][2];
+//		double[] callFreqs = tree.getAdjFreqs()[1];
+//		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
+//		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
+//		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+//		
+//		
+//		
+//		tree.setBestResponse(0);
+//	}
 }

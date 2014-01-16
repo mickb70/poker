@@ -80,7 +80,7 @@ public class GameNode {
 		}
 	}
 	
-	public void addGameTreeNode(int idx, GameNode gameNode) {
+	public void setGameTreeNode(int idx, GameNode gameNode) {
 		this.kids[idx] = gameNode;
 	}
 	
@@ -106,12 +106,12 @@ public class GameNode {
 		}
 		
 		boolean maxFound = false;
-		for (int i = 0; i < kids.length; i++) {
+		for (int i = (kids.length - 1); i > -1; i--) {
 			if (regrets[ordinal][i] > 0) {
 				max = Math.max(regrets[ordinal][i],max);
 			}
 		}
-		for (int i = 0; i < kids.length; i++) {
+		for (int i = (kids.length - 1); i > -1; i--) {
 			if (!maxFound && (regrets[ordinal][i] == max)) {
 				strats[ordinal][i] = 1;
 				maxFound = true;
@@ -235,6 +235,12 @@ public class GameNode {
 				}
 			}
 		}
+	}
+	
+	public void removeBluffValue() {
+		GameNode checkBack = kids[0];
+		
+		kids[1].setGameTreeNode(0, checkBack);
 	}
 
 	public double[][] getStrats() {

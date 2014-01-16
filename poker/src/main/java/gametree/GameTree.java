@@ -33,10 +33,10 @@ public class GameTree {
 		GameNode nodeBetFoldPayoff = new GameNode(nodeCallOrFoldChoice,-1, null, boardNode,GameNodeType.Payoff, foldPayoffs, 0, 0);
 		GameNode nodeBetCallPayoff = new GameNode(nodeCallOrFoldChoice,-1, null, boardNode,GameNodeType.Showdown, betShowDownPayoffs, betShowDownPot, 0);
 		
-		nodeCheckOrBetChoice.addGameTreeNode(0, nodeCheckPayoff);
-		nodeCheckOrBetChoice.addGameTreeNode(1, nodeCallOrFoldChoice);
-		nodeCallOrFoldChoice.addGameTreeNode(0, nodeBetFoldPayoff);
-		nodeCallOrFoldChoice.addGameTreeNode(1, nodeBetCallPayoff);
+		nodeCheckOrBetChoice.setGameTreeNode(0, nodeCheckPayoff);
+		nodeCheckOrBetChoice.setGameTreeNode(1, nodeCallOrFoldChoice);
+		nodeCallOrFoldChoice.setGameTreeNode(0, nodeBetFoldPayoff);
+		nodeCallOrFoldChoice.setGameTreeNode(1, nodeBetCallPayoff);
 		
 		tree.root = nodeCheckOrBetChoice;
 		
