@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 
 public class GameTreeTest extends TestCase {
 	
-	//This
+	//This this
 	
 	private GameTree getRainBowTree() {
 		Hand board = new Hand();	
