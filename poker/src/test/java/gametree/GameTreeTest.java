@@ -429,8 +429,16 @@ public class GameTreeTest extends TestCase {
 		
 		double[][] freqs = new double[2][1326];
 		
-		Arrays.fill(freqs[0], 1);
-		Arrays.fill(freqs[1], 1);
+		for (int i = 8; i < 13; i++) {
+			for (int j = 0; j < 4; j++) {
+				for (int k = j+1; k < 4; k++) {
+					Card card1 = Card.get(i, j);
+					Card card2 = Card.get(i, k);
+					freqs[0][Pair.get(card1, card2).ordinal] =  1;
+					freqs[1][Pair.get(card1, card2).ordinal] =  1;
+				}
+			}
+		}
 		
 		tree.setFreqs(freqs);
 		noBluff.setFreqs(freqs);
@@ -447,11 +455,10 @@ public class GameTreeTest extends TestCase {
 		tree.getRoot().getKids()[1].setStrats(callStrats);
 		noBluff.getRoot().getKids()[1].setStrats(callStrats);
 
-		noBluff.getRoot().removeBluffValue();
-		
+		noBluff.getRoot().removeBluffValue();		
 		noBluff.setBestResponse(0);
 		
-		double[][] newBetStrats = tree.getRoot().getStrats();
+		double[][] newBetStrats = noBluff.getRoot().getStrats();
 		RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
 		tree.getRoot().setStrats(newBetStrats);
 		
@@ -473,6 +480,6 @@ public class GameTreeTest extends TestCase {
 		
 		double exploit = tree.getStratExploitability();
 		
-		Assert.assertEquals(0, exploit, .0000001);
+		Assert.assertEquals(0, exploit, .5);
 	}
 }

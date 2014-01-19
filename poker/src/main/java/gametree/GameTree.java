@@ -246,31 +246,31 @@ public class GameTree {
 		
 		logger.debug("villExploitability = "+villExploitability+", heroExploitability = "+heroExploitability);
 		
-//		TreeSet<PairValue> heroExpSet = new TreeSet<PairValue>();
-//		
-//		for (int i = 0 ; i < heroBestRespPairValues[0].length; i++) {
-//			heroExpSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[0][i] - currPairValues[0][i])));
-//		}
-//		
-//		for (PairValue pairValue: heroExpSet) {
-//			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
-//				logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+heroBestRespPairValues[0][pairValue.getOrdinal()]+" > "+currPairValues[0][pairValue.getOrdinal()]+
-//					Arrays.toString(heroExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(heroStrats[0][pairValue.getOrdinal()]));
-//			}
-//		}
-//		
-//		TreeSet<PairValue> villExpSet = new TreeSet<PairValue>();
-//		
-//		for (int i = 0 ; i < villBestRespPairValues[1].length; i++) {
-//			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[1][i] - currPairValues[1][i])));
-//		}
-//		
-//		for (PairValue pairValue: villExpSet) {
-//			if (adjFreqs[1][pairValue.getOrdinal()] > 0) {
-//				logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+villBestRespPairValues[1][pairValue.getOrdinal()]+" > "+currPairValues[1][pairValue.getOrdinal()]+
-//					Arrays.toString(villExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(villStrats[0][pairValue.getOrdinal()]));
-//			}
-//		}
+		TreeSet<PairValue> heroExpSet = new TreeSet<PairValue>();
+		
+		for (int i = 0 ; i < heroBestRespPairValues[0].length; i++) {
+			heroExpSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[0][i] - currPairValues[0][i])));
+		}
+		
+		for (PairValue pairValue: heroExpSet) {
+			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
+				logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+heroBestRespPairValues[0][pairValue.getOrdinal()]+" > "+currPairValues[0][pairValue.getOrdinal()]+
+					Arrays.toString(heroExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(heroStrats[0][pairValue.getOrdinal()]));
+			}
+		}
+		
+		TreeSet<PairValue> villExpSet = new TreeSet<PairValue>();
+		
+		for (int i = 0 ; i < villBestRespPairValues[1].length; i++) {
+			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[1][i] - currPairValues[1][i])));
+		}
+		
+		for (PairValue pairValue: villExpSet) {
+			if (adjFreqs[1][pairValue.getOrdinal()] > 0) {
+				logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+villBestRespPairValues[1][pairValue.getOrdinal()]+" > "+currPairValues[1][pairValue.getOrdinal()]+
+					Arrays.toString(villExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(villStrats[0][pairValue.getOrdinal()]));
+			}
+		}
 		
 		return villExploitability + heroExploitability;
 	}
