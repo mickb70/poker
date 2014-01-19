@@ -106,12 +106,12 @@ public class GameNode {
 		}
 		
 		boolean maxFound = false;
-		for (int i = (kids.length - 1); i > -1; i--) {
+		for (int i = kids.length -1 ; i > -1; i--) {
 			if (regrets[ordinal][i] > 0) {
 				max = Math.max(regrets[ordinal][i],max);
 			}
 		}
-		for (int i = (kids.length - 1); i > -1; i--) {
+		for (int i = kids.length -1 ; i > -1; i--) {
 			if (!maxFound && (regrets[ordinal][i] == max)) {
 				strats[ordinal][i] = 1;
 				maxFound = true;
@@ -155,7 +155,7 @@ public class GameNode {
 			double[] localStrats = strats[pairs[actIdx].ordinal];
 			double[] atomicStrats = new double[kids.length];
 			for (int i = 0; i < kids.length; i++) {
-				double newMultiplier = multiplier * this.strats[pairs[actIdx].ordinal][i];
+				double newMultiplier = this.strats[pairs[actIdx].ordinal][i];
 				tmpRet = kids[i].getPairValues(newMultiplier, pairs, computeRegret);
 				
 				ret[0] += localStrats[i] * tmpRet[0];
@@ -166,7 +166,7 @@ public class GameNode {
 			}
 			if (computeRegret) {
 				visits[pairs[actIdx].ordinal]++;
-				logger.debug("pair0 = "+pairs[0]+", pair1 = "+pairs[1]+", currentStrat = "+currStrat+", atomic = "+Arrays.toString(atomicStrats));
+//				logger.debug("pair0 = "+pairs[0]+", pair1 = "+pairs[1]+", currentStrat = "+currStrat+", atomic = "+Arrays.toString(atomicStrats));
 				calculateRegret(multiplier, pairs[actIdx], currStrat, atomicStrats);
 			}
 		} else {
@@ -218,7 +218,7 @@ public class GameNode {
 		}
 		
 		if (Math.abs(sum - 1) >= .01) {
-			throw new TreeInvalidException();
+			throw new TreeInvalidException("Pair "+Pair.values()[ordinal]+", strats "+Arrays.toString(strats[ordinal]));
 		}
 	}
 
@@ -235,6 +235,52 @@ public class GameNode {
 				}
 			}
 		}
+	}
+	
+	public int getNumStrats(int actIdx) {
+		int numStrats = 0;
+		
+		if (kids != null) {
+			for (int i = 0; i < kids.length; i++) {
+				numStrats += kids[i].getNumStrats(actIdx);
+			}
+			
+			if (this.actIdx == actIdx) {
+				numStrats++;
+			}
+		}
+		
+		return numStrats;
+	}
+	
+	public int copyStrats(double[][][] strats, int actIdx, int idx) {
+		if (kids != null) {
+			if (this.actIdx == actIdx) {
+				for (int i = 0; i < this.strats.length; i++) {
+					strats[idx][i] = Arrays.copyOf(this.strats[i], this.strats[i].length);
+				}
+				idx++;
+			}
+			for (int i = 0; i < kids.length; i++) {
+				idx = kids[i].copyStrats(strats, actIdx, idx);
+			}
+		}
+		return idx;
+	}
+	
+	public int writeStrats(double[][][] strats, int actIdx, int idx) {
+		if (kids != null) {
+			if (this.actIdx == actIdx) {
+				for (int i = 0; i < this.strats.length; i++) {
+					this.strats[i] = Arrays.copyOf(strats[idx][i], strats[idx][i].length);
+				}
+				idx++;
+			}
+			for (int i = 0; i < kids.length; i++) {
+				idx = kids[i].writeStrats(strats, actIdx, idx);
+			}
+		}
+		return idx;
 	}
 	
 	public void removeBluffValue() {

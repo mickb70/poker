@@ -13,15 +13,13 @@ import junit.framework.TestCase;
 
 public class GameTreeTest extends TestCase {
 	
-	//This this
-	
-	private GameTree getRainBowTree() {
+	private GameTree getRainBowNutLow() {
 		Hand board = new Hand();	
 		board.addCard(Card.get(Rank.Deuce, Suit.Clubs).ordinal);
 		board.addCard(Card.get(Rank.Three, Suit.Diamonds).ordinal);
-		board.addCard(Card.get(Rank.Seven, Suit.Hearts).ordinal);
-		board.addCard(Card.get(Rank.Eight, Suit.Spades).ordinal);
-		board.addCard(Card.get(Rank.Jack, Suit.Clubs).ordinal);
+		board.addCard(Card.get(Rank.Four, Suit.Hearts).ordinal);
+		board.addCard(Card.get(Rank.Five, Suit.Spades).ordinal);
+		board.addCard(Card.get(Rank.Seven, Suit.Clubs).ordinal);
 		
 		BoardNode boardNode = new BoardNode(board, BoardNodeType.River);
 		
@@ -52,6 +50,60 @@ public class GameTreeTest extends TestCase {
 		double foldPayoffs[] = {2,1};
 		
 		return GameTree.getRiverCheckOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
+	}
+	
+	public void testStrategyCopy() {
+		GameTree tree = getRainBowNutLow();
+		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
+		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
+		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
+		Pair blkAs = Pair.get(Card.get(Rank.Ace, Suit.Clubs), Card.get(Rank.Ace, Suit.Spades));
+		Pair blkKs = Pair.get(Card.get(Rank.King, Suit.Clubs), Card.get(Rank.King, Suit.Spades));
+		Pair blkQs = Pair.get(Card.get(Rank.Queen, Suit.Clubs), Card.get(Rank.Queen, Suit.Spades));
+		
+		double[][] freqs = new double[2][1326];
+		double[][] betAll = new double[1326][2];
+		double[][] callAll = new double[1326][2];
+		
+		freqs[0][redAs.ordinal] = 1;
+		freqs[0][redKs.ordinal] = 1;
+		freqs[0][redQs.ordinal] = 1;
+		freqs[1][blkAs.ordinal] = 1;
+		freqs[1][blkKs.ordinal] = 1;
+		freqs[1][blkQs.ordinal] = 1;
+
+		betAll[redAs.ordinal][0] = 1;
+		betAll[redKs.ordinal][0] = 1;
+		betAll[redQs.ordinal][0] = 1;
+		callAll[blkAs.ordinal][1] = 1;
+		callAll[blkKs.ordinal][0] = 0.9;
+		callAll[blkKs.ordinal][1] = 0.1;
+		callAll[blkQs.ordinal][0] = 0.5;
+		callAll[blkQs.ordinal][1] = 0.5;
+		
+		tree.setFreqs(freqs);
+		tree.getRoot().setStrats(betAll);
+		tree.getRoot().getKids()[1].setStrats(callAll);
+		
+		double[][][] heroStrats = tree.getStrats(0);
+		double[][][] villStrats = tree.getStrats(1);
+		
+		Assert.assertEquals(1, heroStrats.length);
+		Assert.assertEquals(1, villStrats.length);
+		Assert.assertEquals(1326, heroStrats[0].length);
+		Assert.assertEquals(2, heroStrats[0][redKs.ordinal].length);
+		
+		Assert.assertEquals(0.9, villStrats[0][blkKs.ordinal][0]);
+		Assert.assertEquals((double)1, heroStrats[0][redKs.ordinal][0]);
+		
+		heroStrats[0][redKs.ordinal][0] = 0.5;
+		heroStrats[0][redKs.ordinal][1] = 0.5;
+		
+		tree.writeStrats(heroStrats, 0);
+		
+		double[][][] newHeroStrats = tree.getStrats(0);
+		
+		Assert.assertEquals((double)0.5, newHeroStrats [0][redKs.ordinal][0]);
 	}
 	
 	public void testRiverSubGame() {
@@ -173,21 +225,22 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals((double)0, tree.getRoot().getKids()[1].getStrats()[aces.ordinal][0]);
 		Assert.assertEquals((double)1, tree.getRoot().getKids()[1].getStrats()[aces.ordinal][1]);
 		
-		Assert.assertEquals((double)1, tree.getRoot().getKids()[1].getStrats()[kingTrey.ordinal][0]);
-		Assert.assertEquals((double)0, tree.getRoot().getKids()[1].getStrats()[kingTrey.ordinal][1]);
+		Assert.assertEquals((double)0, tree.getRoot().getKids()[1].getStrats()[kingTrey.ordinal][0]);
+		Assert.assertEquals((double)1, tree.getRoot().getKids()[1].getStrats()[kingTrey.ordinal][1]);
 	}
 	
 	public void testTreeValidation() {
-		GameTree tree = getRainBowTree();
-		Pair smallest = Pair.values()[0];
+		GameTree tree = getRainBowNutLow();
+
+		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		
 		double[][] freqs = new double[2][1326];
 		double[][] smallOnly = new double[1326][2];
 		
-		freqs[0][smallest.ordinal] = 1;
+		freqs[0][aces.ordinal] = 1;
 
-		smallOnly[smallest.ordinal][0] = 0;
-		smallOnly[smallest.ordinal][1] = 0.5;
+		smallOnly[aces.ordinal][0] = 0;
+		smallOnly[aces.ordinal][1] = 0.5;
 		
 		tree.setFreqs(freqs);
 		tree.getRoot().setStrats(smallOnly);
@@ -200,7 +253,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testRiverExploitBet() throws TreeInvalidException {
-		GameTree tree = getRainBowTree();
+		GameTree tree = getRainBowNutLow();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
 		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
@@ -245,7 +298,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testRiverFindValueRange() throws TreeInvalidException {
-		GameTree tree = getRainBowTree();
+		GameTree tree = getRainBowNutLow();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
 		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
@@ -292,34 +345,134 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redQs.ordinal][1]);
 	}
 	
-	public void testGuessBetStrategy() {
+	public void testGuessBetStrategy() throws TreeInvalidException {
+		GameTree tree = getRainBowNutLow();
+		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
+		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
+		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
+		Pair redJs = Pair.get(Card.get(Rank.Jack, Suit.Hearts), Card.get(Rank.Jack, Suit.Diamonds));
+		Pair blkAs = Pair.get(Card.get(Rank.Ace, Suit.Clubs), Card.get(Rank.Ace, Suit.Spades));
+		Pair blkKs = Pair.get(Card.get(Rank.King, Suit.Clubs), Card.get(Rank.King, Suit.Spades));
+		Pair blkQs = Pair.get(Card.get(Rank.Queen, Suit.Clubs), Card.get(Rank.Queen, Suit.Spades));
+		Pair blkJs = Pair.get(Card.get(Rank.Jack, Suit.Clubs), Card.get(Rank.Jack, Suit.Spades));
 		
+		double[][] freqs = new double[2][1326];
+		double[][] betAll = new double[1326][2];
+		double[][] callMixed = new double[1326][2];
+		
+		freqs[0][redAs.ordinal] = 1;
+		freqs[0][redKs.ordinal] = 1;
+		freqs[0][redQs.ordinal] = 1;
+		freqs[0][redJs.ordinal] = 1;
+		freqs[1][blkAs.ordinal] = 1;
+		freqs[1][blkKs.ordinal] = 1;
+		freqs[1][blkQs.ordinal] = 1;
+		freqs[1][blkJs.ordinal] = 1;
+
+		betAll[redAs.ordinal][0] = 1;
+		betAll[redKs.ordinal][0] = 1;
+		betAll[redQs.ordinal][0] = 1;
+		betAll[redJs.ordinal][0] = 1;
+		callMixed[blkAs.ordinal][1] = 1;
+		callMixed[blkKs.ordinal][0] = (double)2/3;
+		callMixed[blkKs.ordinal][1] = (double)1/3;
+		callMixed[blkQs.ordinal][0] = 1;
+		callMixed[blkJs.ordinal][0] = 1;
+		
+		tree.setFreqs(freqs);
+		tree.getRoot().setStrats(betAll);
+		tree.getRoot().getKids()[1].setStrats(callMixed);
+		
+		//remove bluff value
+		tree.getRoot().removeBluffValue();
+		
+		tree.setBestResponse(0);
+		
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redAs.ordinal][0]);
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redAs.ordinal][1]);
+		
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redKs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redKs.ordinal][1]);
+		
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redQs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redQs.ordinal][1]);
+		
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redJs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redJs.ordinal][1]);
+		
+		double[][] newBetStrats = tree.getRoot().getStrats();
+		
+		RiverStrategy.calculateBluffRange(1, newBetStrats, tree.getAdjFreqs()[0], tree.getRoot().getBoardNode().getPairRankSets());
+		
+		tree.getRoot().setStrats(newBetStrats);
+		
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redAs.ordinal][0]);
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redAs.ordinal][1]);
+		
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redKs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redKs.ordinal][1]);
+		
+		Assert.assertEquals((double)1, tree.getRoot().getStrats()[redQs.ordinal][0]);
+		Assert.assertEquals((double)0, tree.getRoot().getStrats()[redQs.ordinal][1]);
+		
+		Assert.assertEquals((double)1/2, tree.getRoot().getStrats()[redJs.ordinal][0]);
+		Assert.assertEquals((double)1/2, tree.getRoot().getStrats()[redJs.ordinal][1]);		
 	}
 	
-	public void testGuessBetStrategyCantBluff() {
-		
+	public void testGuessBetStrategyCantBluff() throws TreeInvalidException {
+
 	}
 	
-//	public void testGuessingStrategy() throws TreeInvalidException {
-//		GameTree tree = getRainBowTree();
-//		
-//		double[][] freqs = new double[2][1326];
-//		
-//		Arrays.fill(freqs[0], 1);
-//		Arrays.fill(freqs[1], 1);
-//		
-//		tree.setFreqs(freqs);
-//		tree.initialiseAllStrats();
-//		
-//		//guess calling strategy
-//		double[][] callStrats = new double[1326][2];
-//		double[] callFreqs = tree.getAdjFreqs()[1];
-//		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
-//		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-//		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
-//		
-//		
-//		
-//		tree.setBestResponse(0);
-//	}
+	public void testGuessingStrategy() throws TreeInvalidException {
+		GameTree tree = getRainBowNutLow();
+		GameTree noBluff = getRainBowNutLow();
+		
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], 1);
+		Arrays.fill(freqs[1], 1);
+		
+		tree.setFreqs(freqs);
+		noBluff.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		noBluff.initialiseAllStrats();
+		
+		//guess calling strategy
+		double[][] callStrats = new double[1326][2];
+		double[] callFreqs = tree.getAdjFreqs()[1];
+		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
+		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
+		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+		
+		tree.getRoot().getKids()[1].setStrats(callStrats);
+		noBluff.getRoot().getKids()[1].setStrats(callStrats);
+
+		noBluff.getRoot().removeBluffValue();
+		
+		noBluff.setBestResponse(0);
+		
+		double[][] newBetStrats = tree.getRoot().getStrats();
+		RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+		tree.getRoot().setStrats(newBetStrats);
+		
+		double exploit = tree.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, .0000001);
+	}
+	
+	public void testExploitRandomStrategy() throws TreeInvalidException {
+		GameTree tree = getRainBowNutLow();
+		
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], 1);
+		Arrays.fill(freqs[1], 1);
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		double exploit = tree.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, .0000001);
+	}
 }

@@ -44,7 +44,7 @@ public class BoardNode {
 			if (!hand.intersects(pair)) {
 				hand.plus(pair);
 				int rank = StateTableEvaluator.getRank(hand);
-				PairRank pairRank = new PairRank(pair.ordinal, rank);
+				PairRank pairRank = new PairRank(pair, rank);
 				addPairRank(rank, pairRank);
 				this.ranks[pair.ordinal] = rank;
 				hand.minus(pair);

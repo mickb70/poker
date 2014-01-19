@@ -1,12 +1,14 @@
 package nash;
 
+import spears2p2.Pair;
+
 public class PairRank implements Comparable<PairRank> {
-	private final int ordinal;
+	private final Pair pair;
 	private final int rank;
 	
-	public PairRank(int ordinal, int rank) {
+	public PairRank(Pair pair, int rank) {
 		super();
-		this.ordinal = ordinal;
+		this.pair = pair;
 		this.rank = rank;
 	}
 
@@ -15,12 +17,16 @@ public class PairRank implements Comparable<PairRank> {
 		if (this.rank != comp.rank) {
 			return (comp.rank - this.rank);
 		} else {
-			return (comp.ordinal - this.ordinal);
+			return (comp.pair.ordinal - this.pair.ordinal);
 		}
+	}
+	
+	public Pair getPair() {
+		return this.pair;
 	}
 
 	public int getOrdinal() {
-		return this.ordinal;
+		return this.pair.ordinal;
 	}
 
 	public int getRank() {

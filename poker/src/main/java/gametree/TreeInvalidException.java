@@ -1,6 +1,10 @@
 package gametree;
 
 public class TreeInvalidException extends Exception {
+	
+	public TreeInvalidException(String string) {
+		super(string);
+	}
 
 	/**
 	 * 
