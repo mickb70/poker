@@ -425,8 +425,8 @@ public class GameTreeTest extends TestCase {
 	public void testGuessBetStrategyCantBluff() throws TreeInvalidException {
 
 	}
-	
-	public void testGuessingStrategy() throws TreeInvalidException {
+
+	public void testGuessingStrategyNarrowRange() throws TreeInvalidException {
 		GameTree tree = getRainBowNutLow();
 		GameTree noBluff = getRainBowNutLow();
 		
@@ -453,7 +453,43 @@ public class GameTreeTest extends TestCase {
 		double[] callFreqs = tree.getAdjFreqs()[1];
 		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets, Pair.get(Card.get(8, 0), Card.get(8, 1)));
+		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+		
+		tree.getRoot().getKids()[1].setStrats(callStrats);
+		noBluff.getRoot().getKids()[1].setStrats(callStrats);
+
+		noBluff.getRoot().removeBluffValue();		
+		noBluff.setBestResponse(0);
+		
+		double[][] newBetStrats = noBluff.getRoot().getStrats();
+		RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+		tree.getRoot().setStrats(newBetStrats);
+		
+		double exploit = tree.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, .005);
+	}
+	
+	public void testGuessingStrategyFullRange() throws TreeInvalidException {
+		GameTree tree = getRainBowNutLow();
+		GameTree noBluff = getRainBowNutLow();
+		
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], 1);
+		Arrays.fill(freqs[1], 1);
+		
+		tree.setFreqs(freqs);
+		noBluff.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		noBluff.initialiseAllStrats();
+		
+		//guess calling strategy
+		double[][] callStrats = new double[1326][2];
+		double[] callFreqs = tree.getAdjFreqs()[1];
+		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
+		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
+		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
 		
 		tree.getRoot().getKids()[1].setStrats(callStrats);
 		noBluff.getRoot().getKids()[1].setStrats(callStrats);

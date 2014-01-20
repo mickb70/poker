@@ -199,29 +199,29 @@ public class GameTree {
 		
 		logger.debug("Current Game Values "+Arrays.toString(currGameValues));
 		
-		TreeSet<PairValue> heroRangeSet = new TreeSet<PairValue>();
-		
-		for (int i = 0 ; i < currPairValues[0].length; i++) {
-			heroRangeSet.add(new PairValue(Pair.values()[i], currPairValues[0][i]));
-		}
-		
-		for (PairValue pairValue: heroRangeSet) {
-			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
-				logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+Arrays.toString(root.getStrats()[pairValue.getOrdinal()]));
-			}
-		}
-		
-		TreeSet<PairValue> villRangeSet = new TreeSet<PairValue>();
-		
-		for (int i = 0 ; i < currPairValues[1].length; i++) {
-			villRangeSet.add(new PairValue(Pair.values()[i], currPairValues[1][i]));
-		}
-		
-		for (PairValue pairValue: villRangeSet) {
-			if (adjFreqs[1][pairValue.getOrdinal()] > 0) {
-				logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+Arrays.toString(root.getKids()[1].getStrats()[pairValue.getOrdinal()]));
-			}
-		}
+//		TreeSet<PairValue> heroRangeSet = new TreeSet<PairValue>();
+//		
+//		for (int i = 0 ; i < currPairValues[0].length; i++) {
+//			heroRangeSet.add(new PairValue(Pair.values()[i], currPairValues[0][i]));
+//		}
+//		
+//		for (PairValue pairValue: heroRangeSet) {
+//			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
+//				logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+Arrays.toString(root.getStrats()[pairValue.getOrdinal()]));
+//			}
+//		}
+//		
+//		TreeSet<PairValue> villRangeSet = new TreeSet<PairValue>();
+//		
+//		for (int i = 0 ; i < currPairValues[1].length; i++) {
+//			villRangeSet.add(new PairValue(Pair.values()[i], currPairValues[1][i]));
+//		}
+//		
+//		for (PairValue pairValue: villRangeSet) {
+//			if (adjFreqs[1][pairValue.getOrdinal()] > 0) {
+//				logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+Arrays.toString(root.getKids()[1].getStrats()[pairValue.getOrdinal()]));
+//			}
+//		}
 		
 		double[][][] heroStrats = getStrats(0);
 		double[][][] villStrats = getStrats(1);
@@ -252,10 +252,13 @@ public class GameTree {
 			heroExpSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[0][i] - currPairValues[0][i])));
 		}
 		
+		int lowFruit = 0;
 		for (PairValue pairValue: heroExpSet) {
 			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
-				logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+heroBestRespPairValues[0][pairValue.getOrdinal()]+" > "+currPairValues[0][pairValue.getOrdinal()]+
+				if (lowFruit++ <10) {
+					logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+heroBestRespPairValues[0][pairValue.getOrdinal()]+" > "+currPairValues[0][pairValue.getOrdinal()]+
 					Arrays.toString(heroExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(heroStrats[0][pairValue.getOrdinal()]));
+				}
 			}
 		}
 		
@@ -265,10 +268,13 @@ public class GameTree {
 			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[1][i] - currPairValues[1][i])));
 		}
 		
+		lowFruit = 0;
 		for (PairValue pairValue: villExpSet) {
 			if (adjFreqs[1][pairValue.getOrdinal()] > 0) {
-				logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+villBestRespPairValues[1][pairValue.getOrdinal()]+" > "+currPairValues[1][pairValue.getOrdinal()]+
+				if (lowFruit++ <10) {
+					logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+villBestRespPairValues[1][pairValue.getOrdinal()]+" > "+currPairValues[1][pairValue.getOrdinal()]+
 					Arrays.toString(villExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(villStrats[0][pairValue.getOrdinal()]));
+				}
 			}
 		}
 		

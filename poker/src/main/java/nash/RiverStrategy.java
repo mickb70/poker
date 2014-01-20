@@ -10,17 +10,11 @@ import spears2p2.Pair;
 public abstract class RiverStrategy {
 	private static Logger logger = Logger.getLogger(RiverStrategy.class);
 	
-	private static double getDoubleArrayTotal(double[] arr, Pair pair) {
+	private static double getDoubleArrayTotal(double[] arr) {
 		double total = 0;
 		
 		for (int i = 0; i < arr.length; i++) {
-			if (pair != null) {
-				if (!pair.intersects(Pair.values()[i])) {
-					total += arr[i];
-				}
-			} else {
-				total += arr[i];
-			}
+			total += arr[i];
 		}
 		
 		return total;		
@@ -36,16 +30,20 @@ public abstract class RiverStrategy {
 		return ret;
 	}
 	
-	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets, Pair bluffHand) {
+	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
+		return calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets,1);
+	}
+	
+	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets, double tweak) {
 		int callThresh = 0;
 		double callPct = (double)1 / (betSize + 1);
 		double totCallFreqs = 0;
 		double rankTotCallFreqs = 0;
 		double partialFreq = 0;
 		
-		totCallFreqs = getDoubleArrayTotal(callFreqs, bluffHand);
+		totCallFreqs = getDoubleArrayTotal(callFreqs);
 		
-		double remCallFreq = callPct * totCallFreqs;
+		double remCallFreq = tweak * callPct * totCallFreqs;
 		
 		logger.debug("remCallFreq = "+remCallFreq+",totCallFreqs = "+totCallFreqs);
 		
@@ -117,7 +115,7 @@ public abstract class RiverStrategy {
 					for (PairRank pairRank: pairRankSets.get(key)) {
 						checkOrBetStrats[pairRank.getOrdinal()][0] = 1 - partialFreq;
 						checkOrBetStrats[pairRank.getOrdinal()][1] = partialFreq;
-						remBluffFreq -= partialFreq;
+						remBluffFreq -=  (partialFreq * checkOrBetFreqs[pairRank.getOrdinal()]);
 					}
 				}
 			}
