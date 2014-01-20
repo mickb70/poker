@@ -34,7 +34,7 @@ public class RiverStrategyTest extends TestCase {
 		
 		
 		
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets,null);
 		
 		Assert.assertEquals((double)1.0, callStrats[0][1]);
 		Assert.assertEquals((double)0.0, callStrats[1][1]);
@@ -59,7 +59,7 @@ public class RiverStrategyTest extends TestCase {
 		pairRankSets.put(new HandRank(1), pairRankSet2);	
 		int nutsRank = 100;
 		
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets,null);
 		
 		Assert.assertEquals((double)1.0, callStrats[0][1]);
 		Assert.assertEquals((double)0.5, callStrats[1][0]);
@@ -85,7 +85,7 @@ public class RiverStrategyTest extends TestCase {
 		pairRankSets.put(new HandRank(1), pairRankSet1);
 		int nutsRank = 100;
 		
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets, null);
 		
 		Assert.assertEquals((double)1.0, callStrats[0][1]);
 		Assert.assertEquals((double)1.0, callStrats[1][1]);
@@ -115,7 +115,7 @@ public class RiverStrategyTest extends TestCase {
 		pairRankSets.put(new HandRank(1), pairRankSet3);	
 		int nutsRank = 100;
 		
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets, null);
 		
 		Assert.assertEquals((double)1.0, callStrats[0][1]);
 		Assert.assertEquals((double)1/3, callStrats[1][1], .000001);
@@ -146,7 +146,7 @@ public class RiverStrategyTest extends TestCase {
 		pairRankSets.put(new HandRank(1), pairRankSet3);	
 		int nutsRank = 100;
 		
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets, null);
 		
 		Assert.assertEquals((double)1.0, callStrats[0][1]);
 		Assert.assertEquals((double)1.0, callStrats[1][1], .000001);
@@ -175,7 +175,7 @@ public class RiverStrategyTest extends TestCase {
 		pairRankSets.put(new HandRank(1), pairRankSet2);	
 		int nutsRank = 100;
 		
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank, pairRankSets, null);
 		
 		Assert.assertEquals((double)1.0, callStrats[0][1]);
 		Assert.assertEquals((double)5/6, callStrats[1][1], .000001);
@@ -210,7 +210,7 @@ public class RiverStrategyTest extends TestCase {
 		
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = node.getPairRankSets();
 		int nutsRank = node.getNutsRank();
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank , pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank , pairRankSets, null);
 		
 		Assert.assertEquals((double)1, callStrats[aces.ordinal][1]);
 		Assert.assertEquals((double)1, callStrats[dueces.ordinal][1]);
@@ -243,7 +243,7 @@ public class RiverStrategyTest extends TestCase {
 		
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = node.getPairRankSets();
 		int nutsRank = node.getNutsRank();
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank , pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank , pairRankSets, null);
 		
 		Assert.assertEquals((double)1, callStrats[aces.ordinal][1]);
 		Assert.assertEquals((double)0.5, callStrats[treys.ordinal][1],.01);
@@ -278,7 +278,7 @@ public class RiverStrategyTest extends TestCase {
 		
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = node.getPairRankSets();
 		int nutsRank = node.getNutsRank();
-		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank , pairRankSets);
+		RiverStrategy.calcCallOrFold(betSize, callStrats, callFreqs, nutsRank , pairRankSets, null);
 		
 		Assert.assertEquals((double)1, callStrats[aces.ordinal][1]);
 		Assert.assertEquals((double)1, callStrats[treys.ordinal][1]);

@@ -207,7 +207,7 @@ public class GameTree {
 		
 		for (PairValue pairValue: heroRangeSet) {
 			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
-				logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+currPairValues[0][pairValue.getOrdinal()]);
+				logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+Arrays.toString(root.getStrats()[pairValue.getOrdinal()]));
 			}
 		}
 		
@@ -219,7 +219,7 @@ public class GameTree {
 		
 		for (PairValue pairValue: villRangeSet) {
 			if (adjFreqs[1][pairValue.getOrdinal()] > 0) {
-				logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+currPairValues[1][pairValue.getOrdinal()]);
+				logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+Arrays.toString(root.getKids()[1].getStrats()[pairValue.getOrdinal()]));
 			}
 		}
 		

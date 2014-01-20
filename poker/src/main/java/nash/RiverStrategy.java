@@ -1,24 +1,30 @@
 package nash;
 
-import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import org.apache.log4j.Logger;
 
 import spears2p2.Pair;
 
 public abstract class RiverStrategy {
+	private static Logger logger = Logger.getLogger(RiverStrategy.class);
 	
-	private static double getDoubleArrayTotal(double[] arr) {
+	private static double getDoubleArrayTotal(double[] arr, Pair pair) {
 		double total = 0;
 		
-		for (double i : arr) {
-			total += i;
+		for (int i = 0; i < arr.length; i++) {
+			if (pair != null) {
+				if (!pair.intersects(Pair.values()[i])) {
+					total += arr[i];
+				}
+			} else {
+				total += arr[i];
+			}
 		}
 		
 		return total;		
 	}
-	
-
 
 	private static double getTotalRankFreq(double[] callFreqs, TreeSet<PairRank> treeSet) {
 		double ret = 0;
@@ -30,14 +36,18 @@ public abstract class RiverStrategy {
 		return ret;
 	}
 	
-	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
+	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets, Pair bluffHand) {
 		int callThresh = 0;
-		double callPct = 1 / (betSize + 1);
-		double totCallFreqs = getDoubleArrayTotal(callFreqs);
+		double callPct = (double)1 / (betSize + 1);
+		double totCallFreqs = 0;
 		double rankTotCallFreqs = 0;
 		double partialFreq = 0;
 		
+		totCallFreqs = getDoubleArrayTotal(callFreqs, bluffHand);
+		
 		double remCallFreq = callPct * totCallFreqs;
+		
+		logger.debug("remCallFreq = "+remCallFreq+",totCallFreqs = "+totCallFreqs);
 		
 		for (HandRank key : pairRankSets.keySet()) {
 			rankTotCallFreqs = getTotalRankFreq(callFreqs, pairRankSets.get(key));
@@ -65,9 +75,11 @@ public abstract class RiverStrategy {
 					}
 					
 					for (PairRank pairRank: pairRankSets.get(key)) {
-						callStrats[pairRank.getOrdinal()][0] = 1 - partialFreq;
-						callStrats[pairRank.getOrdinal()][1] = partialFreq;
-						remCallFreq -= partialFreq;
+						if (callFreqs[pairRank.getOrdinal()] > 0) {
+							callStrats[pairRank.getOrdinal()][0] = 1 - partialFreq;
+							callStrats[pairRank.getOrdinal()][1] = partialFreq;
+							remCallFreq -= (partialFreq * callFreqs[pairRank.getOrdinal()]);
+						}
 					}
 				}
 			}

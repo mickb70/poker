@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.apache.log4j.Logger;
+
 import nash.HandRank;
 import nash.PairRank;
 import nash.RiverStrategy;
@@ -12,6 +14,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class GameTreeTest extends TestCase {
+	private static Logger logger = Logger.getLogger(GameTreeTest.class);
 	
 	private GameTree getRainBowNutLow() {
 		Hand board = new Hand();	
@@ -450,7 +453,7 @@ public class GameTreeTest extends TestCase {
 		double[] callFreqs = tree.getAdjFreqs()[1];
 		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets, Pair.get(Card.get(8, 0), Card.get(8, 1)));
 		
 		tree.getRoot().getKids()[1].setStrats(callStrats);
 		noBluff.getRoot().getKids()[1].setStrats(callStrats);
@@ -464,22 +467,6 @@ public class GameTreeTest extends TestCase {
 		
 		double exploit = tree.getStratExploitability();
 		
-		Assert.assertEquals(0, exploit, .0000001);
-	}
-	
-	public void testExploitRandomStrategy() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
-		
-		double[][] freqs = new double[2][1326];
-		
-		Arrays.fill(freqs[0], 1);
-		Arrays.fill(freqs[1], 1);
-		
-		tree.setFreqs(freqs);
-		tree.initialiseAllStrats();
-		
-		double exploit = tree.getStratExploitability();
-		
-		Assert.assertEquals(0, exploit, .5);
+		Assert.assertEquals(0, exploit, .005);
 	}
 }
