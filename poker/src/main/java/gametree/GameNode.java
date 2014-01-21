@@ -79,7 +79,7 @@ public class GameNode {
         return node;
     }
 	
-	private void initialiseStratsAndRegrets() {
+	public void initialiseStratsAndRegrets() {
 		if (kids != null) {
 			double fill = (double)1/(double)kids.length;
 			visits = new int[1326];
@@ -237,7 +237,7 @@ public class GameNode {
 		}
 		
 		if (Math.abs(sum - 1) >= .01) {
-			throw new TreeInvalidException("Pair "+Pair.values()[ordinal]+", strats "+Arrays.toString(strats[ordinal]));
+			throw new TreeInvalidException("Pair "+Pair.values()[ordinal]+", actid = "+actIdx+", strats "+Arrays.toString(strats[ordinal]));
 		}
 	}
 

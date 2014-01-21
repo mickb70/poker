@@ -483,7 +483,7 @@ public class GameTreeTest extends TestCase {
 		double[] callFreqs = tree.getAdjFreqs()[1];
 		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets, .95);
+		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
 		
 		tree.getRoot().getKids()[1].setStrats(callStrats);
 		noBluff.getRoot().getKids()[1].setStrats(callStrats);
@@ -500,6 +500,56 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals(0, exploit, .05);
 	}
 	
+	public void testTreeGuessNarrowRangeNoCardRep() throws TreeInvalidException {
+		GameTree tree = getRainBowNutLow();
+		
+		double[][] freqs = new double[2][1326];
+		
+		for (int i = 8; i < 13; i++) {
+			Card card1 = Card.get(i, 0);
+			Card card2 = Card.get(i, 1);
+			Card card3 = Card.get(i, 2);
+			Card card4 = Card.get(i, 3);
+			freqs[0][Pair.get(card1, card2).ordinal] =  1;
+			freqs[1][Pair.get(card3, card4).ordinal] =  1;
+		}
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		GameTree copy = tree.findNashEqLastAct(1);
+		
+		double exploit = copy.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, .005);
+	}
+	
+	public void testTreeGuessNarrowRange() throws TreeInvalidException {
+		GameTree tree = getRainBowNutLow();
+		
+		double[][] freqs = new double[2][1326];
+		
+		for (int i = 8; i < 13; i++) {
+			for (int j = 0; j < 4; j++) {
+				for (int k = j+1; k < 4; k++) {
+					Card card1 = Card.get(i, j);
+					Card card2 = Card.get(i, k);
+					freqs[0][Pair.get(card1, card2).ordinal] =  1;
+					freqs[1][Pair.get(card1, card2).ordinal] =  1;
+				}
+			}
+		}
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		GameTree copy = tree.findNashEqLastAct();
+		
+		double exploit = copy.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, .005);
+	}
+	
 	public void testGuessingStrategyFullRange() throws TreeInvalidException {
 		GameTree tree = getRainBowNutLow();
 		GameTree noBluff = getRainBowNutLow();
@@ -510,29 +560,12 @@ public class GameTreeTest extends TestCase {
 		Arrays.fill(freqs[1], 1);
 		
 		tree.setFreqs(freqs);
-		noBluff.setFreqs(freqs);
 		tree.initialiseAllStrats();
-		noBluff.initialiseAllStrats();
 		
-		//guess calling strategy
-		double[][] callStrats = new double[1326][2];
-		double[] callFreqs = tree.getAdjFreqs()[1];
-		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
-		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+		GameTree copy = tree.findNashEqLastAct();
 		
-		tree.getRoot().getKids()[1].setStrats(callStrats);
-		noBluff.getRoot().getKids()[1].setStrats(callStrats);
-
-		noBluff.getRoot().removeBluffValue();		
-		noBluff.setBestResponse(0);
+		double exploit = copy.getStratExploitability();
 		
-		double[][] newBetStrats = noBluff.getRoot().getStrats();
-		RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
-		tree.getRoot().setStrats(newBetStrats);
-		
-		double exploit = tree.getStratExploitability();
-		
-		Assert.assertEquals(0, exploit, .05);
+		Assert.assertEquals(0, exploit, .000005);
 	}
 }

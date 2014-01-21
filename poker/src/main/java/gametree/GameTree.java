@@ -1,9 +1,13 @@
 package gametree;
 
 import java.util.Arrays;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
+import nash.HandRank;
+import nash.PairRank;
 import nash.PairValue;
+import nash.RiverStrategy;
 
 import org.apache.log4j.Logger;
 
@@ -302,5 +306,72 @@ public class GameTree {
 		}
 		
 		return villExploitability + heroExploitability;
+	}
+
+	public GameTree findNashEqLastAct() throws TreeInvalidException {
+		GameTree copy = this.deepCopy();
+		GameTree noBluff = this.deepCopy();
+		
+		double[][] callStrats = new double[1326][2];
+		double[] callFreqs = copy.getAdjFreqs()[1];
+		int nutsRank = copy.getRoot().getBoardNode().getNutsRank();
+		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = copy.getRoot().getBoardNode().getPairRankSets();
+		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+		
+		noBluff.getRoot().getKids()[1].setStrats(callStrats);		
+		noBluff.getRoot().removeBluffValue();
+		
+		noBluff.setBestResponse(0);
+		
+		double[][] newBetStrats = noBluff.getRoot().getStrats();
+		RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+		
+		copy.getRoot().setStrats(newBetStrats);
+		copy.getRoot().getKids()[1].setStrats(callStrats);
+		
+		return copy;
+	}
+	
+	public GameTree findNashEqLastAct(int numLoops) throws TreeInvalidException {
+		GameTree looper = this.deepCopy();
+		GameTree noBluff = this.deepCopy();
+		GameTree ret = this.deepCopy();
+		
+//		looper.getRoot().initialiseStratsAndRegrets();
+//		noBluff.getRoot().initialiseStratsAndRegrets();
+		
+		for (int i = 0; i < numLoops; i++) {
+			double[][] newFreqs = new double[2][1326];
+			double[][] callStrats = new double[1326][2];
+			
+			//remove check back from hero range
+			newFreqs[1] = Arrays.copyOf(looper.getFreqs()[1], looper.getFreqs()[1].length);
+			for (int j = 0; j < 1326; j++) {
+				newFreqs[0][i] = looper.getRoot().getStrats()[j][1];
+			}
+			
+			looper.setFreqs(newFreqs);
+			
+			double[] callFreqs = looper.getAdjFreqs()[1];
+			int nutsRank = looper.getRoot().getBoardNode().getNutsRank();
+			TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = looper.getRoot().getBoardNode().getPairRankSets();
+			RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+			
+			noBluff.getRoot().getKids()[1].setStrats(callStrats);	
+			noBluff.getRoot().removeBluffValue();
+			
+			noBluff.setBestResponse(0);
+			
+			double[][] newBetStrats = noBluff.getRoot().getStrats();
+			RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+			
+			looper.getRoot().setStrats(newBetStrats);
+			looper.getRoot().getKids()[1].setStrats(callStrats);
+			
+			ret.getRoot().setStrats(newBetStrats);
+			ret.getRoot().getKids()[1].setStrats(callStrats);
+		}
+		
+		return ret;
 	}
 }
