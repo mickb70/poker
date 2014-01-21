@@ -28,6 +28,25 @@ public class GameTree {
 	public int getMaximumDepth() {
 		return root.getNumberNodes();
 	}
+	
+	public GameTree deepCopy() {
+		GameTree copy = new GameTree();
+		
+		copy.root = root.deepCopy(null);
+		
+		copy.freqs = new double[freqs.length][];
+		copy.adjFreqs = new double[adjFreqs.length][];
+		
+		for (int i = 0; i < freqs.length; i++) {
+			copy.freqs[i] = Arrays.copyOf(freqs[i], freqs[i].length);
+		}
+		
+		for (int i = 0; i < adjFreqs.length; i++) {
+			copy.adjFreqs[i] = Arrays.copyOf(adjFreqs[i], adjFreqs[i].length);
+		}
+		
+		return copy;
+	}
 
 	public static GameTree getRiverCheckOrBetSubTree(BoardNode boardNode, double[] checkShowDownPayoffs, double checkShowDownPot, double[] foldPayoffs, double[] betShowDownPayoffs, double betShowDownPot) {
 		GameTree tree = new GameTree();
@@ -174,6 +193,10 @@ public class GameTree {
 		}
 		
 		return;
+	}
+
+	public double[][] getFreqs() {
+		return freqs;
 	}
 
 	public double[][] getAdjFreqs() {

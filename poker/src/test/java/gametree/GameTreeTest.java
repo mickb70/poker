@@ -193,6 +193,36 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals((double)0, tree.getPairValues()[1][aces.ordinal]);
 	}
 	
+	public void testDeepCopyTree() {
+		GameTree tree = getFullHouseTree();
+		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
+		
+		double[][] freqs = new double[2][1326];
+		double[][] checkAllStrats = new double[1326][2];
+		
+		Arrays.fill(freqs[0], 0);
+		Arrays.fill(freqs[1], 0);
+
+		freqs[0][aces.ordinal] = 1;
+		
+		for (Pair pair: Pair.values()) {
+			if (!tree.getRoot().getBoardNode().getBoard().intersects(pair)) {
+				freqs[1][pair.ordinal] = 1;
+				checkAllStrats[pair.ordinal][0] = 1;
+				checkAllStrats[pair.ordinal][1] = 0;
+			}
+		}
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		tree.getRoot().setStrats(checkAllStrats);
+		
+		GameTree copy = tree.deepCopy();
+		
+		Assert.assertEquals(copy.getAdjFreqs()[0][12], tree.getAdjFreqs()[0][12]);
+		Assert.assertEquals(copy.getFreqs()[1][67], tree.getFreqs()[1][67]);
+	}
+	
 	public void testRiverExploitCall() throws TreeInvalidException {
 		GameTree tree = getFullHouseTree();
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
@@ -453,7 +483,7 @@ public class GameTreeTest extends TestCase {
 		double[] callFreqs = tree.getAdjFreqs()[1];
 		int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+		RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets, .95);
 		
 		tree.getRoot().getKids()[1].setStrats(callStrats);
 		noBluff.getRoot().getKids()[1].setStrats(callStrats);
@@ -467,7 +497,7 @@ public class GameTreeTest extends TestCase {
 		
 		double exploit = tree.getStratExploitability();
 		
-		Assert.assertEquals(0, exploit, .005);
+		Assert.assertEquals(0, exploit, .05);
 	}
 	
 	public void testGuessingStrategyFullRange() throws TreeInvalidException {
@@ -503,6 +533,6 @@ public class GameTreeTest extends TestCase {
 		
 		double exploit = tree.getStratExploitability();
 		
-		Assert.assertEquals(0, exploit, .005);
+		Assert.assertEquals(0, exploit, .05);
 	}
 }

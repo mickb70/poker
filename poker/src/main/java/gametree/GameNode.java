@@ -63,7 +63,8 @@ public class GameNode {
 	public GameNode deepCopy(GameNode dad) {
 		GameNode node = null;
 		if (kids != null) {
-			node = new GameNode(dad, this.actIdx, this.actionNode, this.boardNode, this.nodeType, Arrays.copyOf(this.payOffs, this.payOffs.length), this.pot, kids.length);
+			node = new GameNode(dad, this.actIdx, this.actionNode, this.boardNode, this.nodeType, 
+					(this.payOffs==null)?null:Arrays.copyOf(this.payOffs, this.payOffs.length), this.pot, kids.length);
 			node.strats = new double[1326][];
 			for (int i = 0; i < kids.length; i++) {
 				node.kids[i] = kids[i].deepCopy(node);
@@ -72,7 +73,8 @@ public class GameNode {
 				node.strats[i] = Arrays.copyOf(this.strats[i], this.strats[i].length);
 			}
 		} else {
-			node = new GameNode(dad, this.actIdx, this.actionNode, this.boardNode, this.nodeType, Arrays.copyOf(this.payOffs, this.payOffs.length), this.pot, 0);
+			node = new GameNode(dad, this.actIdx, this.actionNode, this.boardNode, this.nodeType, 
+					(this.payOffs==null)?null:Arrays.copyOf(this.payOffs, this.payOffs.length), this.pot, 0);
 		}
         return node;
     }
