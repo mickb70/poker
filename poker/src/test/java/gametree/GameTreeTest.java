@@ -505,11 +505,13 @@ public class GameTreeTest extends TestCase {
 		
 		double[][] freqs = new double[2][1326];
 		
-		for (int i = 8; i < 13; i++) {
+		for (int i = 0; i < 12; i+=2) {
 			Card card1 = Card.get(i, 0);
 			Card card2 = Card.get(i, 1);
 			Card card3 = Card.get(i, 2);
 			Card card4 = Card.get(i, 3);
+//			Card card3 = Card.get(i+1, 2);
+//			Card card4 = Card.get(i+1, 3);
 			freqs[0][Pair.get(card1, card2).ordinal] =  1;
 			freqs[1][Pair.get(card3, card4).ordinal] =  1;
 		}
@@ -517,7 +519,7 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct(1);
+		GameTree copy = tree.findNashEqLastAct(2);
 		
 		double exploit = copy.getStratExploitability();
 		
@@ -552,7 +554,6 @@ public class GameTreeTest extends TestCase {
 	
 	public void testGuessingStrategyFullRange() throws TreeInvalidException {
 		GameTree tree = getRainBowNutLow();
-		GameTree noBluff = getRainBowNutLow();
 		
 		double[][] freqs = new double[2][1326];
 		

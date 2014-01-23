@@ -82,11 +82,12 @@ public abstract class RiverStrategy {
 		return callThresh;
 	}
 
-	public static void calculateBluffRange(double betSize, double[][] checkOrBetStrats, double[] checkOrBetFreqs, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
+	public static double[] calculateBluffRange(double betSize, double[][] checkOrBetStrats, double[] checkOrBetFreqs, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
 		double bluffPct = 1 / (betSize + 1);
 		double totValueBetFreq = 0;
 		double rankTotBluffFreqs = 0;
 		double partialFreq = 0;
+		double[] bluffFeqs = new double[1326];
 		
 		for (int i = 0; i < 1326; i++) {
 			totValueBetFreq += (checkOrBetStrats[i][1] * checkOrBetFreqs[i]);
@@ -112,9 +113,12 @@ public abstract class RiverStrategy {
 						checkOrBetStrats[pairRank.getOrdinal()][0] = 1 - partialFreq;
 						checkOrBetStrats[pairRank.getOrdinal()][1] = partialFreq;
 						remBluffFreq -=  (partialFreq * checkOrBetFreqs[pairRank.getOrdinal()]);
+						bluffFeqs[pairRank.getOrdinal()] = (partialFreq * checkOrBetFreqs[pairRank.getOrdinal()]);
 					}
 				}
 			}
 		}
+		
+		return bluffFeqs;
 	}
 }

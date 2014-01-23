@@ -141,6 +141,9 @@ public class GameTree {
 	public void setFreqs(double[][] freqs) {
 		this.freqs = new double[2][1326];
 		
+//		logger.debug(Arrays.toString(freqs[0]));
+//		logger.debug(Arrays.toString(freqs[1]));
+		
 		for (int i = 0; i < freqs.length; i++) {
 			for (int j = 0; j < freqs[i].length; j++) {
 				if (!root.getBoardNode().getBoard().intersects(Pair.values()[j])) {
@@ -337,6 +340,9 @@ public class GameTree {
 		GameTree noBluff = this.deepCopy();
 		GameTree ret = this.deepCopy();
 		
+		double[] bluffFreqs = new double[1326];
+		bluffFreqs = Arrays.copyOf(looper.getFreqs()[0], looper.getFreqs()[0].length);
+		
 //		looper.getRoot().initialiseStratsAndRegrets();
 //		noBluff.getRoot().initialiseStratsAndRegrets();
 		
@@ -345,10 +351,8 @@ public class GameTree {
 			double[][] callStrats = new double[1326][2];
 			
 			//remove check back from hero range
+			newFreqs[0] = Arrays.copyOf(bluffFreqs, bluffFreqs.length);
 			newFreqs[1] = Arrays.copyOf(looper.getFreqs()[1], looper.getFreqs()[1].length);
-			for (int j = 0; j < 1326; j++) {
-				newFreqs[0][i] = looper.getRoot().getStrats()[j][1];
-			}
 			
 			looper.setFreqs(newFreqs);
 			
@@ -357,13 +361,17 @@ public class GameTree {
 			TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = looper.getRoot().getBoardNode().getPairRankSets();
 			RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
 			
+//			for (int j = 0; j < 1326; j++) {
+//				logger.debug("pair ["+Pair.values()[j]+"] "+Arrays.toString(callStrats[j]));				
+//			}
+			
 			noBluff.getRoot().getKids()[1].setStrats(callStrats);	
 			noBluff.getRoot().removeBluffValue();
 			
 			noBluff.setBestResponse(0);
 			
 			double[][] newBetStrats = noBluff.getRoot().getStrats();
-			RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+			bluffFreqs = RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
 			
 			looper.getRoot().setStrats(newBetStrats);
 			looper.getRoot().getKids()[1].setStrats(callStrats);
