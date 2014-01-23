@@ -32,7 +32,7 @@ public class GameTreeTest extends TestCase {
 		double checkShowDownPot = 1;
 		double foldPayoffs[] = {2,1};
 		
-		return GameTree.getRiverCheckOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
+		return GameTree.getRiverChkOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
 	}
 	
 	private GameTree getFullHouseTree() {
@@ -52,7 +52,7 @@ public class GameTreeTest extends TestCase {
 		double checkShowDownPot = 1;
 		double foldPayoffs[] = {2,1};
 		
-		return GameTree.getRiverCheckOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
+		return GameTree.getRiverChkOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
 	}
 	
 	public void testStrategyCopy() {
@@ -562,6 +562,25 @@ public class GameTreeTest extends TestCase {
 		
 		Arrays.fill(freqs[0], 1);
 		Arrays.fill(freqs[1], 1);
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
+		
+		double exploit = copy.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, goalExp);
+	}
+	
+	public void testGuessingStrategyFullRandom() throws TreeInvalidException {
+		GameTree tree = getRainBowNutLow();
+		double goalExp = .005;
+		
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], Math.random());
+		Arrays.fill(freqs[1], Math.random());
 		
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
