@@ -222,10 +222,17 @@ public class GameTree {
 	public void writeStrats(double[][][] strats, int actIdx) {
 		root.writeStrats(strats, actIdx, 0);		
 	}
-
+	
 	public double getStratExploitability() throws TreeInvalidException {
-		double[] currGameValues = getGameValues();
-		double[][] currPairValues = getPairValues();
+		PairValue[] bestRespPairValues = new PairValue[2];
+		
+		return getStratExploitability(bestRespPairValues);
+	}
+
+	public double getStratExploitability(PairValue[] bestRespPairValues) throws TreeInvalidException {
+		GameTree copy = this.deepCopy();
+		double[] currGameValues = copy.getGameValues();
+		double[][] currPairValues = copy.getPairValues();
 		
 		logger.debug("Current Game Values "+Arrays.toString(currGameValues));
 		
@@ -253,19 +260,19 @@ public class GameTree {
 //			}
 //		}
 		
-		double[][][] heroStrats = getStrats(0);
-		double[][][] villStrats = getStrats(1);
+		double[][][] heroStrats = copy.getStrats(0);
+		double[][][] villStrats = copy.getStrats(1);
 		
-		setBestResponse(0);
-		double[] heroBestRespGameValues = getGameValues();
-		double[][] heroBestRespPairValues = getPairValues();
-		double[][][] heroExpStrats = getStrats(0);
+		copy.setBestResponse(0);
+		double[] heroBestRespGameValues = copy.getGameValues();
+		double[][] heroBestRespPairValues = copy.getPairValues();
+		double[][][] heroBestRespStrats = copy.getStrats(0);
 		
-		writeStrats(heroStrats, 0);
-		setBestResponse(1);
-		double[] villBestRespGameValues = getGameValues();
-		double[][] villBestRespPairValues = getPairValues();
-		double[][][] villExpStrats = getStrats(1);
+		copy.writeStrats(heroStrats, 0);
+		copy.setBestResponse(1);
+		double[] villBestRespGameValues = copy.getGameValues();
+		double[][] villBestRespPairValues = copy.getPairValues();
+		double[][][] villExpStrats = copy.getStrats(1);
 		
 		double heroExploitability = villBestRespGameValues[1] - currGameValues[1];
 		double villExploitability = heroBestRespGameValues[0] - currGameValues[0];
@@ -276,26 +283,33 @@ public class GameTree {
 		
 		logger.debug("villExploitability = "+villExploitability+", heroExploitability = "+heroExploitability);
 		
-		TreeSet<PairValue> heroExpSet = new TreeSet<PairValue>();
+		TreeSet<PairValue> heroBestRespSet = new TreeSet<PairValue>();
 		
 		for (int i = 0 ; i < heroBestRespPairValues[0].length; i++) {
-			heroExpSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[0][i] - currPairValues[0][i])));
+			heroBestRespSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[0][i] - currPairValues[0][i]), heroBestRespPairValues[0][i], currPairValues[0][i], (heroBestRespPairValues[0][i] - currPairValues[0][i])));
 		}
 		
 		int lowFruit = 0;
-		for (PairValue pairValue: heroExpSet) {
+		for (PairValue pairValue: heroBestRespSet) {
 			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
 				if (lowFruit++ <10) {
 					logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+heroBestRespPairValues[0][pairValue.getOrdinal()]+" > "+currPairValues[0][pairValue.getOrdinal()]+
-					Arrays.toString(heroExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(heroStrats[0][pairValue.getOrdinal()]));
+					Arrays.toString(heroBestRespStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(heroStrats[0][pairValue.getOrdinal()]));
 				}
 			}
+		}
+		
+		logger.debug("Pair = "+heroBestRespSet.first().getPair()+", value = "+heroBestRespSet.first().getValue() );
+		if (heroBestRespSet.first().getValue() > 0) {
+			bestRespPairValues[0] = heroBestRespSet.first().copy();
+		} else {
+			bestRespPairValues[0] = null;
 		}
 		
 		TreeSet<PairValue> villExpSet = new TreeSet<PairValue>();
 		
 		for (int i = 0 ; i < villBestRespPairValues[1].length; i++) {
-			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[1][i] - currPairValues[1][i])));
+			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[1][i] - currPairValues[1][i]), villBestRespPairValues[1][i], currPairValues[1][i], (villBestRespPairValues[1][i] - currPairValues[1][i])));
 		}
 		
 		lowFruit = 0;
@@ -307,6 +321,14 @@ public class GameTree {
 				}
 			}
 		}
+		
+		if (villExpSet.first().getValue() > 0) {
+			bestRespPairValues[1] = villExpSet.first().copy();
+		} else {
+			bestRespPairValues[1] = null;
+		}
+		
+		logger.debug(Arrays.toString(bestRespPairValues));
 		
 		return villExploitability + heroExploitability;
 	}
@@ -335,10 +357,12 @@ public class GameTree {
 		return copy;
 	}
 	
-	public GameTree findNashEqLastAct(int numLoops) throws TreeInvalidException {
+	public GameTree findNashEqLastAct(double goalExp, int maxLoops) throws TreeInvalidException {
 		GameTree looper = this.deepCopy();
 		GameTree noBluff = this.deepCopy();
 		GameTree ret = this.deepCopy();
+		PairValue[] bestRespPairValues = new PairValue[2];
+		double exploitability = 0;
 		
 		double[] bluffFreqs = new double[1326];
 		bluffFreqs = Arrays.copyOf(looper.getFreqs()[0], looper.getFreqs()[0].length);
@@ -346,7 +370,7 @@ public class GameTree {
 //		looper.getRoot().initialiseStratsAndRegrets();
 //		noBluff.getRoot().initialiseStratsAndRegrets();
 		
-		for (int i = 0; i < numLoops; i++) {
+		for (int i = 0; i < maxLoops; i++) {
 			double[][] newFreqs = new double[2][1326];
 			double[][] callStrats = new double[1326][2];
 			
@@ -359,12 +383,16 @@ public class GameTree {
 			double[] callFreqs = looper.getAdjFreqs()[1];
 			int nutsRank = looper.getRoot().getBoardNode().getNutsRank();
 			TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = looper.getRoot().getBoardNode().getPairRankSets();
-			RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
 			
-//			for (int j = 0; j < 1326; j++) {
-//				logger.debug("pair ["+Pair.values()[j]+"] "+Arrays.toString(callStrats[j]));				
-//			}
-			
+			if (bestRespPairValues[0] != null) {
+				logger.debug("Pair = "+bestRespPairValues[0].getPair()+", value = "+bestRespPairValues[0].getValue() );
+				double extraValue = bestRespPairValues[0].getOldValue() - 1;
+				RiverStrategy.calcCallOrFold(1, extraValue, callStrats, callFreqs, nutsRank, pairRankSets);
+			} else {
+				logger.debug("Pair is null");
+				RiverStrategy.calcCallOrFold(1, callStrats, callFreqs, nutsRank, pairRankSets);
+			}
+					
 			noBluff.getRoot().getKids()[1].setStrats(callStrats);	
 			noBluff.getRoot().removeBluffValue();
 			
@@ -378,8 +406,15 @@ public class GameTree {
 			
 			ret.getRoot().setStrats(newBetStrats);
 			ret.getRoot().getKids()[1].setStrats(callStrats);
+			
+			exploitability = ret.getStratExploitability(bestRespPairValues);
+			
+			logger.debug("exploitability = "+exploitability+", goalExp = "+goalExp);
+			if (exploitability < goalExp) {
+				return ret;
+			}
 		}
 		
-		return ret;
+		return null;
 	}
 }

@@ -31,8 +31,12 @@ public abstract class RiverStrategy {
 	}
 	
 	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
+		return calcCallOrFold(betSize, 0, callStrats, callFreqs, nutsRank, pairRankSets);
+	}
+	
+	public static int calcCallOrFold(double betSize, double extraValue, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
 		int callThresh = 0;
-		double callPct = (double)1 / (betSize + 1);
+		double callPct = (double)(1 - extraValue) / (double)(betSize + 1);
 		double totCallFreqs = 0;
 		double rankTotCallFreqs = 0;
 		double partialFreq = 0;
@@ -41,7 +45,7 @@ public abstract class RiverStrategy {
 		
 		double remCallFreq = callPct * totCallFreqs;
 		
-		logger.debug("remCallFreq = "+remCallFreq+",totCallFreqs = "+totCallFreqs);
+		logger.debug("remCallFreq = "+remCallFreq+",totCallFreqs = "+totCallFreqs+", callPct = "+callPct+", extraValue = "+extraValue);
 		
 		for (HandRank key : pairRankSets.keySet()) {
 			rankTotCallFreqs = getTotalRankFreq(callFreqs, pairRankSets.get(key));

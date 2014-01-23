@@ -502,6 +502,7 @@ public class GameTreeTest extends TestCase {
 	
 	public void testTreeGuessNarrowRangeNoCardRep() throws TreeInvalidException {
 		GameTree tree = getRainBowNutLow();
+		double goalExp = .000005;
 		
 		double[][] freqs = new double[2][1326];
 		
@@ -519,15 +520,16 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct(2);
+		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
 		
 		double exploit = copy.getStratExploitability();
 		
-		Assert.assertEquals(0, exploit, .005);
+		Assert.assertEquals(0, exploit, goalExp);
 	}
 	
 	public void testTreeGuessNarrowRange() throws TreeInvalidException {
 		GameTree tree = getRainBowNutLow();
+		double goalExp = .000005;
 		
 		double[][] freqs = new double[2][1326];
 		
@@ -545,15 +547,16 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct();
+		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
 		
 		double exploit = copy.getStratExploitability();
 		
-		Assert.assertEquals(0, exploit, .005);
+		Assert.assertEquals(0, exploit, goalExp);
 	}
 	
 	public void testGuessingStrategyFullRange() throws TreeInvalidException {
 		GameTree tree = getRainBowNutLow();
+		double goalExp = .005;
 		
 		double[][] freqs = new double[2][1326];
 		
@@ -563,10 +566,10 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct();
+		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
 		
 		double exploit = copy.getStratExploitability();
 		
-		Assert.assertEquals(0, exploit, .000005);
+		Assert.assertEquals(0, exploit, goalExp);
 	}
 }
