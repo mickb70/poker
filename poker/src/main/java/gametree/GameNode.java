@@ -302,9 +302,7 @@ public class GameNode {
 		return idx;
 	}
 	
-	public void removeBluffValue() {
-		GameNode checkBack = kids[0];
-		
+	public void removeBluffValue(GameNode checkBack) {
 		kids[1].setGameTreeNode(0, checkBack);
 	}
 
@@ -318,6 +316,10 @@ public class GameNode {
 
 	public BoardNode getBoardNode() {
 		return boardNode;
+	}
+
+	public int getActIdx() {
+		return actIdx;
 	}
 
 	public void setStrats(double[][] strats) {

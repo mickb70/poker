@@ -16,7 +16,29 @@ import junit.framework.TestCase;
 public class GameTreeTest extends TestCase {
 	private static Logger logger = Logger.getLogger(GameTreeTest.class);
 	
-	private GameTree getRainBowNutLow() {
+	private GameTree getRainBowNutLowRiverCcOrCfOrBetSubTree() {
+		Hand board = new Hand();	
+		board.addCard(Card.get(Rank.Deuce, Suit.Clubs).ordinal);
+		board.addCard(Card.get(Rank.Three, Suit.Diamonds).ordinal);
+		board.addCard(Card.get(Rank.Four, Suit.Hearts).ordinal);
+		board.addCard(Card.get(Rank.Five, Suit.Spades).ordinal);
+		board.addCard(Card.get(Rank.Seven, Suit.Clubs).ordinal);
+		
+		BoardNode boardNode = new BoardNode(board, BoardNodeType.River);
+		
+		double[] payOffsChkChkSD = {1,1};
+		double potChkChkSD = 1;
+		double[] payOffsChkBetFoldPO = {1,2};
+		double[] payOffsChkBetCllSD = {0,0};
+		double potChkBetCllSD = 3;
+		double[] payOffsBetFoldPO = {2,1};
+		double[] payOffsBetCllSD = {0,0};
+		double potBetCllSD = 3;
+		
+		return GameTree.getRiverCcOrCfOrBetSubTree(boardNode, payOffsChkChkSD, potChkChkSD, payOffsChkBetFoldPO, payOffsChkBetCllSD, potChkBetCllSD, payOffsBetFoldPO, payOffsBetCllSD, potBetCllSD);
+	}
+	
+	private GameTree getRainBowNutLowRiverChkOrBetSubTree() {
 		Hand board = new Hand();	
 		board.addCard(Card.get(Rank.Deuce, Suit.Clubs).ordinal);
 		board.addCard(Card.get(Rank.Three, Suit.Diamonds).ordinal);
@@ -35,7 +57,7 @@ public class GameTreeTest extends TestCase {
 		return GameTree.getRiverChkOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
 	}
 	
-	private GameTree getFullHouseTree() {
+	private GameTree getFullHouseRiverChkOrBetSubTree() {
 		//changed on laptop again work this time
 		Hand board = new Hand();	
 		board.addCard(Card.get(Rank.Three, Suit.Clubs).ordinal);
@@ -56,7 +78,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testStrategyCopy() {
-		GameTree tree = getRainBowNutLow();
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
 		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
@@ -88,8 +110,11 @@ public class GameTreeTest extends TestCase {
 		tree.getRoot().setStrats(betAll);
 		tree.getRoot().getKids()[1].setStrats(callAll);
 		
-		double[][][] heroStrats = tree.getStrats(0);
-		double[][][] villStrats = tree.getStrats(1);
+		int heroIdx = 0;
+		int villIdx = 1;
+		
+		double[][][] heroStrats = tree.getStrats(heroIdx);
+		double[][][] villStrats = tree.getStrats(villIdx);
 		
 		Assert.assertEquals(1, heroStrats.length);
 		Assert.assertEquals(1, villStrats.length);
@@ -102,15 +127,15 @@ public class GameTreeTest extends TestCase {
 		heroStrats[0][redKs.ordinal][0] = 0.5;
 		heroStrats[0][redKs.ordinal][1] = 0.5;
 		
-		tree.writeStrats(heroStrats, 0);
+		tree.writeStrats(heroStrats, heroIdx);
 		
-		double[][][] newHeroStrats = tree.getStrats(0);
+		double[][][] newHeroStrats = tree.getStrats(heroIdx);
 		
 		Assert.assertEquals((double)0.5, newHeroStrats [0][redKs.ordinal][0]);
 	}
 	
-	public void testRiverSubGame() {
-		GameTree tree = getFullHouseTree();
+	public void testInitialiseAllStrats() {
+		GameTree tree = getFullHouseRiverChkOrBetSubTree();
 		
 		double[][] freqs = new double[2][1326];
 		
@@ -134,8 +159,8 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals(0.5, tree.getRoot().getStrats()[aces.ordinal][1]);
 	}
 	
-	public void testRiverGameValue() {
-		GameTree tree = getFullHouseTree();
+	public void testCheckAllRiverChkOrBetSubTreeGameValue() {
+		GameTree tree = getFullHouseRiverChkOrBetSubTree();
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		
 		double[][] freqs = new double[2][1326];
@@ -163,8 +188,52 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals((double)2, tree.getPairValues()[1][aces.ordinal]);
 	}
 	
+	public void testRandomRiverChkOrBetSubTreeGameValue() {
+		GameTree tree = getFullHouseRiverChkOrBetSubTree();
+		
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], 0);
+		Arrays.fill(freqs[1], 0);
+		
+		for (Pair pair: Pair.values()) {
+			if (!tree.getRoot().getBoardNode().getBoard().intersects(pair)) {
+				freqs[0][pair.ordinal] = 1;
+				freqs[1][pair.ordinal] = 1;
+			}
+		}
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		Assert.assertEquals((double)1.625, tree.getGameValues()[0],.0000001);
+		Assert.assertEquals((double)1.375, tree.getGameValues()[1],.0000001);
+	}
+	
+	public void testRandomRiverCcOrCfOrBetSubTreeGameValue() {
+		GameTree tree = getRainBowNutLowRiverCcOrCfOrBetSubTree();
+		
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], 0);
+		Arrays.fill(freqs[1], 0);
+		
+		for (Pair pair: Pair.values()) {
+			if (!tree.getRoot().getBoardNode().getBoard().intersects(pair)) {
+				freqs[0][pair.ordinal] = 1;
+				freqs[1][pair.ordinal] = 1;
+			}
+		}
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		Assert.assertEquals((double)1.5625, tree.getGameValues()[0],.0000001);
+		Assert.assertEquals((double)1.4375, tree.getGameValues()[1],.0000001);
+	}
+	
 	public void testRiverGameValueNarrowRanges() {
-		GameTree tree = getFullHouseTree();
+		GameTree tree = getFullHouseRiverChkOrBetSubTree();
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		
 		double[][] freqs = new double[2][1326];
@@ -194,7 +263,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testDeepCopyTree() {
-		GameTree tree = getFullHouseTree();
+		GameTree tree = getFullHouseRiverChkOrBetSubTree();
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		
 		double[][] freqs = new double[2][1326];
@@ -224,7 +293,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testRiverExploitCall() throws TreeInvalidException {
-		GameTree tree = getFullHouseTree();
+		GameTree tree = getFullHouseRiverChkOrBetSubTree();
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair kingTrey = Pair.get(Card.get(Rank.King, Suit.Spades), Card.get(Rank.Three, Suit.Spades));
 		Pair kings = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
@@ -263,7 +332,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testTreeValidation() {
-		GameTree tree = getRainBowNutLow();
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 
 		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		
@@ -286,7 +355,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testRiverExploitBet() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
 		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
@@ -331,7 +400,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testRiverFindValueRange() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
 		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
@@ -364,7 +433,7 @@ public class GameTreeTest extends TestCase {
 		tree.getRoot().getKids()[1].setStrats(callAll);
 		
 		//remove bluff value
-		tree.getRoot().removeBluffValue();
+		tree.getRoot().removeBluffValue(tree.getRoot().getKids()[0]);
 		
 		tree.setBestResponse(0);
 		
@@ -379,7 +448,7 @@ public class GameTreeTest extends TestCase {
 	}
 	
 	public void testGuessBetStrategy() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		Pair redAs = Pair.get(Card.get(Rank.Ace, Suit.Hearts), Card.get(Rank.Ace, Suit.Diamonds));
 		Pair redKs = Pair.get(Card.get(Rank.King, Suit.Hearts), Card.get(Rank.King, Suit.Diamonds));
 		Pair redQs = Pair.get(Card.get(Rank.Queen, Suit.Hearts), Card.get(Rank.Queen, Suit.Diamonds));
@@ -417,7 +486,7 @@ public class GameTreeTest extends TestCase {
 		tree.getRoot().getKids()[1].setStrats(callMixed);
 		
 		//remove bluff value
-		tree.getRoot().removeBluffValue();
+		tree.getRoot().removeBluffValue(tree.getRoot().getKids()[0]);
 		
 		tree.setBestResponse(0);
 		
@@ -457,8 +526,8 @@ public class GameTreeTest extends TestCase {
 	}
 
 	public void testGuessingStrategyNarrowRange() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
-		GameTree noBluff = getRainBowNutLow();
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
+		GameTree noBluff = getRainBowNutLowRiverChkOrBetSubTree();
 		
 		double[][] freqs = new double[2][1326];
 		
@@ -488,7 +557,7 @@ public class GameTreeTest extends TestCase {
 		tree.getRoot().getKids()[1].setStrats(callStrats);
 		noBluff.getRoot().getKids()[1].setStrats(callStrats);
 
-		noBluff.getRoot().removeBluffValue();		
+		noBluff.getRoot().removeBluffValue(noBluff.getRoot().getKids()[0]);		
 		noBluff.setBestResponse(0);
 		
 		double[][] newBetStrats = noBluff.getRoot().getStrats();
@@ -500,8 +569,8 @@ public class GameTreeTest extends TestCase {
 		Assert.assertEquals(0, exploit, .05);
 	}
 	
-	public void testTreeGuessNarrowRangeNoCardRep() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
+	public void testTreeGuessNarrowRangeNoCardRep() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		double goalExp = .000005;
 		
 		double[][] freqs = new double[2][1326];
@@ -520,15 +589,15 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
+		GameTree copy = tree.findNashEqChkOrBetSubTree(1, goalExp, 10);
 		
 		double exploit = copy.getStratExploitability();
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
 	
-	public void testTreeGuessNarrowRange() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
+	public void testTreeGuessNarrowRange() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		double goalExp = .000005;
 		
 		double[][] freqs = new double[2][1326];
@@ -547,15 +616,15 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
+		GameTree copy = tree.findNashEqChkOrBetSubTree(1,goalExp, 10);
 		
 		double exploit = copy.getStratExploitability();
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
 	
-	public void testGuessingStrategyFullRange() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
+	public void testGuessingStrategyFullRange() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		double goalExp = .005;
 		
 		double[][] freqs = new double[2][1326];
@@ -566,15 +635,15 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
+		GameTree copy = tree.findNashEqChkOrBetSubTree(1, goalExp, 10);
 		
 		double exploit = copy.getStratExploitability();
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
 	
-	public void testGuessingStrategyFullRandom() throws TreeInvalidException {
-		GameTree tree = getRainBowNutLow();
+	public void testGuessingStrategyFullRandom() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		double goalExp = .005;
 		
 		double[][] freqs = new double[2][1326];
@@ -585,7 +654,32 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = tree.findNashEqLastAct(goalExp, 10);
+		GameTree copy = tree.findNashEqChkOrBetSubTree(1, goalExp, 10);
+		
+		double exploit = copy.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, goalExp);
+	}
+	
+	public void testTreeGuessRiverCcOrCfOrBetSubTreeNarrowRangeNoCardRep() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverCcOrCfOrBetSubTree();
+		double goalExp = .05;
+		
+		double[][] freqs = new double[2][1326];
+		
+		for (int i = 5; i < 13; i++) {
+			Card card1 = Card.get(i, 0);
+			Card card2 = Card.get(i, 1);
+			Card card3 = Card.get(i, 2);
+			Card card4 = Card.get(i, 3);
+			freqs[0][Pair.get(card1, card2).ordinal] =  1;
+			freqs[1][Pair.get(card3, card4).ordinal] =  1;
+		}
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		GameTree copy = tree.findNashEqRiverCcOrCfOrBetSubTree(1, goalExp, 10);
 		
 		double exploit = copy.getStratExploitability();
 		
