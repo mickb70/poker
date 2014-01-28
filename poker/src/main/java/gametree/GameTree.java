@@ -1,5 +1,7 @@
 package gametree;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -17,8 +19,15 @@ public class GameTree {
 	private static Logger logger = Logger.getLogger(GameTree.class);
 	
 	private GameNode root;
+	/**
+	 * Array of frequencies 
+	 * [actIdx][pair.ordinal]
+	 */
 	private double[][] freqs;
-	// Adjusted Frequencies to allow for opponent range
+	/**
+	 * Array of frequencies adjusted for opponent range
+	 * [actIdx][pair.ordinal]
+	 */
 	private double[][] adjFreqs;
 	
 	public GameTree() {
@@ -34,6 +43,17 @@ public class GameTree {
 	}
 	
 	public GameTree deepCopy() {
+		return deepCopy(root);
+	}
+	
+	/**
+	 * Make a copy of subtree (or tree where root is passed in as argument
+	 * all objects are new instantiated objects
+	 * 
+	 * @param root the node in the tree to make root node
+	 * @return copy of game tree or subtree
+	 */
+	public GameTree deepCopy(GameNode root) {
 		GameTree copy = new GameTree();
 		
 		copy.root = root.deepCopy(null);
@@ -53,17 +73,20 @@ public class GameTree {
 	}
 	
 	public static GameTree getRiverCcOrCfOrBetSubTree(BoardNode boardNode, double[] payOffsChkChkSD, double potChkChkSD, double[] payOffsChkBetFoldPO, double[] payOffsChkBetCllSD, double potChkBetCllSD, double[] payOffsBetFoldPO, double[] payOffsBetCllSD, double potBetCllSD) {
-		GameTree tree = new GameTree();
+		GameTree tree = new GameTree();		
+		int heroIdx = 0;
+		int villIdx = 1;
+		int termIdx = -1;
 		
-		GameNode nodeChkOrBet = new GameNode(null, 0, null, boardNode,GameNodeType.Action, null, 0, 2);		
-		 GameNode nodeChkbkOrBet = new GameNode(nodeChkOrBet, 1, null, boardNode,GameNodeType.Action, null, 0, 2);
-		  GameNode nodeChkChkSD = new GameNode(nodeChkbkOrBet, -1, null, boardNode, GameNodeType.Showdown, payOffsChkChkSD, potChkChkSD, 0);
-		  GameNode nodeChkCllOrFld = new GameNode(nodeChkOrBet, 1, null, boardNode,GameNodeType.Action, null, 0, 2);
-		   GameNode nodeChkBetFoldPO = new GameNode(nodeChkbkOrBet, -1, null, boardNode, GameNodeType.Showdown, payOffsChkBetFoldPO, 0, 0);
-		   GameNode nodeChkBetCllSD = new GameNode(nodeChkbkOrBet, -1, null, boardNode, GameNodeType.Showdown, payOffsChkBetCllSD, potChkBetCllSD, 0);
-		 GameNode nodeCllOrFld = new GameNode(nodeChkOrBet, 1, null, boardNode,GameNodeType.Action, null, 0, 2);
-		  GameNode nodeBetFoldPO = new GameNode(nodeChkbkOrBet, -1, null, boardNode, GameNodeType.Showdown, payOffsBetFoldPO, 0, 0);
-		  GameNode nodeBetCllSD = new GameNode(nodeChkbkOrBet, -1, null, boardNode, GameNodeType.Showdown, payOffsBetCllSD, potBetCllSD, 0);
+		GameNode nodeChkOrBet = new GameNode(null, heroIdx, null, boardNode,GameNodeType.Action, null, 0, 2);		
+		 GameNode nodeChkbkOrBet = new GameNode(nodeChkOrBet, villIdx, null, boardNode,GameNodeType.Action, null, 0, 2);
+		  GameNode nodeChkChkSD = new GameNode(nodeChkbkOrBet, termIdx, null, boardNode, GameNodeType.Showdown, payOffsChkChkSD, potChkChkSD, 0);
+		  GameNode nodeChkCllOrFld = new GameNode(nodeChkOrBet, heroIdx, null, boardNode,GameNodeType.Action, null, 0, 2);
+		   GameNode nodeChkBetFoldPO = new GameNode(nodeChkbkOrBet, termIdx, null, boardNode, GameNodeType.Showdown, payOffsChkBetFoldPO, 0, 0);
+		   GameNode nodeChkBetCllSD = new GameNode(nodeChkbkOrBet, termIdx, null, boardNode, GameNodeType.Showdown, payOffsChkBetCllSD, potChkBetCllSD, 0);
+		 GameNode nodeCllOrFld = new GameNode(nodeChkOrBet, villIdx, null, boardNode,GameNodeType.Action, null, 0, 2);
+		  GameNode nodeBetFoldPO = new GameNode(nodeChkbkOrBet, termIdx, null, boardNode, GameNodeType.Showdown, payOffsBetFoldPO, 0, 0);
+		  GameNode nodeBetCllSD = new GameNode(nodeChkbkOrBet, termIdx, null, boardNode, GameNodeType.Showdown, payOffsBetCllSD, potBetCllSD, 0);
 
 		
 		nodeChkOrBet.setGameTreeNode(0, nodeChkbkOrBet);
@@ -237,10 +260,16 @@ public class GameTree {
 		return;
 	}
 
+	/**
+	 * @return Array of frequencies [actIdx][pair.ordinal]
+	 */
 	public double[][] getFreqs() {
 		return freqs;
 	}
 
+	/**
+	 * @return Array of adjusted frequencies [actIdx][pair.ordinal]
+	 */
 	public double[][] getAdjFreqs() {
 		return adjFreqs;
 	}
@@ -309,7 +338,7 @@ public class GameTree {
 		copy.setBestResponse(villIdx);
 		double[] villBestRespGameValues = copy.getGameValues();
 		double[][] villBestRespPairValues = copy.getPairValues();
-		double[][][] villExpStrats = copy.getStrats(villIdx);
+		double[][][] villBestRespStrats = copy.getStrats(villIdx);
 		
 		double heroExploitability = villBestRespGameValues[villIdx] - currGameValues[villIdx];
 		double villExploitability = heroBestRespGameValues[heroIdx] - currGameValues[heroIdx];
@@ -328,10 +357,13 @@ public class GameTree {
 		
 		int lowFruit = 0;
 		for (PairValue pairValue: heroBestRespSet) {
-			if (adjFreqs[0][pairValue.getOrdinal()] > 0) {
+			if (adjFreqs[heroIdx][pairValue.getOrdinal()] > 0) {
 				if (lowFruit++ <10) {
-					logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+heroBestRespPairValues[heroIdx][pairValue.getOrdinal()]+" > "+currPairValues[heroIdx][pairValue.getOrdinal()]+
-					Arrays.toString(heroBestRespStrats[heroIdx][pairValue.getOrdinal()])+" > "+Arrays.toString(heroStrats[heroIdx][pairValue.getOrdinal()]));
+					logger.debug("hero -> "+pairValue.getPair()+" - "+pairValue.getValue()+
+							" - "+heroBestRespPairValues[heroIdx][pairValue.getOrdinal()]+" > "+currPairValues[heroIdx][pairValue.getOrdinal()]);
+					for (int i = 0; i < heroBestRespStrats.length; i++) {
+						logger.debug(">>>"+i+ " - "+Arrays.toString(heroBestRespStrats[i][pairValue.getOrdinal()])+" > "+Arrays.toString(heroStrats[i][pairValue.getOrdinal()]));
+					}
 				}
 			}
 		}
@@ -353,8 +385,11 @@ public class GameTree {
 		for (PairValue pairValue: villExpSet) {
 			if (adjFreqs[villIdx][pairValue.getOrdinal()] > 0) {
 				if (lowFruit++ <10) {
-					logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+" - "+villBestRespPairValues[villIdx][pairValue.getOrdinal()]+" > "+currPairValues[villIdx][pairValue.getOrdinal()]+
-					Arrays.toString(villExpStrats[0][pairValue.getOrdinal()])+" > "+Arrays.toString(villStrats[0][pairValue.getOrdinal()]));
+					logger.debug("vill -> "+pairValue.getPair()+" - "+pairValue.getValue()+
+							" - "+villBestRespPairValues[villIdx][pairValue.getOrdinal()]+" > "+currPairValues[villIdx][pairValue.getOrdinal()]);
+					for (int i = 0; i < villBestRespStrats.length; i++) {
+						logger.debug(">>>"+i+ " - "+Arrays.toString(villBestRespStrats[i][pairValue.getOrdinal()])+" > "+Arrays.toString(villStrats[i][pairValue.getOrdinal()]));
+					}
 				}
 			}
 		}
@@ -400,9 +435,11 @@ public class GameTree {
 		GameTree ret = this.deepCopy();
 		PairValue[] bestRespPairValues = new PairValue[2];
 		double exploitability = 0;
+		int heroIdx = this.root.getActIdx();
+		int villIdx = this.root.getKids()[1].getActIdx();
 		
 		double[] bluffFreqs = new double[1326];
-		bluffFreqs = Arrays.copyOf(looper.getFreqs()[0], looper.getFreqs()[0].length);
+		bluffFreqs = Arrays.copyOf(looper.getFreqs()[heroIdx], looper.getFreqs()[heroIdx].length);
 		
 //		looper.getRoot().initialiseStratsAndRegrets();
 //		noBluff.getRoot().initialiseStratsAndRegrets();
@@ -412,18 +449,18 @@ public class GameTree {
 			double[][] CllStrats = new double[1326][2];
 			
 			//remove Chk back from hero range
-			newFreqs[0] = Arrays.copyOf(bluffFreqs, bluffFreqs.length);
-			newFreqs[1] = Arrays.copyOf(looper.getFreqs()[1], looper.getFreqs()[1].length);
+			newFreqs[heroIdx] = Arrays.copyOf(bluffFreqs, bluffFreqs.length);
+			newFreqs[villIdx] = Arrays.copyOf(looper.getFreqs()[villIdx], looper.getFreqs()[villIdx].length);
 			
 			looper.setFreqs(newFreqs);
 			
-			double[] CllFreqs = looper.getAdjFreqs()[1];
+			double[] CllFreqs = looper.getAdjFreqs()[villIdx];
 			int nutsRank = looper.getRoot().getBoardNode().getNutsRank();
 			TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = looper.getRoot().getBoardNode().getPairRankSets();
 			
-			if (bestRespPairValues[0] != null) {
-				logger.debug("Pair = "+bestRespPairValues[0].getPair()+", value = "+bestRespPairValues[0].getValue() );
-				double extraValue = bestRespPairValues[0].getOldValue() - 1;
+			if (bestRespPairValues[heroIdx] != null) {
+				logger.debug("Pair = "+bestRespPairValues[heroIdx].getPair()+", value = "+bestRespPairValues[heroIdx].getValue() );
+				double extraValue = bestRespPairValues[heroIdx].getOldValue() - 1;
 				RiverStrategy.calcCallOrFold(betSize, extraValue, CllStrats, CllFreqs, nutsRank, pairRankSets);
 			} else {
 				logger.debug("Pair is null");
@@ -436,7 +473,7 @@ public class GameTree {
 			noBluff.setBestResponse(noBluff.getRoot().getActIdx());
 			
 			double[][] newBetStrats = noBluff.getRoot().getStrats();
-			bluffFreqs = RiverStrategy.calculateBluffRange(betSize, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+			bluffFreqs = RiverStrategy.calculateBluffRange(betSize, newBetStrats, noBluff.getAdjFreqs()[heroIdx], noBluff.getRoot().getBoardNode().getPairRankSets());
 			
 			looper.getRoot().setStrats(newBetStrats);
 			looper.getRoot().getKids()[1].setStrats(CllStrats);
@@ -458,8 +495,10 @@ public class GameTree {
 	public GameTree findNashEqRiverCcOrCfOrBetSubTree(double betSize, double goalExp, int maxLoops) throws TreeInvalidException, NotSolvedException {
 		GameTree ret = this.deepCopy();
 		GameTree copy = this.deepCopy();
+		int heroIdx = root.getActIdx();
+		int villIdx = 1 - root.getActIdx();
 		
-		double[] CllFreqs = copy.getAdjFreqs()[1];
+		double[] CllFreqs = copy.getAdjFreqs()[villIdx];
 		int nutsRank = copy.getRoot().getBoardNode().getNutsRank();
 		TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = copy.getRoot().getBoardNode().getPairRankSets();
 		double[][] CllStrats = new double[1326][2];
@@ -468,29 +507,62 @@ public class GameTree {
 		
 		copy.getRoot().getKids()[1].setStrats(CllStrats);		
 		copy.getRoot().removeBluffValue(copy.getRoot().getKids()[0].getKids()[0]);
-		copy.setBestResponse(copy.getRoot().getActIdx());
+		copy.setBestResponse(heroIdx);
+		
+//		logger.debug(copy);
 		
 		double[][] newBetStrats = copy.getRoot().getStrats();		
-		RiverStrategy.calculateBluffRange(betSize, newBetStrats, copy.getAdjFreqs()[0], copy.getRoot().getBoardNode().getPairRankSets());
+		RiverStrategy.calculateBluffRange(betSize, newBetStrats, copy.getAdjFreqs()[heroIdx], copy.getRoot().getBoardNode().getPairRankSets());
 		
 		ret.getRoot().setStrats(newBetStrats);
 		ret.getRoot().getKids()[1].setStrats(CllStrats);
-		
 
 		double[][] endFreqs = new double[2][1326];
 		GameTree end = new GameTree();
-		endFreqs[1] = ret.getAdjFreqs()[1];		
+		endFreqs[villIdx] = ret.getAdjFreqs()[villIdx];		
 		for (int i = 0; i < 1326; i++) {
-			endFreqs[0][i] = newBetStrats[i][0];
+			if (ret.getAdjFreqs()[heroIdx][i] > 0) {
+				endFreqs[heroIdx][i] = (newBetStrats[i][0]==0)?0.000001:newBetStrats[i][0];
+			}
 		}		
 		end.setRoot(ret.getRoot().getKids()[0]);
 		end.setFreqs(endFreqs);
 		
-		GameTree copyEnd = end.findNashEqChkOrBetSubTree(1, .5, 2);
+		GameTree copyEnd = end.findNashEqChkOrBetSubTree(1, goalExp, maxLoops);
 		
 		ret.getRoot().getKids()[0].setStrats(copyEnd.getRoot().getStrats());
 		ret.getRoot().getKids()[0].getKids()[1].setStrats(copyEnd.getRoot().getKids()[1].getStrats());
 
 		return ret;
+	}
+	
+	public String toString() {
+		StringBuffer buf = new StringBuffer();
+		
+		buf.append("\n"+root.printTree());
+		
+		for (int i = 0; i < freqs.length; i++){
+			buf.append("\nactIdx = "+i+"\n");
+			for (int j = 0; j < 1326; j++) {
+				if (freqs[i][j] > 0) {
+					buf.append("Pair = "+Pair.values()[j]+", adjFreq = "+adjFreqs[i][j]+", freq = "+freqs[i][j]+"\n");
+					buf.append(root.printStrategy(i,j));
+				}
+			}
+		}
+		
+		return buf.toString();
+	}
+	
+	public void writeXml(String fileName) throws IOException {
+		FileWriter fw = new FileWriter(fileName);
+		
+		fw.write("<tree>");
+		
+		
+		
+		fw.write("</tree>");
+		
+		fw.close();
 	}
 }

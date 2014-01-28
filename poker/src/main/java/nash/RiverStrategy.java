@@ -36,54 +36,62 @@ public abstract class RiverStrategy {
 	
 	public static int calcCallOrFold(double betSize, double extraValue, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
 		int callThresh = 0;
-		double callPct = (double)(1 - extraValue) / (double)(betSize + 1);
-		double totCallFreqs = 0;
-		double rankTotCallFreqs = 0;
+		double callPct = (double)(1 - extraValue) / (double)(betSize + 1);		
+		int topIdx = 1;
+		int botIdx = 0;
+		
+		callThresh = calcTopOfRange(callPct, topIdx, botIdx, callStrats, callFreqs, nutsRank, pairRankSets);
+		
+		return callThresh;
+	}
+	
+	public static int calcTopOfRange(double topPct, int topIdx, int botIdx, double[][] strats, double[] freqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
+		int thresh = 0;
+		double totTopFreqs = 0;
+		double rankTotTopFreqs = 0;
 		double partialFreq = 0;
 		
-		totCallFreqs = getDoubleArrayTotal(callFreqs);
+		totTopFreqs = getDoubleArrayTotal(freqs);
 		
-		double remCallFreq = callPct * totCallFreqs;
-		
-		logger.debug("remCallFreq = "+remCallFreq+",totCallFreqs = "+totCallFreqs+", callPct = "+callPct+", extraValue = "+extraValue);
+		double remTopFreq = topPct * totTopFreqs;
 		
 		for (HandRank key : pairRankSets.keySet()) {
-			rankTotCallFreqs = getTotalRankFreq(callFreqs, pairRankSets.get(key));
+			rankTotTopFreqs = getTotalRankFreq(freqs, pairRankSets.get(key));
 			
-			if (rankTotCallFreqs > 0) {			
+			if (rankTotTopFreqs > 0) {			
 				if (key.getRank() == nutsRank) {
-					callThresh = nutsRank;
+					thresh = nutsRank;
 					for (PairRank pairRank: pairRankSets.get(key)) {
 						if (pairRank.getRank() == nutsRank) {
-							callStrats[pairRank.getOrdinal()][0] = 0;
-							callStrats[pairRank.getOrdinal()][1] = 1;
-							remCallFreq -= callFreqs[pairRank.getOrdinal()];
+							strats[pairRank.getOrdinal()][botIdx] = 0;
+							strats[pairRank.getOrdinal()][topIdx] = 1;
+							remTopFreq -= freqs[pairRank.getOrdinal()];
 						}
 					}
 				} else {
-					if (remCallFreq > rankTotCallFreqs) {
-						callThresh = key.getRank();
+					if (remTopFreq > rankTotTopFreqs) {
+						thresh = key.getRank();
 						partialFreq = 1;
-					} else if (remCallFreq <= 0) {
+					} else if (remTopFreq <= 0) {
 						partialFreq = 0;
 					} else {
-						callThresh = key.getRank();
-						partialFreq = remCallFreq/rankTotCallFreqs;
-						remCallFreq = -1;
+						thresh = key.getRank();
+						partialFreq = remTopFreq/rankTotTopFreqs;
+						remTopFreq = -1;
 					}
 					
 					for (PairRank pairRank: pairRankSets.get(key)) {
-						if (callFreqs[pairRank.getOrdinal()] > 0) {
-							callStrats[pairRank.getOrdinal()][0] = 1 - partialFreq;
-							callStrats[pairRank.getOrdinal()][1] = partialFreq;
-							remCallFreq -= (partialFreq * callFreqs[pairRank.getOrdinal()]);
+						if (freqs[pairRank.getOrdinal()] > 0) {
+							strats[pairRank.getOrdinal()][botIdx] = 1 - partialFreq;
+							strats[pairRank.getOrdinal()][topIdx] = partialFreq;
+							remTopFreq -= (partialFreq * freqs[pairRank.getOrdinal()]);
 						}
 					}
 				}
 			}
 		}
 		
-		return callThresh;
+		return thresh;
 	}
 
 	public static double[] calculateBluffRange(double betSize, double[][] checkOrBetStrats, double[] checkOrBetFreqs, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {

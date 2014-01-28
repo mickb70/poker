@@ -12,7 +12,6 @@ import spears2p2.Suit;
 public class GameNode {
 	private static Logger logger = Logger.getLogger(GameNode.class);
 	
-	private final GameNode dad;
 	private final int actIdx;
 	private final ActionNode actionNode;
 	private final BoardNode boardNode;
@@ -23,6 +22,10 @@ public class GameNode {
 	
 	private GameNode[] kids;
 	
+	/**
+	 * Strategies should be least aggressive to most 
+	 * [pair.oridinal][strategychoice]
+	 */
 	private double[][] strats; 
 	private double[][] regrets;
 	private int[] visits;
@@ -30,7 +33,7 @@ public class GameNode {
 	public GameNode(GameNode dad, int actIdx, ActionNode actionNode, BoardNode boardNode, GameNodeType nodeType, 
 			double[] payOffs, double pot, int numKids) {		
 		super();
-		this.dad = dad;
+//		this.dad = dad;
 		this.actIdx = actIdx;
 		this.actionNode = actionNode;
 		this.boardNode = boardNode;
@@ -303,6 +306,7 @@ public class GameNode {
 	}
 	
 	public void removeBluffValue(GameNode checkBack) {
+		kids[0] = checkBack;
 		kids[1].setGameTreeNode(0, checkBack);
 	}
 
@@ -328,5 +332,43 @@ public class GameNode {
 
 	public int getDepth() {
 		return depth;
+	}
+	
+	/**
+	 * Traverse tree and print strategy for pair
+	 * 
+	 * @param actIdx
+	 * @return strategy
+	 */
+	public String printStrategy(int actIdx, int pairOrdinal) {
+		StringBuffer buf = new StringBuffer();
+		
+		if (kids != null) {
+			if (this.actIdx == actIdx) {
+				buf.append(Arrays.toString(strats[pairOrdinal])+"\n");
+			}
+			
+			for (GameNode kid : kids) {
+				buf.append(kid.printStrategy(actIdx, pairOrdinal));
+			}			
+		}
+		
+		return buf.toString();
+	}
+
+	public String printTree() {
+		StringBuffer buf = new StringBuffer();
+		
+		buf.append("actIdx = "+actIdx+", depth = "+depth+"\n");
+		
+		if (kids != null){
+			for (GameNode kid : kids) {
+				buf.append(kid.printTree());
+			}
+		} else {
+			buf.append("pot = "+pot+", payOffs = "+Arrays.toString(payOffs)+"\n");
+		}
+		
+		return buf.toString();
 	}
 }
