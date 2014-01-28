@@ -492,7 +492,7 @@ public class GameTree {
 		throw new NotSolvedException("unable to solve");
 	}
 
-	public GameTree findNashEqRiverCcOrCfOrBetSubTree(double betSize, double goalExp, int maxLoops) throws TreeInvalidException, NotSolvedException {
+	public GameTree findNashEqRiverCcOrCfOrBetSubTree(double betSize, double goalExp, int maxLoops, double tweak) throws TreeInvalidException, NotSolvedException {
 		GameTree ret = this.deepCopy();
 		GameTree copy = this.deepCopy();
 		int heroIdx = root.getActIdx();
@@ -511,7 +511,16 @@ public class GameTree {
 		
 //		logger.debug(copy);
 		
-		double[][] newBetStrats = copy.getRoot().getStrats();		
+		double[][] newBetStrats = copy.getRoot().getStrats();
+		double[] betFreqs = new double[1362];
+		for (int i = 0; i < 1326; i++) {
+			if (ret.getAdjFreqs()[heroIdx][i] > 0) {
+				betFreqs[i] = copy.getAdjFreqs()[heroIdx][i] * newBetStrats[i][1];
+			}
+		}
+		
+		RiverStrategy.calcTopOfRange(tweak, 0, 1, newBetStrats, betFreqs, nutsRank, pairRankSets);
+		
 		RiverStrategy.calculateBluffRange(betSize, newBetStrats, copy.getAdjFreqs()[heroIdx], copy.getRoot().getBoardNode().getPairRankSets());
 		
 		ret.getRoot().setStrats(newBetStrats);

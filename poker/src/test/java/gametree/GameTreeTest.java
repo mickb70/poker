@@ -673,7 +673,7 @@ public class GameTreeTest extends TestCase {
 	
 	public void testTreeGuessRiverCcOrCfOrBetSubTreeNarrowRangeNoCardRep() throws TreeInvalidException, NotSolvedException {
 		GameTree tree = getRainBowNutLowRiverCcOrCfOrBetSubTree();
-		double goalExp = .0005;
+		double goalExp = .006;
 		
 		double[][] freqs = new double[2][1326];
 		
@@ -689,14 +689,30 @@ public class GameTreeTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-//		logger.debug(tree);
-		
-		GameTree copy = tree.findNashEqRiverCcOrCfOrBetSubTree(1, goalExp, 10);
+		GameTree copy = tree.findNashEqRiverCcOrCfOrBetSubTree(1, goalExp, 10, 0.250001);
 		
 		double exploit = copy.getStratExploitability();
 		
-//		logger.debug(copy);
+		Assert.assertEquals(0, exploit, goalExp);
+	}
+	
+	public void testTreeGuessRiverCcOrCfOrBetSubTreeFullRange() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverCcOrCfOrBetSubTree();
+		double goalExp = .01;
 		
-//		Assert.assertEquals(0, exploit, goalExp);
+
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], 1);
+		Arrays.fill(freqs[1], 1);
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		GameTree copy = tree.findNashEqRiverCcOrCfOrBetSubTree(1, goalExp, 10, .4);
+		
+		double exploit = copy.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, goalExp);
 	}
 }
