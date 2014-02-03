@@ -1,5 +1,8 @@
 package nash;
 
+import gametree.GameTree;
+import gametree.TreeInvalidException;
+
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -30,6 +33,44 @@ public abstract class RiverStrategy {
 		return ret;
 	}
 	
+	public static void calcChkOrBet(GameTree tree, double goalExp, int maxLoops) throws TreeInvalidException {
+		GameTree noBluff = tree.deepCopy();
+		double floor = 1;
+		double ceilg = 0;
+		
+		for (int i = 0; i < maxLoops; i++) {
+			double topPct = (floor + ceilg)/2;
+			//guess calling strategy
+			double[][] callStrats = new double[1326][2];
+			double[] callFreqs = tree.getAdjFreqs()[1];
+			int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
+			TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
+			RiverStrategy.calcTopOfRange(topPct, 1, 0, callStrats, callFreqs, nutsRank, pairRankSets);
+			
+			tree.getRoot().getKids()[1].setStrats(callStrats);
+			noBluff.getRoot().getKids()[1].setStrats(callStrats);
+	
+			noBluff.getRoot().removeBluffValue(noBluff.getRoot().getKids()[0]);		
+			noBluff.setBestResponse(0);
+			
+			double[][] newBetStrats = noBluff.getRoot().getStrats();
+			RiverStrategy.calcBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+			tree.getRoot().setStrats(newBetStrats);
+			
+			PairValue[] bestRespPairValues = new PairValue[2];
+			double exploit = tree.getStratExploitability(bestRespPairValues);
+			
+			if (exploit <= goalExp) {
+				return;
+			} else {
+				//bluff
+				if (true) {
+					
+				}
+			}
+		}
+	}
+
 	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
 		return calcCallOrFold(betSize, 0, callStrats, callFreqs, nutsRank, pairRankSets);
 	}
@@ -94,7 +135,7 @@ public abstract class RiverStrategy {
 		return thresh;
 	}
 
-	public static double[] calculateBluffRange(double betSize, double[][] checkOrBetStrats, double[] checkOrBetFreqs, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
+	public static double[] calcBluffRange(double betSize, double[][] checkOrBetStrats, double[] checkOrBetFreqs, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
 		double bluffPct = 1 / (betSize + 1);
 		double totValueBetFreq = 0;
 		double rankTotBluffFreqs = 0;
