@@ -473,7 +473,7 @@ public class GameTree {
 			noBluff.setBestResponse(noBluff.getRoot().getActIdx());
 			
 			double[][] newBetStrats = noBluff.getRoot().getStrats();
-			bluffFreqs = RiverStrategy.calculateBluffRange(betSize, newBetStrats, noBluff.getAdjFreqs()[heroIdx], noBluff.getRoot().getBoardNode().getPairRankSets());
+			bluffFreqs = RiverStrategy.calcBluffRange(betSize, newBetStrats, noBluff.getAdjFreqs()[heroIdx], noBluff.getRoot().getBoardNode().getPairRankSets());
 			
 			looper.getRoot().setStrats(newBetStrats);
 			looper.getRoot().getKids()[1].setStrats(CllStrats);
@@ -521,7 +521,7 @@ public class GameTree {
 		
 		RiverStrategy.calcTopOfRange(tweak, 0, 1, newBetStrats, betFreqs, nutsRank, pairRankSets);
 		
-		RiverStrategy.calculateBluffRange(betSize, newBetStrats, copy.getAdjFreqs()[heroIdx], copy.getRoot().getBoardNode().getPairRankSets());
+		RiverStrategy.calcBluffRange(betSize, newBetStrats, copy.getAdjFreqs()[heroIdx], copy.getRoot().getBoardNode().getPairRankSets());
 		
 		ret.getRoot().setStrats(newBetStrats);
 		ret.getRoot().getKids()[1].setStrats(CllStrats);

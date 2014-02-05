@@ -504,7 +504,7 @@ public class GameTreeTest extends TestCase {
 		
 		double[][] newBetStrats = tree.getRoot().getStrats();
 		
-		RiverStrategy.calculateBluffRange(1, newBetStrats, tree.getAdjFreqs()[0], tree.getRoot().getBoardNode().getPairRankSets());
+		RiverStrategy.calcBluffRange(1, newBetStrats, tree.getAdjFreqs()[0], tree.getRoot().getBoardNode().getPairRankSets());
 		
 		tree.getRoot().setStrats(newBetStrats);
 		
@@ -561,7 +561,7 @@ public class GameTreeTest extends TestCase {
 		noBluff.setBestResponse(0);
 		
 		double[][] newBetStrats = noBluff.getRoot().getStrats();
-		RiverStrategy.calculateBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
+		RiverStrategy.calcBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
 		tree.getRoot().setStrats(newBetStrats);
 		
 		double exploit = tree.getStratExploitability();
