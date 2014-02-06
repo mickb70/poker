@@ -2,7 +2,7 @@ package gametree;
 
 
 public class ActionNode {
-	private ActionNode[] kids;
+	private ActionNode[] kids; 
 	private ActionNodeType nodeType;
 	
 	public ActionNode(int numKids, ActionNodeType nodeType) {
