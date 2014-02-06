@@ -285,4 +285,6 @@ public class RiverStrategyTest extends TestCase {
 		Assert.assertEquals((double).25, callStrats[aceKing.ordinal][1],.01);
 		Assert.assertEquals((double).25, callStrats[aceFive.ordinal][1],.01);
 	}
+	
+	
 }

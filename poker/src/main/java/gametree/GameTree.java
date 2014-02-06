@@ -325,7 +325,7 @@ public class GameTree {
 //		}
 		
 		int heroIdx = copy.getRoot().getActIdx();
-		int villIdx = copy.getRoot().getKids()[1].getActIdx();
+		int villIdx = 1 - heroIdx;
 		double[][][] heroStrats = copy.getStrats(heroIdx);
 		double[][][] villStrats = copy.getStrats(villIdx);
 		
@@ -352,7 +352,13 @@ public class GameTree {
 		TreeSet<PairValue> heroBestRespSet = new TreeSet<PairValue>();
 		
 		for (int i = 0 ; i < heroBestRespPairValues[heroIdx].length; i++) {
-			heroBestRespSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[heroIdx][i] - currPairValues[heroIdx][i]), heroBestRespPairValues[heroIdx][i], currPairValues[heroIdx][i], (heroBestRespPairValues[heroIdx][i] - currPairValues[heroIdx][i])));
+			double newValue = heroBestRespPairValues[heroIdx][i];			
+			double oldValue = currPairValues[heroIdx][i];
+			double value = newValue - oldValue;
+			double stratDiff = 0;//heroBestRespStrats[i][1][Pair.values()[i].ordinal] - heroStrats[i][Pair.values()[i].ordinal][1]; 
+			PairValue pairValue = new PairValue(Pair.values()[i], value , newValue , oldValue, stratDiff);
+			heroBestRespSet.add(pairValue);
+//			heroBestRespSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[heroIdx][i] - currPairValues[heroIdx][i]), heroBestRespPairValues[heroIdx][i], currPairValues[heroIdx][i], (heroBestRespPairValues[heroIdx][i] - currPairValues[heroIdx][i])));
 		}
 		
 		int lowFruit = 0;
@@ -378,7 +384,13 @@ public class GameTree {
 		TreeSet<PairValue> villExpSet = new TreeSet<PairValue>();
 		
 		for (int i = 0 ; i < villBestRespPairValues[1].length; i++) {
-			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[villIdx][i] - currPairValues[villIdx][i]), villBestRespPairValues[villIdx][i], currPairValues[villIdx][i], (villBestRespPairValues[villIdx][i] - currPairValues[villIdx][i])));
+			double newValue = villBestRespPairValues[villIdx][i];			
+			double oldValue = currPairValues[villIdx][i];
+			double value = newValue - oldValue;
+			double stratDiff = 0;//villBestRespStrats[i][Pair.values()[i].ordinal][1] - villStrats[i][Pair.values()[i].ordinal][1]; 
+			PairValue pairValue = new PairValue(Pair.values()[i], value , newValue , oldValue, stratDiff);
+			villExpSet.add(pairValue);
+//			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[villIdx][i] - currPairValues[villIdx][i]), villBestRespPairValues[villIdx][i], currPairValues[villIdx][i], (villBestRespPairValues[villIdx][i] - currPairValues[villIdx][i])));
 		}
 		
 		lowFruit = 0;

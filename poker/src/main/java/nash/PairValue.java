@@ -7,17 +7,16 @@ public class PairValue implements Comparable<PairValue> {
 	private final double value;
 	private final double newValue;
 	private final double oldValue;
-	private final double difValue;
-	
+	private final double stratDiff;
 	
 
-	public PairValue(Pair pair, double value, double newValue, double oldValue, double difValue) {
+	public PairValue(Pair pair, double value, double newValue, double oldValue, double stratDiff) {
 		super();
 		this.pair = pair;
 		this.value = value;
 		this.newValue = newValue;
 		this.oldValue = oldValue;
-		this.difValue = difValue;
+		this.stratDiff = stratDiff;
 	}
 
 	@Override
@@ -52,10 +51,10 @@ public class PairValue implements Comparable<PairValue> {
 	}
 
 	public double getDifValue() {
-		return difValue;
+		return newValue - oldValue;
 	}
 
 	public PairValue copy() {
-		return new PairValue(this.pair, this.value, this.oldValue, this.newValue, this.difValue);
+		return new PairValue(this.pair, this.value, this.oldValue, this.newValue, this.stratDiff);
 	}
 }

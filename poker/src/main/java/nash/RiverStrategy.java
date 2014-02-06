@@ -1,6 +1,7 @@
 package nash;
 
 import gametree.GameTree;
+import gametree.NotSolvedException;
 import gametree.TreeInvalidException;
 
 import java.util.TreeMap;
@@ -33,42 +34,51 @@ public abstract class RiverStrategy {
 		return ret;
 	}
 	
-	public static void calcChkOrBet(GameTree tree, double goalExp, int maxLoops) throws TreeInvalidException {
-		GameTree noBluff = tree.deepCopy();
-		double floor = 1;
-		double ceilg = 0;
+	public static GameTree calcChkOrBet(GameTree tree, double goalExp, int maxLoops) throws TreeInvalidException, NotSolvedException {
+//		GameTree noBluff = tree.deepCopy();
+		GameTree copy = tree.deepCopy();
+		int heroIdx = copy.getRoot().getActIdx();
+		int villIdx = 1 - heroIdx;
+		double floor = 0;
+		double ceilg = 1;
 		
 		for (int i = 0; i < maxLoops; i++) {
 			double topPct = (floor + ceilg)/2;
 			//guess calling strategy
 			double[][] callStrats = new double[1326][2];
-			double[] callFreqs = tree.getAdjFreqs()[1];
-			int nutsRank = tree.getRoot().getBoardNode().getNutsRank();
-			TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = tree.getRoot().getBoardNode().getPairRankSets();
-			RiverStrategy.calcTopOfRange(topPct, 1, 0, callStrats, callFreqs, nutsRank, pairRankSets);
+			double[] callFreqs = copy.getAdjFreqs()[1];
+			int nutsRank = copy.getRoot().getBoardNode().getNutsRank();
+			TreeMap<HandRank, TreeSet<PairRank>> pairRankSets = copy.getRoot().getBoardNode().getPairRankSets();
+			int callThresh = RiverStrategy.calcTopOfRange(topPct, 1, 0, callStrats, callFreqs, nutsRank, pairRankSets);
 			
-			tree.getRoot().getKids()[1].setStrats(callStrats);
-			noBluff.getRoot().getKids()[1].setStrats(callStrats);
+			copy.getRoot().getKids()[1].setStrats(callStrats);
+			copy.setBestResponse(heroIdx);
+//			noBluff.getRoot().getKids()[1].setStrats(callStrats);
 	
-			noBluff.getRoot().removeBluffValue(noBluff.getRoot().getKids()[0]);		
-			noBluff.setBestResponse(0);
+//			noBluff.getRoot().removeBluffValue(noBluff.getRoot().getKids()[0]);		
+//			noBluff.setBestResponse(heroIdx);
 			
-			double[][] newBetStrats = noBluff.getRoot().getStrats();
-			RiverStrategy.calcBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
-			tree.getRoot().setStrats(newBetStrats);
+//			double[][] newBetStrats = noBluff.getRoot().getStrats();
+//			RiverStrategy.calcBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[heroIdx], noBluff.getRoot().getBoardNode().getPairRankSets());
+//			copy.getRoot().setStrats(newBetStrats);
 			
 			PairValue[] bestRespPairValues = new PairValue[2];
-			double exploit = tree.getStratExploitability(bestRespPairValues);
+			double exploit = copy.getStratExploitability(bestRespPairValues);
 			
 			if (exploit <= goalExp) {
-				return;
+				return copy;
 			} else {
+				int villBestRespRank = copy.getRoot().getBoardNode().getRank(bestRespPairValues[villIdx].getPair());
 				//bluff
-				if (true) {
-					
+				if (villBestRespRank < callThresh) {
+					floor = topPct;
+				} else {
+					ceilg = topPct;
 				}
 			}
 		}
+		
+		throw new NotSolvedException("can't solve");
 	}
 
 	public static int calcCallOrFold(double betSize, double[][] callStrats, double[] callFreqs, int nutsRank, TreeMap<HandRank, TreeSet<PairRank>> pairRankSets) {
