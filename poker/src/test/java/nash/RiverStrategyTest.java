@@ -2,6 +2,9 @@ package nash;
 
 import gametree.BoardNode;
 import gametree.BoardNodeType;
+import gametree.GameTree;
+import gametree.NotSolvedException;
+import gametree.TreeInvalidException;
 
 import java.util.Arrays;
 import java.util.TreeMap;
@@ -16,6 +19,25 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class RiverStrategyTest extends TestCase {
+	
+	private GameTree getRainBowNutLowRiverChkOrBetSubTree() {
+		Hand board = new Hand();	
+		board.addCard(Card.get(Rank.Deuce, Suit.Clubs).ordinal);
+		board.addCard(Card.get(Rank.Three, Suit.Diamonds).ordinal);
+		board.addCard(Card.get(Rank.Four, Suit.Hearts).ordinal);
+		board.addCard(Card.get(Rank.Five, Suit.Spades).ordinal);
+		board.addCard(Card.get(Rank.Seven, Suit.Clubs).ordinal);
+		
+		BoardNode boardNode = new BoardNode(board, BoardNodeType.River);
+		
+		double betShowDownPayoffs[] = {0,0};
+		double betShowDownPot = 3;
+		double checkShowDownPayoffs[] = {1,1};
+		double checkShowDownPot = 1;
+		double foldPayoffs[] = {2,1};
+		
+		return GameTree.getRiverChkOrBetSubTree(boardNode, checkShowDownPayoffs, checkShowDownPot, foldPayoffs, betShowDownPayoffs, betShowDownPot);
+	}
 	
 	public void testRiverCallHalfTime() {
 		double betSize = 1;
@@ -286,5 +308,49 @@ public class RiverStrategyTest extends TestCase {
 		Assert.assertEquals((double).25, callStrats[aceFive.ordinal][1],.01);
 	}
 	
+	public void testFindChkOrBetNENarrowRange() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
+		
+		double goalExp = .0000000005;
+		
+		double[][] freqs = new double[2][1326];
+		
+		for (int i = 6; i < 13; i++) {
+			Card card1 = Card.get(i, 0);
+			Card card2 = Card.get(i, 1);
+			Card card3 = Card.get(i, 2);
+			Card card4 = Card.get(i, 3);
+			freqs[0][Pair.get(card1, card2).ordinal] =  1;
+			freqs[1][Pair.get(card3, card4).ordinal] =  1;
+		}
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		GameTree copy = RiverStrategy.calcChkOrBet(tree, goalExp, 10);
+		
+		double exploit = copy.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, goalExp);
+	}
 	
+	public void testFindChkOrBetNEFullRange() throws TreeInvalidException, NotSolvedException {
+		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
+		
+		double goalExp = .0000005;
+		
+		double[][] freqs = new double[2][1326];
+		
+		Arrays.fill(freqs[0], 1);
+		Arrays.fill(freqs[1], 1);
+		
+		tree.setFreqs(freqs);
+		tree.initialiseAllStrats();
+		
+		GameTree copy = RiverStrategy.calcChkOrBet(tree, goalExp, 10);
+		
+		double exploit = copy.getStratExploitability();
+		
+		Assert.assertEquals(0, exploit, goalExp);
+	}
 }

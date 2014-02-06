@@ -35,15 +35,20 @@ public abstract class RiverStrategy {
 	}
 	
 	public static GameTree calcChkOrBet(GameTree tree, double goalExp, int maxLoops) throws TreeInvalidException, NotSolvedException {
-//		GameTree noBluff = tree.deepCopy();
+		GameTree noBluff = tree.deepCopy();
 		GameTree copy = tree.deepCopy();
 		int heroIdx = copy.getRoot().getActIdx();
 		int villIdx = 1 - heroIdx;
 		double floor = 0;
 		double ceilg = 1;
+		double exploit = 1;
 		
 		for (int i = 0; i < maxLoops; i++) {
-			double topPct = (floor + ceilg)/2;
+//			double topPct = (floor + ceilg)/2;
+			double beg = 0.434528;
+			double end = 0.43456000000000006;
+			double topPct = beg + ( (double)i/(double)maxLoops * (end-beg));
+//			logger.info("Exploit = "+exploit+", floor = "+floor+", ceilg = "+ceilg+", topPct = "+topPct);
 			//guess calling strategy
 			double[][] callStrats = new double[1326][2];
 			double[] callFreqs = copy.getAdjFreqs()[1];
@@ -52,18 +57,18 @@ public abstract class RiverStrategy {
 			int callThresh = RiverStrategy.calcTopOfRange(topPct, 1, 0, callStrats, callFreqs, nutsRank, pairRankSets);
 			
 			copy.getRoot().getKids()[1].setStrats(callStrats);
-			copy.setBestResponse(heroIdx);
-//			noBluff.getRoot().getKids()[1].setStrats(callStrats);
+//			copy.setBestResponse(heroIdx);
+			noBluff.getRoot().getKids()[1].setStrats(callStrats);
 	
-//			noBluff.getRoot().removeBluffValue(noBluff.getRoot().getKids()[0]);		
-//			noBluff.setBestResponse(heroIdx);
+			noBluff.getRoot().removeBluffValue(noBluff.getRoot().getKids()[0]);		
+			noBluff.setBestResponse(heroIdx);
 			
-//			double[][] newBetStrats = noBluff.getRoot().getStrats();
-//			RiverStrategy.calcBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[heroIdx], noBluff.getRoot().getBoardNode().getPairRankSets());
-//			copy.getRoot().setStrats(newBetStrats);
+			double[][] newBetStrats = noBluff.getRoot().getStrats();
+			RiverStrategy.calcBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[heroIdx], noBluff.getRoot().getBoardNode().getPairRankSets());
+			copy.getRoot().setStrats(newBetStrats);
 			
 			PairValue[] bestRespPairValues = new PairValue[2];
-			double exploit = copy.getStratExploitability(bestRespPairValues);
+			exploit = copy.getStratExploitability(bestRespPairValues);
 			
 			if (exploit <= goalExp) {
 				return copy;
@@ -76,6 +81,8 @@ public abstract class RiverStrategy {
 					ceilg = topPct;
 				}
 			}
+			
+			logger.info("Exploit = "+exploit+", topPct = "+topPct);
 		}
 		
 		throw new NotSolvedException("can't solve");
