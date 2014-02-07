@@ -54,6 +54,10 @@ public class PairValue implements Comparable<PairValue> {
 		return newValue - oldValue;
 	}
 
+	public double getStratDiff() {
+		return stratDiff;
+	}
+
 	public PairValue copy() {
 		return new PairValue(this.pair, this.value, this.oldValue, this.newValue, this.stratDiff);
 	}

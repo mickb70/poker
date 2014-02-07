@@ -15,6 +15,7 @@ import spears2p2.Hand;
 import spears2p2.Pair;
 import spears2p2.Rank;
 import spears2p2.Suit;
+import util.Utilities;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -329,7 +330,7 @@ public class RiverStrategyTest extends TestCase {
 		
 		GameTree copy = RiverStrategy.calcChkOrBet(tree, goalExp, 10);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
@@ -337,7 +338,7 @@ public class RiverStrategyTest extends TestCase {
 	public void testFindChkOrBetNEFullRange() throws TreeInvalidException, NotSolvedException {
 		GameTree tree = getRainBowNutLowRiverChkOrBetSubTree();
 		
-		double goalExp = .0000005;
+		double goalExp = .0005;
 		
 		double[][] freqs = new double[2][1326];
 		
@@ -347,9 +348,9 @@ public class RiverStrategyTest extends TestCase {
 		tree.setFreqs(freqs);
 		tree.initialiseAllStrats();
 		
-		GameTree copy = RiverStrategy.calcChkOrBet(tree, goalExp, 10);
+		GameTree copy = RiverStrategy.calcChkOrBet(tree, goalExp, 20);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}

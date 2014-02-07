@@ -10,6 +10,7 @@ import nash.HandRank;
 import nash.PairRank;
 import nash.RiverStrategy;
 import spears2p2.*;
+import util.Utilities;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -564,7 +565,7 @@ public class GameTreeTest extends TestCase {
 		RiverStrategy.calcBluffRange(1, newBetStrats, noBluff.getAdjFreqs()[0], noBluff.getRoot().getBoardNode().getPairRankSets());
 		tree.getRoot().setStrats(newBetStrats);
 		
-		double exploit = tree.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(tree.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, .05);
 	}
@@ -591,7 +592,7 @@ public class GameTreeTest extends TestCase {
 		
 		GameTree copy = tree.findNashEqChkOrBetSubTree(1, goalExp, 10);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
@@ -618,7 +619,7 @@ public class GameTreeTest extends TestCase {
 		
 		GameTree copy = tree.findNashEqChkOrBetSubTree(1,goalExp, 10);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
@@ -637,7 +638,7 @@ public class GameTreeTest extends TestCase {
 		
 		GameTree copy = tree.findNashEqChkOrBetSubTree(1, goalExp, 10);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
@@ -656,7 +657,7 @@ public class GameTreeTest extends TestCase {
 		
 		GameTree copy = tree.findNashEqChkOrBetSubTree(1, goalExp, 10);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
@@ -691,7 +692,7 @@ public class GameTreeTest extends TestCase {
 		
 		GameTree copy = tree.findNashEqRiverCcOrCfOrBetSubTree(1, goalExp, 10, 0.250001);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}
@@ -711,7 +712,7 @@ public class GameTreeTest extends TestCase {
 		
 		GameTree copy = tree.findNashEqRiverCcOrCfOrBetSubTree(1, goalExp, 10, .4);
 		
-		double exploit = copy.getStratExploitability();
+		double exploit = Utilities.getDoubleArrayTotal(copy.getStratExploitability());
 		
 		Assert.assertEquals(0, exploit, goalExp);
 	}

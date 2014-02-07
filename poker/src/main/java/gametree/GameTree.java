@@ -287,16 +287,17 @@ public class GameTree {
 		root.writeStrats(strats, actIdx, 0);		
 	}
 	
-	public double getStratExploitability() throws TreeInvalidException {
+	public double[] getStratExploitability() throws TreeInvalidException {
 		PairValue[] bestRespPairValues = new PairValue[2];
 		
 		return getStratExploitability(bestRespPairValues);
 	}
 
-	public double getStratExploitability(PairValue[] bestRespPairValues) throws TreeInvalidException {
+	public double[] getStratExploitability(PairValue[] bestRespPairValues) throws TreeInvalidException {
 		GameTree copy = this.deepCopy();
 		double[] currGameValues = copy.getGameValues();
 		double[][] currPairValues = copy.getPairValues();
+		double[] exploitability = new double[2];
 		
 		logger.debug("Current Game Values "+Arrays.toString(currGameValues));
 		
@@ -340,14 +341,14 @@ public class GameTree {
 		double[][] villBestRespPairValues = copy.getPairValues();
 		double[][][] villBestRespStrats = copy.getStrats(villIdx);
 		
-		double heroExploitability = villBestRespGameValues[villIdx] - currGameValues[villIdx];
-		double villExploitability = heroBestRespGameValues[heroIdx] - currGameValues[heroIdx];
+		exploitability[heroIdx] = villBestRespGameValues[villIdx] - currGameValues[villIdx];
+		exploitability[villIdx] = heroBestRespGameValues[heroIdx] - currGameValues[heroIdx];
 		
-		if ((villExploitability < 0) || (heroExploitability < 0)) {
-			throw new TreeInvalidException("villExploitability = "+villExploitability+", heroExploitability = "+heroExploitability );
+		if ((exploitability[villIdx] < 0) || (exploitability[heroIdx] < 0)) {
+			throw new TreeInvalidException("villExploitability = "+exploitability[villIdx]+", heroExploitability = "+exploitability[heroIdx] );
 		}
 		
-		logger.debug("villExploitability = "+villExploitability+", heroExploitability = "+heroExploitability);
+		logger.debug("villExploitability = "+exploitability[villIdx]+", heroExploitability = "+exploitability[heroIdx]);
 		
 		TreeSet<PairValue> heroBestRespSet = new TreeSet<PairValue>();
 		
@@ -355,7 +356,7 @@ public class GameTree {
 			double newValue = heroBestRespPairValues[heroIdx][i];			
 			double oldValue = currPairValues[heroIdx][i];
 			double value = newValue - oldValue;
-			double stratDiff = 0;//heroBestRespStrats[i][1][Pair.values()[i].ordinal] - heroStrats[i][Pair.values()[i].ordinal][1]; 
+			double stratDiff = heroBestRespStrats[0][Pair.values()[i].ordinal][1] - heroStrats[0][Pair.values()[i].ordinal][1]; 
 			PairValue pairValue = new PairValue(Pair.values()[i], value , newValue , oldValue, stratDiff);
 			heroBestRespSet.add(pairValue);
 //			heroBestRespSet.add(new PairValue(Pair.values()[i], (heroBestRespPairValues[heroIdx][i] - currPairValues[heroIdx][i]), heroBestRespPairValues[heroIdx][i], currPairValues[heroIdx][i], (heroBestRespPairValues[heroIdx][i] - currPairValues[heroIdx][i])));
@@ -387,7 +388,7 @@ public class GameTree {
 			double newValue = villBestRespPairValues[villIdx][i];			
 			double oldValue = currPairValues[villIdx][i];
 			double value = newValue - oldValue;
-			double stratDiff = 0;//villBestRespStrats[i][Pair.values()[i].ordinal][1] - villStrats[i][Pair.values()[i].ordinal][1]; 
+			double stratDiff = villBestRespStrats[0][Pair.values()[i].ordinal][1] - villStrats[0][Pair.values()[i].ordinal][1]; 
 			PairValue pairValue = new PairValue(Pair.values()[i], value , newValue , oldValue, stratDiff);
 			villExpSet.add(pairValue);
 //			villExpSet.add(new PairValue(Pair.values()[i], (villBestRespPairValues[villIdx][i] - currPairValues[villIdx][i]), villBestRespPairValues[villIdx][i], currPairValues[villIdx][i], (villBestRespPairValues[villIdx][i] - currPairValues[villIdx][i])));
@@ -414,7 +415,7 @@ public class GameTree {
 		
 		logger.debug(Arrays.toString(bestRespPairValues));
 		
-		return villExploitability + heroExploitability;
+		return exploitability;
 	}
 
 //	public GameTree findNashEqLastAct() throws TreeInvalidException {
@@ -446,7 +447,7 @@ public class GameTree {
 		GameTree noBluff = this.deepCopy();
 		GameTree ret = this.deepCopy();
 		PairValue[] bestRespPairValues = new PairValue[2];
-		double exploitability = 0;
+		double[] exploitability = new double[2];
 		int heroIdx = this.root.getActIdx();
 		int villIdx = this.root.getKids()[1].getActIdx();
 		
@@ -494,9 +495,9 @@ public class GameTree {
 			ret.getRoot().getKids()[1].setStrats(CllStrats);
 			
 			exploitability = ret.getStratExploitability(bestRespPairValues);
-			
-			logger.debug("exploitability = "+exploitability+", goalExp = "+goalExp);
-			if (exploitability < goalExp) {
+			double totExploit = exploitability[0] + exploitability[1];
+			logger.debug("totExploit = "+totExploit+", goalExp = "+goalExp);
+			if (totExploit < goalExp) {
 				return ret;
 			}
 		}
