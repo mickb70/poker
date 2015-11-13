@@ -1,5 +1,10 @@
 package gametree;
 
+/**
+ * @author d246250
+ * 
+ * Class for a node that allows for a tree of actions 
+ */
 
 public class ActionNode {
 	private ActionNode[] kids; 
