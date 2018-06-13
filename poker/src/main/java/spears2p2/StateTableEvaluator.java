@@ -51,7 +51,7 @@ public class StateTableEvaluator {
 	private static long   startTimer;
 	private static long   stopTimer;
 	
-	private static final String HAND_RANKS_FILE = "c:\\pokerprog\\handRanks.ser";
+	private static final String HAND_RANKS_FILE = "/Users/michaelbourke/poker/hand-ranks.ser";
 	
 	public static void initialize() {
 		try {

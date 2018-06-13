@@ -469,7 +469,7 @@ public class StateTable5CardEvaluator {
 			//System.out.println("i="+i+", rank="+rank+", ordinal="+c);
 		}
 		//System.out.println("Got rank");
-		int type = (rank >>> 12) - 1; 
+		int type = (rank >>> 12) - 1;
 		rank = rank & 0xFFF;
 		
 		return offsets[type] + rank - 1;

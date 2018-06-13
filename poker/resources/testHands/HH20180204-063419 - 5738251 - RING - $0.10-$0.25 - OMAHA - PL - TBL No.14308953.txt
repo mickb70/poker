@@ -1,0 +1,186 @@
+Ignition Hand #3563356705 TBL#14308953 OMAHA Pot Limit - 2018-02-04 06:35:03
+Seat 1: Small Blind ($27.01 in chips)
+Seat 3: Big Blind [ME] ($25 in chips)
+Seat 4: UTG ($23.25 in chips)
+Seat 5: UTG+1 ($21.77 in chips)
+Seat 6: Dealer ($23.59 in chips)
+Dealer : Set dealer [6] 
+Small Blind : Small Blind $0.10 
+Big Blind  [ME] : Big blind $0.25 
+*** HOLE CARDS ***
+Small Blind : Card dealt to a spot [Qd 9h 7h 2d] 
+Big Blind  [ME] : Card dealt to a spot [Qs 2h Qh 6h] 
+UTG : Card dealt to a spot [8s 2c 2s 9c] 
+UTG+1 : Card dealt to a spot [5d Jd Kd Jh] 
+Dealer : Card dealt to a spot [5h 7s 4h Tc] 
+UTG : Calls $0.25 
+UTG+1 : Calls $0.25 
+Dealer : Folds
+Small Blind : Calls $0.15 
+Big Blind  [ME] : Checks
+*** FLOP *** [7d Qc 8h]
+Table enter user
+Small Blind : Bets $0.64 
+Seat sit down
+Table deposit $25 
+Big Blind  [ME] : Calls $0.64 
+UTG : Folds
+UTG+1 : Folds
+*** TURN *** [7d Qc 8h] [9s]
+Small Blind : Checks
+UTG : Seat stand
+UTG : Table leave user
+Big Blind  [ME] : Checks
+*** RIVER *** [7d Qc 8h 9s] [7c]
+Small Blind : Bets $0.98 
+Big Blind  [ME] : Raises $5.22 to $5.22
+Small Blind : Calls $4.24 
+Big Blind  [ME] : Showdown [Qs Qh 7d Qc 7c] (Full House)
+Small Blind : Mucks [Qd 9h 7h 2d] (Full House)
+Big Blind  [ME] : Hand result $12.09 
+Small Blind : Seat stand
+Small Blind : Table leave user
+*** SUMMARY ***
+Total Pot($12.72)
+Board [7d Qc 8h 9s 7c]
+Seat+1: Small Blind [Mucked] [Qd 9h 7h 2d   ]  
+Seat+3: Big Blind $12.09  with Full House [Qs 2h Qh 6h-Qs Qh 7d Qc 7c]  
+Seat+4: UTG Folded on the FLOP
+Seat+5: UTG+1 Folded on the FLOP
+Seat+6: Dealer Folded before the FLOP
+
+
+Ignition Hand #3563356853 TBL#14308953 OMAHA Pot Limit - 2018-02-04 06:36:04
+Seat 3: Small Blind [ME] ($30.98 in chips)
+Seat 5: Big Blind ($21.52 in chips)
+Seat 6: UTG ($23.59 in chips)
+Small Blind  [ME] : Small Blind $0.10 
+Seat stand
+Table leave user
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Small Blind  [ME] : Card dealt to a spot [5s Qh 2h 6c] 
+Big Blind : Card dealt to a spot [4h 3s 4c 3h] 
+UTG : Card dealt to a spot [Js 5c 9h 2s] 
+UTG : Folds
+Small Blind  [ME] : Folds
+Big Blind : Does not show [4h 3s 4c 3h] (High Card)
+Big Blind : Hand result $0.35 
+*** SUMMARY ***
+Total Pot($0.35)
+Seat+3: Small Blind Folded before the FLOP
+Seat+5: Big Blind $0.35 [Does not show]  
+Seat+6: UTG Folded before the FLOP
+
+
+Ignition Hand #3563356900 TBL#14308953 OMAHA Pot Limit - 2018-02-04 06:36:24
+Seat 3: Dealer [ME] ($30.88 in chips)
+Seat 5: Small Blind ($21.62 in chips)
+Seat 6: Big Blind ($23.59 in chips)
+Dealer  [ME] : Set dealer [3] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Dealer  [ME] : Card dealt to a spot [7d 9c Td Ah] 
+Small Blind : Card dealt to a spot [Qc 2c Js Tc] 
+Big Blind : Card dealt to a spot [As Jd Ts Ad] 
+Dealer  [ME] : Calls $0.25 
+Small Blind : Calls $0.15 
+Big Blind : Raises $0.75 to $1
+Dealer  [ME] : Calls $0.75 
+Small Blind : Calls $0.75 
+*** FLOP *** [4h 4s Jh]
+Small Blind : Checks
+Big Blind : Bets $1.89 
+Dealer  [ME] : Folds
+Small Blind : Folds
+Big Blind : Return uncalled portion of bet $1.89 
+Big Blind : Does not show [As Jd Ts Ad] (Two pair)
+Big Blind : Hand result $2.85 
+*** SUMMARY ***
+Total Pot($3)
+Board [4h 4s Jh  ]
+Seat+3: Dealer Folded on the FLOP
+Seat+5: Small Blind Folded on the FLOP
+Seat+6: Big Blind $2.85 [Does not show]  
+
+
+Ignition Hand #3563357012 TBL#14308953 OMAHA Pot Limit - 2018-02-04 06:37:07
+Seat 3: Big Blind [ME] ($29.88 in chips)
+Seat 5: Dealer ($20.62 in chips)
+Seat 6: Small Blind ($25.44 in chips)
+Dealer : Set dealer [5] 
+Small Blind : Small Blind $0.10 
+Big Blind  [ME] : Big blind $0.25 
+*** HOLE CARDS ***
+Big Blind  [ME] : Card dealt to a spot [5d 7c Kd 6c] 
+Dealer : Card dealt to a spot [6s 6h Tc 4h] 
+Small Blind : Card dealt to a spot [Td Ad 2c 6d] 
+Dealer : Folds
+Small Blind : Raises $0.65 to $0.75
+Big Blind  [ME] : Calls $0.50 
+*** FLOP *** [5s 5h 9h]
+Small Blind : Bets $0.88 
+Big Blind  [ME] : Calls $0.88 
+*** TURN *** [5s 5h 9h] [Jd]
+Small Blind : Checks
+Big Blind  [ME] : Bets $1.63 
+Small Blind : Folds
+Big Blind  [ME] : Return uncalled portion of bet $1.63 
+Big Blind  [ME] : Does not show [5d 7c Kd 6c] (Three of a kind)
+Big Blind  [ME] : Hand result $3.10 
+*** SUMMARY ***
+Total Pot($3.26)
+Board [5s 5h 9h Jd ]
+Seat+3: Big Blind $3.10 [Does not show]  
+Seat+5: Dealer Folded before the FLOP
+Seat+6: Small Blind Folded on the TURN
+
+
+Ignition Hand #3563357105 TBL#14308953 OMAHA Pot Limit - 2018-02-04 06:37:51
+Seat 3: Small Blind [ME] ($31.35 in chips)
+Seat 5: Big Blind ($20.62 in chips)
+Seat 6: Dealer ($23.81 in chips)
+Dealer : Set dealer [6] 
+Small Blind  [ME] : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Small Blind  [ME] : Card dealt to a spot [Kc Ad 9h 4c] 
+Big Blind : Card dealt to a spot [2d Ah 5d 2c] 
+Dealer : Card dealt to a spot [As Qd 9c Ac] 
+Dealer : Raises $0.85 to $0.85
+Small Blind  [ME] : Folds
+Big Blind : Folds
+Dealer : Return uncalled portion of bet $0.60 
+Dealer : Does not show [As Qd 9c Ac] (High Card)
+Dealer : Hand result $0.60 
+*** SUMMARY ***
+Total Pot($0.60)
+Seat+3: Small Blind Folded before the FLOP
+Seat+5: Big Blind Folded before the FLOP
+Seat+6: Dealer $0.60 [Does not show]  
+
+
+Ignition Hand #3563357139 TBL#14308953 OMAHA Pot Limit - 2018-02-04 06:38:04
+Seat 3: Dealer [ME] ($31.25 in chips)
+Seat 5: Small Blind ($20.37 in chips)
+Seat 6: Big Blind ($24.16 in chips)
+Dealer  [ME] : Set dealer [3] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Dealer  [ME] : Card dealt to a spot [5s 2s 5h 5c] 
+Small Blind : Card dealt to a spot [4s 5d 9c Td] 
+Big Blind : Card dealt to a spot [9d Kd 7s 6s] 
+Dealer  [ME] : Folds
+Dealer  [ME] : Seat stand
+Dealer  [ME] : Table leave user
+Small Blind : Folds
+Big Blind : Does not show [9d Kd 7s 6s] (High Card)
+Big Blind : Hand result $0.35 
+*** SUMMARY ***
+Total Pot($0.35)
+Seat+3: Dealer Folded before the FLOP
+Seat+5: Small Blind Folded before the FLOP
+Seat+6: Big Blind $0.35 [Does not show]  
+

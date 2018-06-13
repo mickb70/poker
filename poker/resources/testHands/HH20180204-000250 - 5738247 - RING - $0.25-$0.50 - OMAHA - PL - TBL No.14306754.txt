@@ -1,0 +1,538 @@
+Ignition Hand #3563234456 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:02:58
+Seat 2: Big Blind [ME] ($50 in chips)
+Seat 5: Dealer ($49.25 in chips)
+Seat 6: Small Blind ($73.75 in chips)
+Dealer : Set dealer [5] 
+Small Blind : Small Blind $0.25 
+Big Blind  [ME] : Big blind $0.50 
+*** HOLE CARDS ***
+Big Blind  [ME] : Card dealt to a spot [8c 8s 3h 2d] 
+Dealer : Card dealt to a spot [Jh 7d 4s 7s] 
+Small Blind : Card dealt to a spot [6s 6h Ks 5c] 
+Dealer : Calls $0.50 
+Small Blind : Calls $0.25 
+Big Blind  [ME] : Checks
+*** FLOP *** [Jc 4h Ah]
+Small Blind : Checks
+Big Blind  [ME] : Checks
+Dealer : Bets $0.50 
+Small Blind : Folds
+Big Blind  [ME] : Folds
+Dealer : Return uncalled portion of bet $0.50 
+Dealer : Does not show [Jh 7d 4s 7s] (Two pair)
+Dealer : Hand result $1.43 
+*** SUMMARY ***
+Total Pot($1.50)
+Board [Jc 4h Ah  ]
+Seat+2: Big Blind Folded on the FLOP
+Seat+5: Dealer $1.43 [Does not show]  
+Seat+6: Small Blind Folded on the FLOP
+
+
+Ignition Hand #3563234853 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:03:47
+Seat 2: Small Blind [ME] ($49.50 in chips)
+Seat 5: Big Blind ($50.18 in chips)
+Seat 6: Dealer ($73.25 in chips)
+Dealer : Set dealer [6] 
+Small Blind  [ME] : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+Small Blind  [ME] : Card dealt to a spot [Jh Qc 3s 8h] 
+Big Blind : Card dealt to a spot [8s Kd 3h Ad] 
+Dealer : Card dealt to a spot [6d 2h 2d 4c] 
+Dealer : Raises $1.50 to $1.50
+Small Blind  [ME] : Calls $1.25 
+Big Blind : Calls $1 
+*** FLOP *** [Td 4d 8c]
+Small Blind  [ME] : Checks
+Big Blind : Checks
+Dealer : Checks
+*** TURN *** [Td 4d 8c] [Ac]
+Small Blind  [ME] : Checks
+Big Blind : Bets $2.75 
+Dealer : Folds
+Small Blind  [ME] : Folds
+Big Blind : Return uncalled portion of bet $2.75 
+Big Blind : Does not show [8s Kd 3h Ad] (Two pair)
+Big Blind : Hand result $4.28 
+*** SUMMARY ***
+Total Pot($4.50)
+Board [Td 4d 8c Ac ]
+Seat+2: Small Blind Folded on the TURN
+Seat+5: Big Blind $4.28 [Does not show]  
+Seat+6: Dealer Folded on the TURN
+
+
+Ignition Hand #3563235312 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:04:44
+Seat 2: Dealer [ME] ($48 in chips)
+Seat 5: Small Blind ($52.96 in chips)
+Seat 6: Big Blind ($71.75 in chips)
+Dealer  [ME] : Set dealer [2] 
+Small Blind : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+Dealer  [ME] : Card dealt to a spot [Jh 5d Ac 4c] 
+Small Blind : Card dealt to a spot [Kc 7d 7h 8s] 
+Big Blind : Card dealt to a spot [Qh 4s 2d 3d] 
+Dealer  [ME] : Raises $1.75 to $1.75
+Small Blind : Folds
+Big Blind : Folds
+Dealer  [ME] : Return uncalled portion of bet $1.25 
+Dealer  [ME] : Does not show [Jh 5d Ac 4c] (High Card)
+Dealer  [ME] : Hand result $1.25 
+*** SUMMARY ***
+Total Pot($1.25)
+Seat+2: Dealer $1.25 [Does not show]  
+Seat+5: Small Blind Folded before the FLOP
+Seat+6: Big Blind Folded before the FLOP
+
+
+Ignition Hand #3563235515 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:05:08
+Seat 2: Big Blind [ME] ($48.75 in chips)
+Seat 5: Dealer ($52.71 in chips)
+Seat 6: Small Blind ($71.25 in chips)
+Dealer : Set dealer [5] 
+Small Blind : Small Blind $0.25 
+Big Blind  [ME] : Big blind $0.50 
+*** HOLE CARDS ***
+Big Blind  [ME] : Card dealt to a spot [9c 7d 4d 8s] 
+Dealer : Card dealt to a spot [9s Th 6s Jc] 
+Small Blind : Card dealt to a spot [5d 4c 2h Ad] 
+Dealer : Folds
+Small Blind : Raises $1.25 to $1.50
+Big Blind  [ME] : Calls $1 
+*** FLOP *** [7c Qh 8d]
+Small Blind : Checks
+Big Blind  [ME] : Bets $1.50 
+Small Blind : Folds
+Big Blind  [ME] : Return uncalled portion of bet $1.50 
+Big Blind  [ME] : Does not show [9c 7d 4d 8s] (Two pair)
+Big Blind  [ME] : Hand result $2.85 
+*** SUMMARY ***
+Total Pot($3)
+Board [7c Qh 8d  ]
+Seat+2: Big Blind $2.85 [Does not show]  
+Seat+5: Dealer Folded before the FLOP
+Seat+6: Small Blind Folded on the FLOP
+
+
+Ignition Hand #3563235762 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:05:40
+Seat 2: Small Blind [ME] ($50.10 in chips)
+Seat 5: Big Blind ($52.71 in chips)
+Seat 6: Dealer ($69.75 in chips)
+Dealer : Set dealer [6] 
+Small Blind  [ME] : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+Small Blind  [ME] : Card dealt to a spot [5c Kh 4c Qh] 
+Big Blind : Card dealt to a spot [8c Ad 3c 3d] 
+Dealer : Card dealt to a spot [Kc 2d 8h Ah] 
+Table enter user
+Dealer : Raises $1.75 to $1.75
+Small Blind  [ME] : Calls $1.50 
+Seat sit down
+Table deposit $50 
+Table enter user
+Seat sit down
+Table deposit $50 
+Big Blind : Calls $1.25 
+*** FLOP *** [Td Qs As]
+Small Blind  [ME] : Checks
+Big Blind : Checks
+Dealer : Bets $5.25 
+Small Blind  [ME] : Folds
+Big Blind : Folds
+Dealer : Return uncalled portion of bet $5.25 
+Dealer : Does not show [Kc 2d 8h Ah] (One pair)
+Dealer : Hand result $4.99 
+*** SUMMARY ***
+Total Pot($5.25)
+Board [Td Qs As  ]
+Seat+2: Small Blind Folded on the FLOP
+Seat+5: Big Blind Folded on the FLOP
+Seat+6: Dealer $4.99 [Does not show]  
+
+
+Ignition Hand #3563236236 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:06:37
+Seat 1: UTG ($50 in chips)
+Seat 2: Dealer [ME] ($48.35 in chips)
+Seat 5: Small Blind ($50.96 in chips)
+Seat 6: Big Blind ($72.99 in chips)
+Dealer  [ME] : Set dealer [2] 
+Small Blind : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+UTG : Posts chip $0.50 
+*** HOLE CARDS ***
+UTG : Card dealt to a spot [4d Qh Js 9c] 
+Dealer  [ME] : Card dealt to a spot [Ts 2c Td 2s] 
+Small Blind : Card dealt to a spot [5c Tc 7h 5h] 
+Big Blind : Card dealt to a spot [3c Jc 8c Kh] 
+UTG : Checks
+Dealer  [ME] : Calls $0.50 
+Small Blind : Calls $0.25 
+Big Blind : Checks
+*** FLOP *** [5d 6d Qd]
+Small Blind : Checks
+Big Blind : Checks
+UTG : Checks
+Dealer  [ME] : Checks
+*** TURN *** [5d 6d Qd] [5s]
+Small Blind : Checks
+Big Blind : Checks
+UTG : Checks
+Dealer  [ME] : Checks
+*** RIVER *** [5d 6d Qd 5s] [2d]
+Small Blind : Bets $2 
+Big Blind : Folds
+UTG : Folds
+Dealer  [ME] : Calls $2 
+Small Blind : Showdown [5c 5h 5d Qd 5s] (Four of a kind)
+Dealer  [ME] : Mucks [Ts 2c Td 2s] (Full House)
+Small Blind : Hand result $5.70 
+*** SUMMARY ***
+Total Pot($6)
+Board [5d 6d Qd 5s 2d]
+Seat+1: UTG Folded on the RIVER
+Seat+2: Dealer [Mucked] [Ts 2c Td 2s   ]  
+Seat+5: Small Blind $5.70  with Four of a kind [5c Tc 7h 5h-5c 5h 5d Qd 5s]  
+Seat+6: Big Blind Folded on the RIVER
+
+
+Ignition Hand #3563236727 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:07:36
+Seat 1: Big Blind ($49.50 in chips)
+Seat 2: UTG [ME] ($45.85 in chips)
+Seat 4: UTG+1 ($50 in chips)
+Seat 5: Dealer ($54.16 in chips)
+Seat 6: Small Blind ($72.49 in chips)
+Dealer : Set dealer [5] 
+Small Blind : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+UTG+1 : Posts chip $0.50 
+*** HOLE CARDS ***
+Big Blind : Card dealt to a spot [Ad Ts 9d Qd] 
+UTG  [ME] : Card dealt to a spot [5h Jc 8c 3h] 
+UTG+1 : Card dealt to a spot [5c 3s Kh 4h] 
+Dealer : Card dealt to a spot [6c 6s 8h Jd] 
+Small Blind : Card dealt to a spot [2s 7s 2d Ks] 
+UTG  [ME] : Calls $0.50 
+UTG+1 : Checks
+Dealer : Calls $0.50 
+Small Blind : Calls $0.25 
+Big Blind : Raises $2.50 to $3
+UTG  [ME] : Calls $2.50 
+UTG+1 : Folds
+Dealer : Folds
+Small Blind : Folds
+*** FLOP *** [Kc Js 7d]
+Big Blind : Bets $7.50 
+UTG  [ME] : Folds
+Big Blind : Return uncalled portion of bet $7.50 
+Big Blind : Does not show [Ad Ts 9d Qd] (High Card)
+Big Blind : Hand result $7.13 
+*** SUMMARY ***
+Total Pot($7.50)
+Board [Kc Js 7d  ]
+Seat+1: Big Blind $7.13 [Does not show]  
+Seat+2: UTG Folded on the FLOP
+Seat+4: UTG+1 Folded before the FLOP
+Seat+5: Dealer Folded before the FLOP
+Seat+6: Small Blind Folded before the FLOP
+
+
+Ignition Hand #3563237214 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:08:37
+Seat 1: Small Blind ($53.63 in chips)
+Seat 2: Big Blind [ME] ($42.85 in chips)
+Seat 4: UTG ($49.50 in chips)
+Seat 5: UTG+1 ($53.66 in chips)
+Seat 6: Dealer ($71.99 in chips)
+Dealer : Set dealer [6] 
+Small Blind : Small Blind $0.25 
+Big Blind  [ME] : Big blind $0.50 
+*** HOLE CARDS ***
+Small Blind : Card dealt to a spot [Ac Ah 3d 7s] 
+Big Blind  [ME] : Card dealt to a spot [Jd 6h 4d Jc] 
+UTG : Card dealt to a spot [Js Qh 9c 7h] 
+UTG+1 : Card dealt to a spot [3h 3s 2s 4c] 
+Dealer : Card dealt to a spot [5d 2h 3c 5c] 
+UTG : Calls $0.50 
+UTG+1 : Calls $0.50 
+Dealer : Calls $0.50 
+Small Blind : Calls $0.25 
+Big Blind  [ME] : Checks
+*** FLOP *** [Jh 6d 6s]
+Small Blind : Checks
+Big Blind  [ME] : Checks
+Table enter user
+Seat sit down
+Table deposit $15 
+UTG : Checks
+UTG+1 : Checks
+Dealer : Checks
+*** TURN *** [Jh 6d 6s] [Kd]
+Small Blind : Checks
+Big Blind  [ME] : Bets $2.50 
+UTG : Folds
+UTG+1 : Folds
+Dealer : Folds
+Small Blind : Calls $2.50 
+*** RIVER *** [Jh 6d 6s Kd] [7d]
+Small Blind : Checks
+Big Blind  [ME] : Bets $7.50 
+Small Blind : Folds
+Big Blind  [ME] : Return uncalled portion of bet $7.50 
+Big Blind  [ME] : Does not show [Jd 6h 4d Jc] (Full House)
+Big Blind  [ME] : Hand result $7.13 
+*** SUMMARY ***
+Total Pot($7.50)
+Board [Jh 6d 6s Kd 7d]
+Seat+1: Small Blind Folded on the RIVER
+Seat+2: Big Blind $7.13 [Does not show]  
+Seat+4: UTG Folded on the TURN
+Seat+5: UTG+1 Folded on the TURN
+Seat+6: Dealer Folded on the TURN
+
+
+Ignition Hand #3563238110 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:10:27
+Seat 1: Dealer ($50.63 in chips)
+Seat 2: Small Blind [ME] ($46.98 in chips)
+Seat 3: Big Blind ($15 in chips)
+Seat 4: UTG ($49 in chips)
+Seat 5: UTG+1 ($53.16 in chips)
+Seat 6: UTG+2 ($71.49 in chips)
+Dealer : Set dealer [1] 
+Small Blind  [ME] : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+Dealer : Card dealt to a spot [4s 7h 8d Tc] 
+Small Blind  [ME] : Card dealt to a spot [Kc 3d 2h 5c] 
+Big Blind : Card dealt to a spot [5d Th 4h As] 
+UTG : Card dealt to a spot [Ts 7s 5s Qd] 
+UTG+1 : Card dealt to a spot [Ad 2s 9h 3c] 
+UTG+2 : Card dealt to a spot [8c Kh 2c 6d] 
+UTG : Folds
+UTG+1 : Folds
+UTG+2 : Folds
+Dealer : Calls $0.50 
+Small Blind  [ME] : Calls $0.25 
+Big Blind : Checks
+*** FLOP *** [2d Qc 3h]
+Small Blind  [ME] : Checks
+Big Blind : Checks
+Dealer : Checks
+*** TURN *** [2d Qc 3h] [4d]
+Small Blind  [ME] : Bets $0.75 
+Big Blind : Raises $3.75 to $3.75
+Dealer : Folds
+Small Blind  [ME] : Folds
+Big Blind : Return uncalled portion of bet $3 
+Big Blind : Does not show [5d Th 4h As] (Straight)
+Big Blind : Hand result $2.85 
+*** SUMMARY ***
+Total Pot($3)
+Board [2d Qc 3h 4d ]
+Seat+1: Dealer Folded on the TURN
+Seat+2: Small Blind Folded on the TURN
+Seat+3: Big Blind $2.85 [Does not show]  
+Seat+4: UTG Folded before the FLOP
+Seat+5: UTG+1 Folded before the FLOP
+Seat+6: UTG+2 Folded before the FLOP
+
+
+Ignition Hand #3563238574 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:11:23
+Seat 1: UTG+2 ($50.13 in chips)
+Seat 2: Dealer [ME] ($45.73 in chips)
+Seat 3: Small Blind ($16.60 in chips)
+Seat 4: Big Blind ($49 in chips)
+Seat 5: UTG ($53.16 in chips)
+Seat 6: UTG+1 ($71.49 in chips)
+Dealer  [ME] : Set dealer [2] 
+Small Blind : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+UTG+2 : Card dealt to a spot [4h 9h 9d 3h] 
+Dealer  [ME] : Card dealt to a spot [2s Ac Tc 8d] 
+Small Blind : Card dealt to a spot [2d Kd 3d 9s] 
+Big Blind : Card dealt to a spot [Ts 7s Td Jh] 
+UTG : Card dealt to a spot [Js 6c 5h 5c] 
+UTG+1 : Card dealt to a spot [7h Ad As Ah] 
+UTG : Folds
+UTG+1 : Raises $1.75 to $1.75
+UTG+2 : Calls $1.75 
+Dealer  [ME] : Calls $1.75 
+Small Blind : Calls $1.50 
+Big Blind : Calls $1.25 
+*** FLOP *** [3c 4d 7d]
+Small Blind : Checks
+Big Blind : Checks
+UTG+1 : Checks
+UTG+2 : Checks
+Dealer  [ME] : Checks
+*** TURN *** [3c 4d 7d] [5d]
+Small Blind : Bets $8.75 
+Big Blind : Folds
+UTG+1 : Folds
+UTG+2 : Folds
+Dealer  [ME] : Folds
+Small Blind : Return uncalled portion of bet $8.75 
+Small Blind : Does not show [2d Kd 3d 9s] (Flush)
+Small Blind : Hand result $8.32 
+*** SUMMARY ***
+Total Pot($8.75)
+Board [3c 4d 7d 5d ]
+Seat+1: UTG+2 Folded on the TURN
+Seat+2: Dealer Folded on the TURN
+Seat+3: Small Blind $8.32 [Does not show]  
+Seat+4: Big Blind Folded on the TURN
+Seat+5: UTG Folded before the FLOP
+Seat+6: UTG+1 Folded on the TURN
+
+
+Ignition Hand #3563239130 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:12:31
+Seat 1: UTG+1 ($48.38 in chips)
+Seat 2: UTG+2 [ME] ($43.98 in chips)
+Seat 3: Dealer ($23.17 in chips)
+Seat 4: Small Blind ($47.25 in chips)
+Seat 5: Big Blind ($53.16 in chips)
+Seat 6: UTG ($69.74 in chips)
+Dealer : Set dealer [3] 
+Small Blind : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+UTG+1 : Card dealt to a spot [Td 2d 3d 4d] 
+UTG+2  [ME] : Card dealt to a spot [Qd Ah Ad 4s] 
+Dealer : Card dealt to a spot [4c Qs 2h Js] 
+Small Blind : Card dealt to a spot [8h 3s 5c 7h] 
+Big Blind : Card dealt to a spot [6c 9d Jd 6d] 
+UTG : Card dealt to a spot [2c 3c 6h Ts] 
+UTG : Folds
+UTG+1 : Folds
+UTG+2  [ME] : Raises $1.75 to $1.75
+Dealer : Calls $1.75 
+Small Blind : Folds
+Big Blind : Folds
+*** FLOP *** [Th Jc 7d]
+UTG+2  [ME] : Bets $2.12 
+Dealer : Calls $2.12 
+*** TURN *** [Th Jc 7d] [5s]
+UTG+2  [ME] : Checks
+Dealer : Checks
+*** RIVER *** [Th Jc 7d 5s] [6s]
+UTG+2  [ME] : Checks
+Dealer : Checks
+UTG+2  [ME] : Showdown [Ah Ad Th Jc 7d] (One pair)
+Dealer : Mucks [4c Qs 2h Js] (One pair)
+UTG+2  [ME] : Hand result $8.07 
+*** SUMMARY ***
+Total Pot($8.49)
+Board [Th Jc 7d 5s 6s]
+Seat+1: UTG+1 Folded before the FLOP
+Seat+2: UTG+2 $8.07  with One pair [Qd Ah Ad 4s-Ah Ad Th Jc 7d]  
+Seat+3: Dealer [Mucked] [4c Qs 2h Js   ]  
+Seat+4: Small Blind Folded before the FLOP
+Seat+5: Big Blind Folded before the FLOP
+Seat+6: UTG Folded before the FLOP
+
+
+Ignition Hand #3563239675 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:13:36
+Seat 1: UTG ($48.38 in chips)
+Seat 2: UTG+1 [ME] ($48.18 in chips)
+Seat 3: UTG+2 ($19.30 in chips)
+Seat 4: Dealer ($47 in chips)
+Seat 5: Small Blind ($52.66 in chips)
+Seat 6: Big Blind ($69.74 in chips)
+Dealer : Set dealer [4] 
+Small Blind : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+UTG : Card dealt to a spot [4s 8d Jd Th] 
+UTG+1  [ME] : Card dealt to a spot [9s 2s 2c Ac] 
+UTG+2 : Card dealt to a spot [4h 9h 6s 7h] 
+Dealer : Card dealt to a spot [7s Tc 5s 8h] 
+Small Blind : Card dealt to a spot [3c Ts 6c 4d] 
+Big Blind : Card dealt to a spot [8c 6d Js 3s] 
+UTG : Calls $0.50 
+UTG+1  [ME] : Calls $0.50 
+UTG+2 : Calls $0.50 
+Dealer : Calls $0.50 
+Small Blind : Calls $0.25 
+Big Blind : Checks
+*** FLOP *** [3d 5c Qh]
+Small Blind : Checks
+Big Blind : Checks
+UTG : Checks
+UTG+1  [ME] : Checks
+UTG+2 : Checks
+Dealer : Bets $3 
+Small Blind : Calls $3 
+Big Blind : Folds
+UTG : Folds
+UTG+1  [ME] : Folds
+UTG+2 : Folds
+*** TURN *** [3d 5c Qh] [7d]
+Small Blind : Checks
+Dealer : Checks
+*** RIVER *** [3d 5c Qh 7d] [Kh]
+Small Blind : Bets $9 
+Dealer : Folds
+Small Blind : Return uncalled portion of bet $9 
+Small Blind : Does not show [3c Ts 6c 4d] (Straight)
+Small Blind : Hand result $8.55 
+*** SUMMARY ***
+Total Pot($9)
+Board [3d 5c Qh 7d Kh]
+Seat+1: UTG Folded on the FLOP
+Seat+2: UTG+1 Folded on the FLOP
+Seat+3: UTG+2 Folded on the FLOP
+Seat+4: Dealer Folded on the RIVER
+Seat+5: Small Blind $8.55 [Does not show]  
+Seat+6: Big Blind Folded on the FLOP
+
+
+Ignition Hand #3563240635 TBL#14306754 OMAHA Pot Limit - 2018-02-04 00:15:31
+Seat 1: Big Blind ($47.88 in chips)
+Seat 2: UTG [ME] ($47.68 in chips)
+Seat 3: UTG+1 ($18.80 in chips)
+Seat 4: UTG+2 ($43.50 in chips)
+Seat 5: Dealer ($57.71 in chips)
+Seat 6: Small Blind ($69.24 in chips)
+Dealer : Set dealer [5] 
+Small Blind : Small Blind $0.25 
+Big Blind : Big blind $0.50 
+*** HOLE CARDS ***
+Big Blind : Card dealt to a spot [2h Jh 9s 4s] 
+UTG  [ME] : Card dealt to a spot [4d Td Ks Ac] 
+UTG+1 : Card dealt to a spot [6c 8c As Ah] 
+UTG+2 : Card dealt to a spot [8d 6s 2d 5s] 
+Dealer : Card dealt to a spot [7c 7d Qh Jd] 
+Small Blind : Card dealt to a spot [9c 3h Kc Js] 
+UTG  [ME] : Raises $1 to $1
+UTG+1 : Raises $3.75 to $3.75
+UTG+2 : Folds
+Dealer : Folds
+Small Blind : Folds
+Big Blind : Calls $3.25 
+UTG  [ME] : Calls $2.75 
+*** FLOP *** [Qd 8h Jc]
+Big Blind : Checks
+UTG  [ME] : Checks
+UTG+1 : Bets $11.50 
+Big Blind : Folds
+UTG  [ME] : Raises $23 to $23
+UTG+1 : All-in $3.55 
+UTG  [ME] : Return uncalled portion of bet $7.95 
+*** TURN *** [Qd 8h Jc] [3c]
+*** RIVER *** [Qd 8h Jc 3c] [3s]
+UTG  [ME] : Showdown [Ks Ac Qd 3c 3s] (One pair)
+UTG+1 : Showdown [As Ah Qd 3c 3s] (Two pair)
+UTG+1 : Hand result $39.52 
+UTG  [ME] : Seat sit out
+*** SUMMARY ***
+Total Pot($41.60)
+Board [Qd 8h Jc 3c 3s]
+Seat+1: Big Blind Folded on the FLOP
+Seat+2: UTG lost with One pair [4d Td Ks-Ks Ac Qd 3c 3s]  
+Seat+3: UTG+1 $39.52  with Two pair [6c 8c As Ah-As Ah Qd 3c 3s]  
+Seat+4: UTG+2 Folded before the FLOP
+Seat+5: Dealer Folded before the FLOP
+Seat+6: Small Blind Folded before the FLOP
+

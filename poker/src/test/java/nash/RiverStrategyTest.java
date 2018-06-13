@@ -1,23 +1,14 @@
 package nash;
 
-import gametree.BoardNode;
-import gametree.BoardNodeType;
-import gametree.GameTree;
-import gametree.NotSolvedException;
-import gametree.TreeInvalidException;
+import gametree.*;
+import junit.framework.Assert;
+import junit.framework.TestCase;
+import spears2p2.*;
+import util.Utilities;
 
 import java.util.Arrays;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import spears2p2.Card;
-import spears2p2.Hand;
-import spears2p2.Pair;
-import spears2p2.Rank;
-import spears2p2.Suit;
-import util.Utilities;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 public class RiverStrategyTest extends TestCase {
 	

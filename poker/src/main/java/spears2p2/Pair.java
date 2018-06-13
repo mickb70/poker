@@ -6,7 +6,7 @@ public class Pair {
 	public final static int pfcount = 169;
 	public final static int count = (Card.count * (Card.count - 1)) / 2;
 	
-	private static Pair[] values = new Pair[count];
+	public static Pair[] values = new Pair[count];
 	public static Pair[] pfvalues = new Pair[169];
 	private static Pair[][] valuesByCard = new Pair[Card.count][Card.count];
 	private static boolean[][] intersectsPair  = new boolean[count][count];
@@ -44,7 +44,7 @@ public class Pair {
 	public final int ordinal;
 	public final int isoOrd;
 	
-	private final Card[] cards = new Card[2];
+	final Card[] cards = new Card[2];
 
 
 	

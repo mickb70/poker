@@ -1,0 +1,624 @@
+Ignition Hand #3611571204  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:34:17
+Seat 1: Small Blind ($24.60 in chips)
+Seat 2: Big Blind [ME] ($12.50 in chips)
+Seat 3: UTG ($6.61 in chips)
+Seat 4: UTG+1 ($26.93 in chips)
+Seat 5: UTG+2 ($58.78 in chips)
+Seat 6: Dealer ($39.12 in chips)
+Dealer : Set dealer [6] 
+Small Blind : Small Blind $0.10 
+Big Blind  [ME] : Big blind $0.25 
+*** HOLE CARDS ***
+Small Blind : Card dealt to a spot [Ts 7c] 
+Big Blind  [ME] : Card dealt to a spot [3c Qd] 
+UTG : Card dealt to a spot [7s Js] 
+UTG+1 : Card dealt to a spot [5h 5s] 
+UTG+2 : Card dealt to a spot [As Qc] 
+Dealer : Card dealt to a spot [Kc 2c] 
+Dealer : Leave(Auto)
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Folds
+UTG+1 : Leave(Auto)
+UTG+2 : Raises $0.75 to $0.75
+Dealer : Folds
+Big Blind  [ME] : Leave(Auto)
+Small Blind : Folds
+Small Blind : Leave(Auto)
+Big Blind  [ME] : Folds
+UTG+2 : Return uncalled portion of bet $0.50 
+UTG+2 : Does not show [As Qc] (High Card)
+UTG+2 : Hand result $0.60 
+UTG+2 : Leave(Auto)
+UTG+2 : Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+UTG+1 : Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+Total Pot($0.60)
+Seat+1: Small Blind Folded before the RIVER
+Seat+2: Big Blind lost with High Card [3c Qd]  
+Seat+3: UTG Folded before the RIVER
+Seat+4: UTG+1 Folded before the RIVER
+Seat+5: UTG+2 $0.60 [Does not show]  
+Seat+6: Dealer lost with High Card [Kc 2c]  
+
+
+Ignition Hand #3611571270  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:34:31
+Seat 1: Small Blind ($29.29 in chips)
+Seat 2: Big Blind ($52.12 in chips)
+Seat 3: UTG [ME] ($12.25 in chips)
+Seat 4: UTG+1 ($82.41 in chips)
+Seat 5: UTG+2 ($54.52 in chips)
+Seat 6: Dealer ($27.87 in chips)
+Dealer : Set dealer [6] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Small Blind : Card dealt to a spot [Jc 5c] 
+Big Blind : Card dealt to a spot [Kh 7h] 
+UTG  [ME] : Card dealt to a spot [2h 3h] 
+UTG+1 : Card dealt to a spot [Ts 6c] 
+UTG+2 : Card dealt to a spot [Kd Th] 
+Dealer : Card dealt to a spot [Js 9h] 
+UTG+1 : Leave(Auto)
+Small Blind : Leave(Auto)
+UTG  [ME] : Folds
+UTG  [ME] : Leave(Auto)
+UTG+1 : Folds
+UTG+2 : Folds
+UTG+2 : Leave(Auto)
+Dealer : Raises $0.63 to $0.63
+Small Blind : Folds
+Big Blind : Calls $0.38 
+*** FLOP *** [4d Tc Qh]
+Big Blind : Checks
+Dealer : Bets $1 
+Big Blind : Folds
+Big Blind : Leave(Auto)
+Dealer : Return uncalled portion of bet $1 
+Dealer : Does not show [Js 9h] (High Card)
+Dealer : Hand result $1.30 
+Dealer : Leave(Auto)
+Enter(Auto)
+Small Blind : Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Seat sit out
+Leave(Auto)
+UTG+2 : Enter(Auto)
+*** SUMMARY ***
+
+
+Ignition Hand #3611571297  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:34:35
+Seat 1: UTG+2 ($29.19 in chips)
+Seat 2: Dealer [ME] ($12.25 in chips)
+Seat 3: Small Blind ($22.47 in chips)
+Seat 4: Big Blind ($26.93 in chips)
+Seat 5: UTG ($9.34 in chips)
+Seat 6: UTG+1 ($24.56 in chips)
+Dealer  [ME] : Set dealer [2] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+UTG+2 : Card dealt to a spot [Ks Ad] 
+Dealer  [ME] : Card dealt to a spot [3c 8d] 
+Small Blind : Card dealt to a spot [7h Td] 
+Big Blind : Card dealt to a spot [5d Jc] 
+UTG : Card dealt to a spot [3h 2h] 
+UTG+1 : Card dealt to a spot [3d 4h] 
+Small Blind : Leave(Auto)
+Dealer  [ME] : Leave(Auto)
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Folds
+UTG+1 : Leave(Auto)
+UTG+2 : Raises $0.75 to $0.75
+Dealer  [ME] : Folds
+Small Blind : Folds
+Big Blind : Folds
+Big Blind : Leave(Auto)
+UTG+2 : Return uncalled portion of bet $0.50 
+UTG+2 : Does not show [Ks Ad] (High Card)
+UTG+2 : Hand result $0.60 
+UTG+2 : Leave(Auto)
+Small Blind : Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+Total Pot($0.60)
+Seat+1: UTG+2 $0.60 [Does not show]  
+Seat+2: Dealer lost with High Card [3c 8d]  
+Seat+3: Small Blind lost with High Card [7h Td]  
+Seat+4: Big Blind Folded before the RIVER
+Seat+5: UTG Folded before the RIVER
+Seat+6: UTG+1 Folded before the RIVER
+
+
+Ignition Hand #3611571320  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:34:40
+Seat 1: UTG+1 ($22.37 in chips)
+Seat 2: UTG+2 ($28.81 in chips)
+Seat 3: Dealer ($25.76 in chips)
+Seat 4: Small Blind [ME] ($12.25 in chips)
+Seat 5: Big Blind ($59.13 in chips)
+Seat 6: UTG ($27.16 in chips)
+Dealer : Set dealer [3] 
+Small Blind  [ME] : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+UTG+1 : Card dealt to a spot [As Td] 
+UTG+2 : Card dealt to a spot [Qs 8s] 
+Dealer : Card dealt to a spot [3h 4d] 
+Small Blind  [ME] : Card dealt to a spot [6d Ac] 
+Big Blind : Card dealt to a spot [7d 7c] 
+UTG : Card dealt to a spot [Kd 2h] 
+UTG+2 : Leave(Auto)
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Raises $0.75 to $0.75
+UTG+2 : Folds
+Small Blind  [ME] : Leave(Auto)
+Dealer : Folds
+Dealer : Leave(Auto)
+Small Blind  [ME] : Folds
+Big Blind : Calls $0.50 
+*** FLOP *** [Qh Kc 6h]
+Big Blind : Checks
+UTG+1 : Bets $1.10 
+Big Blind : Folds
+Big Blind : Leave(Auto)
+UTG+1 : Return uncalled portion of bet $1.10 
+UTG+1 : Does not show [As Td] (High Card)
+UTG+1 : Hand result $1.52 
+UTG+1 : Leave(Auto)
+Enter(Auto)
+Seat sit out
+Seat re-join
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+
+
+Ignition Hand #3611571392  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:34:51
+Seat 1: Big Blind ($14.64 in chips)
+Seat 2: UTG [ME] ($12.15 in chips)
+Seat 3: UTG+1 ($57.28 in chips)
+Seat 4: UTG+2 ($28.56 in chips)
+Seat 5: Dealer ($20.80 in chips)
+Seat 6: Small Blind ($10.81 in chips)
+Dealer : Set dealer [5] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Big Blind : Card dealt to a spot [9h 2s] 
+UTG  [ME] : Card dealt to a spot [Tc 7s] 
+UTG+1 : Card dealt to a spot [4s Th] 
+UTG+2 : Card dealt to a spot [2h 2c] 
+Dealer : Card dealt to a spot [9c 8s] 
+Small Blind : Card dealt to a spot [Qc As] 
+UTG  [ME] : Folds
+UTG  [ME] : Leave(Auto)
+UTG+1 : Folds
+UTG+1 : Leave(Auto)
+Dealer : Leave(Auto)
+UTG+2 : Raises $0.75 to $0.75
+Dealer : Folds
+Small Blind : All-in(raise) $10.71 to $10.81
+UTG+2 : Leave(Auto)
+Big Blind : Folds
+Big Blind : Leave(Auto)
+UTG+2 : Folds
+Small Blind : Return uncalled portion of bet $10.06 
+Small Blind : Does not show [Qc As] (High Card)
+Small Blind : Hand result $1.75 
+Small Blind : Leave(Auto)
+Enter(Auto)
+Seat sit out
+Seat stand
+Table leave user
+Enter(Auto)
+Seat sit out
+Seat re-join
+Leave(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+
+
+Ignition Hand #3611571418  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:34:56
+Seat 1: Big Blind ($14.08 in chips)
+Seat 2: UTG [ME] ($12.15 in chips)
+Seat 3: UTG+1 ($12.60 in chips)
+Seat 4: UTG+2 ($8.90 in chips)
+Seat 5: Dealer ($23.30 in chips)
+Seat 6: Small Blind ($26.68 in chips)
+Dealer : Set dealer [5] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Big Blind : Card dealt to a spot [3d Ah] 
+UTG  [ME] : Card dealt to a spot [As Ad] 
+UTG+1 : Card dealt to a spot [Ac Ks] 
+UTG+2 : Card dealt to a spot [Qs 7d] 
+Dealer : Card dealt to a spot [Kd 3h] 
+Small Blind : Card dealt to a spot [4d 7s] 
+Small Blind : Leave(Auto)
+UTG+2 : Leave(Auto)
+Dealer : Leave(Auto)
+UTG  [ME] : Raises $0.75 to $0.75
+Big Blind : Leave(Auto)
+UTG+1 : Raises $2 to $2
+UTG+2 : Folds
+Dealer : Folds
+Small Blind : Folds
+Big Blind : Folds
+UTG  [ME] : Raises $2.80 to $3.55
+UTG+1 : Raises $9.96 to $11.96
+UTG  [ME] : All-in(raise) $8.60 to $12.15
+UTG+1 : Calls $0.19 
+*** FLOP *** [Qh 4h Td]
+*** TURN *** [Qh 4h Td] [Ts]
+*** RIVER *** [Qh 4h Td Ts] [6s]
+UTG  [ME] : Showdown [As Ad Ts Td Qh] (Two pair)
+UTG+1 : Showdown [Ts Td Ac Ks Qh] (One pair)
+UTG  [ME] : Hand result $23.42 
+UTG  [ME] : Leave(Auto)
+UTG+1 : Leave(Auto)
+Enter(Auto)
+UTG  [ME] : Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Big Blind : Enter(Auto)
+*** SUMMARY ***
+Total Pot($24.65)
+Board [Qh 4h Td Ts 6s]
+Seat+1: Big Blind lost with One pair [3d Ah]  
+Seat+2: UTG $23.42  with Two pair [As Ad-As Ad Ts Td Qh]  
+Seat+3: UTG+1 lost with One pair [Ac Ks-Ts Td Ac Ks Qh]  
+Seat+4: UTG+2 lost with Two pair [Qs 7d]  
+Seat+5: Dealer lost with One pair [Kd 3h]  
+Seat+6: Small Blind lost with Two pair [4d 7s]  
+
+
+Ignition Hand #3611571695  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:35:45
+Seat 1: Big Blind ($34 in chips)
+Seat 2: UTG ($35.41 in chips)
+Seat 3: UTG+1 ($25 in chips)
+Seat 4: UTG+2 ($58.28 in chips)
+Seat 5: Dealer [ME] ($23.42 in chips)
+Seat 6: Small Blind ($0.45 in chips)
+Dealer  [ME] : Set dealer [5] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Big Blind : Card dealt to a spot [4s 9s] 
+UTG : Card dealt to a spot [7d Tc] 
+UTG+1 : Card dealt to a spot [4h Ah] 
+UTG+2 : Card dealt to a spot [6c 9h] 
+Dealer  [ME] : Card dealt to a spot [3s Ts] 
+Small Blind : Card dealt to a spot [2h 9c] 
+Small Blind : Leave(Auto)
+Dealer  [ME] : Leave(Auto)
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Raises $0.75 to $0.75
+UTG+2 : Folds
+UTG+2 : Leave(Auto)
+Dealer  [ME] : Folds
+Small Blind : Folds
+Big Blind : Folds (timeout)
+Big Blind : Seat sit out
+UTG+1 : Return uncalled portion of bet $0.50 
+UTG+1 : Does not show [4h Ah] (High Card)
+UTG+1 : Hand result $0.60 
+Big Blind : Leave(Auto)
+UTG+1 : Leave(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+
+
+Ignition Hand #3611571717  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:35:50
+Seat 1: UTG+1 ($0.35 in chips)
+Seat 2: UTG+2 ($22.65 in chips)
+Seat 3: Dealer ($43.09 in chips)
+Seat 4: Small Blind ($27.79 in chips)
+Seat 5: Big Blind [ME] ($23.42 in chips)
+Seat 6: UTG ($25.26 in chips)
+Dealer : Set dealer [3] 
+Small Blind : Small Blind $0.10 
+Big Blind  [ME] : Big blind $0.25 
+*** HOLE CARDS ***
+UTG+1 : Card dealt to a spot [3s 2h] 
+UTG+2 : Card dealt to a spot [7c 7d] 
+Dealer : Card dealt to a spot [2s 3d] 
+Small Blind : Card dealt to a spot [4s 4h] 
+Big Blind  [ME] : Card dealt to a spot [Kd Jh] 
+UTG : Card dealt to a spot [6c 4d] 
+UTG+1 : Leave(Auto)
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Folds
+UTG+2 : Raises $0.75 to $0.75
+Dealer : Folds
+Dealer : Leave(Auto)
+Small Blind : Folds
+Small Blind : Leave(Auto)
+Big Blind  [ME] : Calls $0.50 
+*** FLOP *** [Th Td 9d]
+Big Blind  [ME] : Checks
+UTG+2 : Checks
+*** TURN *** [Th Td 9d] [Kc]
+Big Blind  [ME] : Bets $0.80 
+UTG+2 : Calls $0.80 
+*** RIVER *** [Th Td 9d Kc] [Ts]
+Big Blind  [ME] : Bets $1.60 
+UTG+2 : Folds
+UTG+2 : Leave(Auto)
+Big Blind  [ME] : Return uncalled portion of bet $1.60 
+Big Blind  [ME] : Does not show [Kd Jh] (Full House)
+Big Blind  [ME] : Hand result $3.04 
+Big Blind  [ME] : Leave(Auto)
+Enter(Auto)
+UTG+2 : Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+Total Pot($3.20)
+Board [Th Td 9d Kc Ts]
+Seat+1: UTG+1 lost with Three of a kind [3s 2h]  
+Seat+2: UTG+2 Folded on the RIVER
+Seat+3: Dealer Folded before the RIVER
+Seat+4: Small Blind Folded before the RIVER
+Seat+5: Big Blind $3.04 [Does not show]  
+Seat+6: UTG Folded before the RIVER
+
+
+Ignition Hand #3611571974  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:36:35
+Seat 1: UTG [ME] ($24.91 in chips)
+Seat 2: UTG+1 ($11.96 in chips)
+Seat 3: UTG+2 ($46.79 in chips)
+Seat 4: Dealer ($24.65 in chips)
+Seat 5: Small Blind ($24.75 in chips)
+Seat 6: Big Blind ($26.45 in chips)
+Dealer : Set dealer [4] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+UTG  [ME] : Card dealt to a spot [Ad Tc] 
+UTG+1 : Card dealt to a spot [7s Qd] 
+UTG+2 : Card dealt to a spot [Ts Jc] 
+Dealer : Card dealt to a spot [8c Kd] 
+Small Blind : Card dealt to a spot [Ks 4d] 
+Big Blind : Card dealt to a spot [2d Jd] 
+Small Blind : Leave(Auto)
+UTG  [ME] : Raises $0.75 to $0.75
+UTG+1 : Folds
+UTG+1 : Leave(Auto)
+UTG+2 : Folds
+UTG+2 : Leave(Auto)
+Dealer : Folds
+Dealer : Leave(Auto)
+Small Blind : Folds
+Big Blind : Folds
+UTG  [ME] : Return uncalled portion of bet $0.50 
+UTG  [ME] : Does not show [Ad Tc] (High Card)
+UTG  [ME] : Hand result $0.60 
+Big Blind : Seat sit out
+Big Blind : Leave(Auto)
+UTG  [ME] : Leave(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+
+
+Ignition Hand #3611572085  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:36:55
+Seat 1: Dealer [ME] ($25.26 in chips)
+Seat 2: Small Blind ($23.40 in chips)
+Seat 3: Big Blind ($40.27 in chips)
+Seat 4: UTG ($10.63 in chips)
+Seat 5: UTG+1 ($20.73 in chips)
+Seat 6: UTG+2 ($26.57 in chips)
+Dealer  [ME] : Set dealer [1] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Dealer  [ME] : Card dealt to a spot [Kh 7s] 
+Small Blind : Card dealt to a spot [6s 7d] 
+Big Blind : Card dealt to a spot [7c 8h] 
+UTG : Card dealt to a spot [Jc Qc] 
+UTG+1 : Card dealt to a spot [5h Ks] 
+UTG+2 : Card dealt to a spot [Ad 2h] 
+Small Blind : Leave(Auto)
+UTG : Raises $0.69 to $0.69
+Dealer  [ME] : Leave(Auto)
+UTG+1 : Folds
+UTG+1 : Leave(Auto)
+UTG+2 : Calls $0.69 
+Dealer  [ME] : Folds
+Small Blind : Folds
+Big Blind : Folds (timeout)
+Big Blind : Seat sit out
+*** FLOP *** [Kd 5c Ts]
+Big Blind : Seat re-join
+Big Blind : Leave(Auto)
+UTG : Checks
+UTG+2 : Bets $0.25 
+UTG : Raises $0.65 to $0.65
+UTG+2 : Calls $0.40 
+*** TURN *** [Kd 5c Ts] [9h]
+UTG : Bets $0.73 
+UTG+2 : Folds
+UTG+2 : Leave(Auto)
+UTG : Return uncalled portion of bet $0.73 
+UTG : Does not show [Jc Qc] (Straight)
+UTG : Hand result $2.88 
+UTG : Leave(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+
+
+Ignition Hand #3611572129  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:37:02
+Seat 1: Dealer ($53.34 in chips)
+Seat 2: Small Blind ($51.14 in chips)
+Seat 3: Big Blind ($34.54 in chips)
+Seat 4: UTG [ME] ($25.26 in chips)
+Seat 5: UTG+1 ($27.34 in chips)
+Seat 6: UTG+2 ($8.48 in chips)
+Dealer : Set dealer [1] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+Dealer : Card dealt to a spot [Tc Td] 
+Small Blind : Card dealt to a spot [3s Ts] 
+Big Blind : Card dealt to a spot [Kh 6s] 
+UTG  [ME] : Card dealt to a spot [Qd 7d] 
+UTG+1 : Card dealt to a spot [2d 3d] 
+UTG+2 : Card dealt to a spot [Ac 8h] 
+Small Blind : Leave(Auto)
+UTG+1 : Leave(Auto)
+UTG  [ME] : Folds
+UTG  [ME] : Leave(Auto)
+UTG+1 : Folds
+Big Blind : Leave(Auto)
+UTG+2 : Folds
+UTG+2 : Leave(Auto)
+Dealer : Raises $0.85 to $0.85
+Small Blind : Folds
+Big Blind : Folds
+Dealer : Return uncalled portion of bet $0.60 
+Dealer : Does not show [Tc Td] (High Card)
+Dealer : Hand result $0.60 
+Dealer : Leave(Auto)
+Enter(Auto)
+Seat sit out
+Table deposit $12.50 
+Seat re-join
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+
+
+Ignition Hand #3611572159  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:37:08
+Seat 1: UTG+1 ($25.94 in chips)
+Seat 2: UTG+2 ($21.37 in chips)
+Seat 3: Dealer [ME] ($25.26 in chips)
+Seat 4: Small Blind ($20.73 in chips)
+Seat 5: Big Blind ($11.04 in chips)
+Seat 6: UTG ($12.69 in chips)
+Dealer  [ME] : Set dealer [3] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+UTG+1 : Card dealt to a spot [9c 3d] 
+UTG+2 : Card dealt to a spot [8c Js] 
+Dealer  [ME] : Card dealt to a spot [Jd 7c] 
+Small Blind : Card dealt to a spot [9s Qd] 
+Big Blind : Card dealt to a spot [7s 4s] 
+UTG : Card dealt to a spot [3s Kc] 
+UTG+2 : Leave(Auto)
+UTG+1 : Leave(Auto)
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Folds
+UTG+2 : Folds
+Dealer  [ME] : Folds
+Dealer  [ME] : Leave(Auto)
+Small Blind : Folds
+Small Blind : Leave(Auto)
+Big Blind : Does not show [7s 4s] (High Card)
+Big Blind : Hand result $0.35 
+Big Blind : Leave(Auto)
+Enter(Auto)
+Seat sit out
+Seat stand
+Table leave user
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+UTG+1 : Enter(Auto)
+Big Blind : Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+Total Pot($0.35)
+Seat+1: UTG+1 lost with High Card [9c 3d]  
+Seat+2: UTG+2 lost with High Card [8c Js]  
+Seat+3: Dealer Folded before the RIVER
+Seat+4: Small Blind Folded before the RIVER
+Seat+5: Big Blind $0.35 [Does not show]  
+Seat+6: UTG Folded before the RIVER
+
+
+Ignition Hand #3611572213  Zone Poker ID#1231 HOLDEMZonePoker No Limit - 2018-05-30 18:37:18
+Seat 1: UTG+2 ($46.44 in chips)
+Seat 2: Dealer [ME] ($25.26 in chips)
+Seat 3: Small Blind ($23.55 in chips)
+Seat 4: Big Blind ($36.41 in chips)
+Seat 5: UTG ($25 in chips)
+Seat 6: UTG+1 ($56.95 in chips)
+Dealer  [ME] : Set dealer [2] 
+Small Blind : Small Blind $0.10 
+Big Blind : Big blind $0.25 
+*** HOLE CARDS ***
+UTG+2 : Card dealt to a spot [Qc 9d] 
+Dealer  [ME] : Card dealt to a spot [Qs 3c] 
+Small Blind : Card dealt to a spot [5d 2h] 
+Big Blind : Card dealt to a spot [7c Jd] 
+UTG : Card dealt to a spot [Js 9c] 
+UTG+1 : Card dealt to a spot [3s 4s] 
+UTG+1 : Leave(Auto)
+Small Blind : Leave(Auto)
+UTG : Folds
+UTG : Leave(Auto)
+UTG+1 : Folds
+Dealer  [ME] : Leave(Auto)
+UTG+2 : Raises $0.75 to $0.75
+Dealer  [ME] : Folds
+Small Blind : Folds
+Big Blind : Folds
+Big Blind : Leave(Auto)
+UTG+2 : Return uncalled portion of bet $0.50 
+UTG+2 : Does not show [Qc 9d] (High Card)
+UTG+2 : Hand result $0.60 
+UTG+2 : Leave(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+Enter(Auto)
+*** SUMMARY ***
+
