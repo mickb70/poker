@@ -2,6 +2,10 @@ package util;
 
 public abstract class Utilities {
 	
+	public static double calcEquity(double wins, double loss, double chop) {
+		return (wins + (chop/2))/(wins+loss+chop);
+	}
+	
 	public static double getDoubleArrayTotal(double[] arr) {
 		double total = 0;
 		

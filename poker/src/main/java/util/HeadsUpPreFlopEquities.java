@@ -9,10 +9,10 @@ import java.util.TreeSet;
 import spears2p2.Pair;
 
 
-public class PreFlopEquities {
+public class HeadsUpPreFlopEquities {
 	public static int wins[][] = new int[169][169];
-	public static int losses[][]  = new int[169][169];
-	public static int chops[][]  = new int[169][169];
+	public static int loss[][]  = new int[169][169];
+	public static int chop[][]  = new int[169][169];
 	public static double equity[][]  = new double[169][169];
 	
 	static {
@@ -32,8 +32,8 @@ public class PreFlopEquities {
 		
 		for (int i = 0; i < 169; i++) {
 			for (int j = 0; j < 169; j++) {
-				double num = wins[i][j] + ((double)chops[i][j]/(double)2);
-				double denom = (double)(wins[i][j]+chops[i][j]+losses[i][j]);
+				double num = wins[i][j] + ((double)chop[i][j]/(double)2);
+				double denom = (double)(wins[i][j]+chop[i][j]+loss[i][j]);
 				equity[i][j] = (double)(double)num /(double)denom;
 			}
 		}
@@ -57,13 +57,13 @@ public class PreFlopEquities {
 		f = new File(fileName);
 		if (f.exists()) {
 			ObjectInputStream s = new ObjectInputStream(new FileInputStream(fileName));
-			losses[preFlopOrdinal] = (int[]) s.readObject();
+			loss[preFlopOrdinal] = (int[]) s.readObject();
 		}
 		fileName= "resources/pfdat_pfai_only/chops_" + preFlopOrdinal + ".ser";
 		f = new File(fileName);
 		if (f.exists()) {
 			ObjectInputStream s = new ObjectInputStream(new FileInputStream(fileName));
-			chops[preFlopOrdinal] = (int[]) s.readObject();
+			chop[preFlopOrdinal] = (int[]) s.readObject();
 		}
 		return true;
 	}
