@@ -140,24 +140,24 @@ public class HandHistoryParser {
 		Pattern patternDC = Pattern.compile("Ignition Hand #(\\d*)\\s(.*)");
 		String handId = null;
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-		    String line;
-		    ArrayList<String> strArr = null;
-		    
-		    while ((line = br.readLine()) != null) {
-		    	if (line.startsWith("Ignition Hand #")) {
-		    		Matcher matcherDC = patternDC.matcher(line);
-		    		if (matcherDC.matches()) {
-		    			handId = matcherDC.group(1);
-		    		} else {
-		    			throw new HandHistoryInvalidException(line);
-		    		}
-		    		strArr = new ArrayList<String>();
-		    		hands.put(handId, strArr);
-		    	}
-	    		strArr.add(line);
-		    }
-		}
+//		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+//		    String line;
+//		    ArrayList<String> strArr = null;
+//		    
+//		    while ((line = br.readLine()) != null) {
+//		    	if (line.startsWith("Ignition Hand #")) {
+//		    		Matcher matcherDC = patternDC.matcher(line);
+//		    		if (matcherDC.matches()) {
+//		    			handId = matcherDC.group(1);
+//		    		} else {
+//		    			throw new HandHistoryInvalidException(line);
+//		    		}
+//		    		strArr = new ArrayList<String>();
+//		    		hands.put(handId, strArr);
+//		    	}
+//	    		strArr.add(line);
+//		    }
+//		}
 		
 		for (Map.Entry<String, ArrayList<String>> handEntry: hands.entrySet()) {
 			table = parseHand(handEntry.getValue(), stripMe);

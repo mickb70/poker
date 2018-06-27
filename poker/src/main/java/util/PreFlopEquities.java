@@ -10,10 +10,10 @@ import spears2p2.Pair;
 
 
 public class PreFlopEquities {
-	public static int wins[][];
-	public static int losses[][];
-	public static int chops[][];
-	public static double equity[][];
+	public static int wins[][] = new int[169][169];
+	public static int losses[][]  = new int[169][169];
+	public static int chops[][]  = new int[169][169];
+	public static double equity[][]  = new double[169][169];
 	
 	static {
 		for (int i = 0; i < 169; i++) {
@@ -23,7 +23,8 @@ public class PreFlopEquities {
 					System.exit(42);
 				}
 			} catch (Exception e) {
-				System.out.println("dude where are my files");
+				System.out.println("hmm");
+				System.out.println(e.toString());
 				e.printStackTrace();
 				System.exit(42);
 			}
@@ -45,7 +46,8 @@ public class PreFlopEquities {
 		fileName = "resources/pfdat_pfai_only/wins_" + preFlopOrdinal + ".ser";
 		f = new File(fileName);
 		if (f.exists()) {
-			ObjectInputStream s = new ObjectInputStream(new FileInputStream(fileName));
+			FileInputStream fg = new FileInputStream(fileName);
+			ObjectInputStream s = new ObjectInputStream(fg);
 			wins[preFlopOrdinal] = (int[]) s.readObject();
 		} else {
 			System.out.println("No files so do it the hard way");

@@ -12,7 +12,6 @@ public class PairRank implements Comparable<PairRank> {
 		this.rank = rank;
 	}
 
-	@Override
 	public int compareTo(PairRank comp) {
 		if (this.rank != comp.rank) {
 			return (comp.rank - this.rank);

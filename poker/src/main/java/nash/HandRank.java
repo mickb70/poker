@@ -11,7 +11,6 @@ public class HandRank implements Comparable<HandRank> {
 		this.rank = rank;
 	}
 
-	@Override
 	public int compareTo(HandRank comp) {
 		return (comp.rank - this.rank);
 	}

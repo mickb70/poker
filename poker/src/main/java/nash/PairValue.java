@@ -19,7 +19,6 @@ public class PairValue implements Comparable<PairValue> {
 		this.stratDiff = stratDiff;
 	}
 
-	@Override
 	public int compareTo(PairValue comp) {
 		if (this.value > comp.value) {
 			return -1;

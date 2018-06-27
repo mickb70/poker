@@ -10,8 +10,8 @@ import spears2p2.Suit;
 public class PreFlopEquitiesTest extends TestCase {
 	
 	public void testTwoDimesCompare() {
-		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Clubs), Card.get(Rank.Ace, Suit.Clubs));
-		Pair kings = Pair.get(Card.get(Rank.King, Suit.Clubs), Card.get(Rank.King, Suit.Clubs));
+		Pair aces = Pair.get(Card.get(Rank.Ace, Suit.Clubs), Card.get(Rank.Ace, Suit.Spades));
+		Pair kings = Pair.get(Card.get(Rank.King, Suit.Clubs), Card.get(Rank.King, Suit.Spades));
 		double eq = PreFlopEquities.equity[aces.isoOrd][kings.isoOrd];
 		Assert.assertEquals(81.95, eq, 0.001);
 	}
