@@ -7,6 +7,7 @@ package gameplay;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 
 /**
  *
@@ -97,5 +98,30 @@ public class Table {
 
 	public void setActions(LinkedList<GameAction> actions) {
 		this.actions = actions;
+	}
+	
+	public double getMinStack() {
+		double minStack = 1000000000;
+		
+		for (Entry<String, Player> playerEntry : this.players.entrySet()) {
+		    minStack = Math.min(minStack, playerEntry.getValue().getChipStack());
+		}
+		
+		return minStack;
+	}
+
+	public double getEffectiveStackPlayerHasMin(String name) {
+		Player player  = getPlayer(name);
+		double playerStack = -1;
+		
+		if (null != player) {
+			playerStack = player.getChipStack();
+		}
+		
+		if (playerStack == getMinStack()) {
+			return playerStack;
+		}
+		
+		return -1;
 	}
 }

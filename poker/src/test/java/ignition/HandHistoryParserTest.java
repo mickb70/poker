@@ -2,13 +2,9 @@ package ignition;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import gameplay.GameNode;
-import gameplay.Player;
 import gameplay.Table;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -88,7 +84,7 @@ public class HandHistoryParserTest extends TestCase {
 		
 		GameNode tree = HandHistoryParser.createPreFlopTreeSixMin(tables);
 		
-		Assert.assertEquals(12,tree.getNumDescendants());
+		Assert.assertEquals(882,tree.getNumDescendants());
 	}
 	
 	public void testCreatePreFlopTreeDlrVsBb() throws FileNotFoundException, IOException, HandHistoryInvalidException {
@@ -97,7 +93,7 @@ public class HandHistoryParserTest extends TestCase {
 		
 		GameNode tree = HandHistoryParser.createPreFlopTreeSixMinDlrVsBb(tables);
 		
-		Assert.assertEquals(12,tree.getNumDescendants());
+		Assert.assertEquals(103,tree.getNumDescendants());
 	}
 	
 	public void testCreatePreFlopTreeDlrRFI3bb() throws FileNotFoundException, IOException, HandHistoryInvalidException {
@@ -106,6 +102,19 @@ public class HandHistoryParserTest extends TestCase {
 		
 		GameNode tree = HandHistoryParser.createPreFlopTreeSixMinDlrRFI3bb(tables);
 		
-		Assert.assertEquals(12,tree.getNumDescendants());
+		Assert.assertEquals(250,tree.getNumDescendants());
+	}
+	
+	public void testCreatePreFlopTreeDlrMeEffStack11to14() throws FileNotFoundException, IOException, HandHistoryInvalidException {
+		HashMap<String, Table> tables = 
+				HandHistoryParser.extractHandsFromDir("resources/moreTestHH","minEffStackDlr11-14", false);
+		double minEff = 11;
+		double maxEff = 14;
+		String player = "Dealer[ME]";
+		
+		GameNode tree = HandHistoryParser.createPreFlopTreeEff(tables,player,minEff,maxEff);
+		
+		Assert.assertEquals(5, tables.size());
+		Assert.assertEquals(2, tree.getKids().get(0).getVisitCount());
 	}
 }

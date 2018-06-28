@@ -34,6 +34,39 @@ public class HandHistoryParser {
 		Complete
 	}
 	
+
+
+	public static GameNode createPreFlopTreeEff(HashMap<String, Table> tables, String player, double minEff, double maxEff) throws HandHistoryInvalidException {
+		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0));
+		GameNode currNode = tree;
+		Table table = null;
+		
+		for (Entry<String, Table> tableEntry : tables.entrySet()) {
+			table = tableEntry.getValue();
+			currNode = tree;
+			double effectiveStack = table.getEffectiveStackPlayerHasMin(player);
+			
+			if (table.getNumSeats() < 6) {
+				continue;
+			}
+			
+			if ((effectiveStack < minEff)||(effectiveStack > maxEff)) {
+				continue;
+			}
+			
+			for (GameAction action : table.getActions()) {
+				if (action.getActionType() == ActionType.Flop) {
+					break;
+				} else if (action.getActionType() == ActionType.Turn) {
+					throw new HandHistoryInvalidException("gone past the flop");
+				}
+				currNode = currNode.addChild(action);
+			}
+		}
+		
+		return tree;
+	}
+	
 	public static GameNode createPreFlopTreeSixMin(HashMap<String, Table> tables) throws HandHistoryInvalidException {
 		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0));
 		GameNode currNode = tree;
@@ -140,24 +173,24 @@ public class HandHistoryParser {
 		Pattern patternDC = Pattern.compile("Ignition Hand #(\\d*)\\s(.*)");
 		String handId = null;
 		
-//		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-//		    String line;
-//		    ArrayList<String> strArr = null;
-//		    
-//		    while ((line = br.readLine()) != null) {
-//		    	if (line.startsWith("Ignition Hand #")) {
-//		    		Matcher matcherDC = patternDC.matcher(line);
-//		    		if (matcherDC.matches()) {
-//		    			handId = matcherDC.group(1);
-//		    		} else {
-//		    			throw new HandHistoryInvalidException(line);
-//		    		}
-//		    		strArr = new ArrayList<String>();
-//		    		hands.put(handId, strArr);
-//		    	}
-//	    		strArr.add(line);
-//		    }
-//		}
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+		    String line;
+		    ArrayList<String> strArr = null;
+		    
+		    while ((line = br.readLine()) != null) {
+		    	if (line.startsWith("Ignition Hand #")) {
+		    		Matcher matcherDC = patternDC.matcher(line);
+		    		if (matcherDC.matches()) {
+		    			handId = matcherDC.group(1);
+		    		} else {
+		    			throw new HandHistoryInvalidException(line);
+		    		}
+		    		strArr = new ArrayList<String>();
+		    		hands.put(handId, strArr);
+		    	}
+	    		strArr.add(line);
+		    }
+		}
 		
 		for (Map.Entry<String, ArrayList<String>> handEntry: hands.entrySet()) {
 			table = parseHand(handEntry.getValue(), stripMe);
