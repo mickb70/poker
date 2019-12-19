@@ -21,6 +21,7 @@ import gameplay.Player;
 import gameplay.Table;
 import spears2p2.Card;
 import spears2p2.Pair;
+import util.Sequence;
 
 public class HandHistoryParser {
 	private enum HandSection {
@@ -36,10 +37,48 @@ public class HandHistoryParser {
 	
 
 
-	public static GameNode createPreFlopTreeEff(HashMap<String, Table> tables, String player, double minEff, double maxEff) throws HandHistoryInvalidException {
-		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0));
+	public static GameNode createFullTreeEff(HashMap<String, Table> tables, String player, double minEff,
+			double maxEff) {
+		Sequence seq = new Sequence(0);
+		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0, true), seq);
 		GameNode currNode = tree;
 		Table table = null;
+		int chanceIdx = 0;
+		
+		for (Entry<String, Table> tableEntry : tables.entrySet()) {
+			table = tableEntry.getValue();
+			currNode = tree;
+			double effectiveStack = table.getEffectiveStackPlayerHasMin(player);
+			
+			if (table.getNumSeats() < 6) {
+				continue;
+			}
+			
+			if ((effectiveStack < minEff)||(effectiveStack > maxEff)) {
+				continue;
+			}
+			
+			for (GameAction action : table.getActions()) {
+//				if (action.getActionType() == ActionType.Flop) {
+//					break;
+//				} else if (action.getActionType() == ActionType.Turn) {
+//					throw new HandHistoryInvalidException("gone past the flop");
+//				}
+				chanceIdx = (action.getChanceSize() == 1) ? 0 : table.getPlayer(action.getName()).getPair().isoOrd;
+				currNode = currNode.addChild(action, chanceIdx, seq);
+			}
+		}
+		
+		return tree;
+	}
+	
+	public static GameNode createPreFlopTreeEff(HashMap<String, Table> tables, String player, 
+			double minEff, double maxEff) throws HandHistoryInvalidException {
+		Sequence seq = new Sequence(0);
+		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0, true), seq);
+		GameNode currNode = tree;
+		Table table = null;
+		int chanceIdx = 0;
 		
 		for (Entry<String, Table> tableEntry : tables.entrySet()) {
 			table = tableEntry.getValue();
@@ -60,7 +99,8 @@ public class HandHistoryParser {
 				} else if (action.getActionType() == ActionType.Turn) {
 					throw new HandHistoryInvalidException("gone past the flop");
 				}
-				currNode = currNode.addChild(action);
+				chanceIdx = (action.getChanceSize() == 1) ? 0 : table.getPlayer(action.getName()).getPair().isoOrd;
+				currNode = currNode.addChild(action, chanceIdx, seq);
 			}
 		}
 		
@@ -68,9 +108,11 @@ public class HandHistoryParser {
 	}
 	
 	public static GameNode createPreFlopTreeSixMin(HashMap<String, Table> tables) throws HandHistoryInvalidException {
-		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0));
+		Sequence seq = new Sequence(0);
+		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0, true), seq);
 		GameNode currNode = tree;
 		Table table = null;
+		int chanceIdx = 0;
 		
 		for (Entry<String, Table> tableEntry : tables.entrySet()) {
 			table = tableEntry.getValue();
@@ -86,7 +128,9 @@ public class HandHistoryParser {
 				} else if (action.getActionType() == ActionType.Turn) {
 					throw new HandHistoryInvalidException("gone past the flop");
 				}
-				currNode = currNode.addChild(action);
+
+				chanceIdx = (action.getChanceSize() == 1) ? 0 : table.getPlayer(action.getName()).getPair().isoOrd;
+				currNode = currNode.addChild(action, chanceIdx, seq);
 			}
 		}
 		
@@ -94,9 +138,11 @@ public class HandHistoryParser {
 	}
 	
 	public static GameNode createPreFlopTreeSixMinDlrVsBb(HashMap<String, Table> tables) {
-		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0));
+		Sequence seq = new Sequence(0);
+		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0, true), seq);
 		GameNode currNode = tree;
 		Table table = null;
+		int chanceIdx = 0;
 		
 		for (Entry<String, Table> tableEntry : tables.entrySet()) {
 			table = tableEntry.getValue();
@@ -118,7 +164,9 @@ public class HandHistoryParser {
 						break;
 					}
 				}
-				currNode = currNode.addChild(action);
+
+				chanceIdx = (action.getChanceSize() == 1) ? 0 : table.getPlayer(action.getName()).getPair().isoOrd;
+				currNode = currNode.addChild(action, chanceIdx, seq);
 			}
 		}
 		
@@ -126,10 +174,12 @@ public class HandHistoryParser {
 	}
 	
 	public static GameNode createPreFlopTreeSixMinDlrRFI3bb(HashMap<String, Table> tables) {
-		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0));
+		Sequence seq = new Sequence(0);
+		GameNode tree = new GameNode(null, new GameAction("root", ActionType.Init, 0, true), seq);
 		GameNode currNode = tree;
 		Table table = null;
 		boolean DealerActed = false;
+		int chanceIdx = 0;
 		
 		for (Entry<String, Table> tableEntry : tables.entrySet()) {
 			table = tableEntry.getValue();
@@ -159,7 +209,9 @@ public class HandHistoryParser {
 						break;
 					}
 				}
-				currNode = currNode.addChild(action);
+
+				chanceIdx = (action.getChanceSize() == 1) ? 0 : table.getPlayer(action.getName()).getPair().isoOrd;
+				currNode = currNode.addChild(action, chanceIdx, seq);
 			}
 		}
 		
@@ -271,25 +323,25 @@ public class HandHistoryParser {
 	private static void parsePayout(String str, Table table, boolean stripMe) throws HandHistoryInvalidException {
 		String name = getNameFromStartAction(str, stripMe);
 		double tot = getCurrency(str)[0];
-		table.getActions().add(new GameAction(name, ActionType.Payout, tot));
+		table.getActions().add(new GameAction(name, ActionType.Payout, tot, true));
 	}
 	
 	private static void parseCall(String str, Table table, boolean stripMe) throws HandHistoryInvalidException {
 		String name = getNameFromStartAction(str, stripMe);
 		double call = getCurrency(str)[0];
-		table.getActions().add(new GameAction(name, ActionType.Call, call));
+		table.getActions().add(new GameAction(name, ActionType.Call, call, true));
 	}
 
 	private static void parseBet(String str, Table table, boolean stripMe) throws HandHistoryInvalidException {
 		String name = getNameFromStartAction(str, stripMe);
 		double bet = getCurrency(str)[0];
-		table.getActions().add(new GameAction(name, ActionType.Bet, bet));
+		table.getActions().add(new GameAction(name, ActionType.Bet, bet, true));
 	}
 	
 	private static void parseRaise(String str, Table table, boolean stripMe) throws HandHistoryInvalidException {
 		String name = getNameFromStartAction(str, stripMe);
 		double bet = getCurrency(str)[0];
-		table.getActions().add(new GameAction(name, ActionType.Raise, bet));
+		table.getActions().add(new GameAction(name, ActionType.Raise, bet, true));
 	}
 	
 	private static Player parsePlayerInit(String str, boolean stripMe) throws HandHistoryInvalidException {
@@ -314,10 +366,10 @@ public class HandHistoryParser {
 		}
 		
 		smallBlind = getCurrency(sBStr)[0];
-		tmpActions.add(new GameAction("SmallBlind", ActionType.SmallBlind, smallBlind));
+		tmpActions.add(new GameAction("SmallBlind", ActionType.SmallBlind, smallBlind, true));
 		
 		bigBlind = getCurrency(bbStr)[0];
-		tmpActions.add(new GameAction("BigBlind", ActionType.BigBlind, bigBlind));
+		tmpActions.add(new GameAction("BigBlind", ActionType.BigBlind, bigBlind, true));
 		
 		return new Table(buttonIdx, 0, smallBlind, bigBlind);
 	}
@@ -370,10 +422,10 @@ public class HandHistoryParser {
 			//do nothing
 		} else if (str.contains(": Folds")) {
 			String name = getNameFromStartAction(str, stripMe);
-			table.getActions().add(new GameAction(name, ActionType.Fold, 0));
+			table.getActions().add(new GameAction(name, ActionType.Fold, 0, true));
 		} else if (str.contains(": Checks")) {
 			String name = getNameFromStartAction(str, stripMe);
-			table.getActions().add(new GameAction(name, ActionType.Check, 0));
+			table.getActions().add(new GameAction(name, ActionType.Check, 0, true));
 		} else if (str.contains(": Calls")) {
 			parseCall(str, table, stripMe);
 		} else if (str.contains(": Bets") || str.contains(": All-in $")) {

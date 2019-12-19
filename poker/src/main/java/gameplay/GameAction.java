@@ -13,12 +13,20 @@ public class GameAction {
     private String name;
     private ActionType actionType;
     private double chips;
+    private int chanceSize;
     
-	public GameAction(String name, ActionType actionType, double chips) {
+	public GameAction(String name, ActionType actionType, double chips, boolean preFlop) {
 		super();
 		this.name = name;
 		this.actionType = actionType;
 		this.chips = chips;
+	
+		if ((actionType == ActionType.Bet)||(actionType == ActionType.Call)||(actionType == ActionType.Check)
+				||(actionType == ActionType.Fold)||(actionType == ActionType.Raise)) {
+			this.chanceSize = (preFlop) ? 169 : 1326;
+		} else {
+			this.chanceSize = 1;
+		}
 	}
 
 	public String getName() {
@@ -43,6 +51,14 @@ public class GameAction {
 
 	public void setChips(double chips) {
 		this.chips = chips;
+	}
+
+	public int getChanceSize() {
+		return chanceSize;
+	}
+
+	public void setChanceSize(int chanceSize) {
+		this.chanceSize = chanceSize;
 	}
 
 	public boolean isEqualTo(GameAction gameAction) {

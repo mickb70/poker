@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import util.Sequence;
+
 
 public class GameNode {
 	private static Logger logger = Logger.getLogger(GameNode.class);
@@ -11,10 +13,13 @@ public class GameNode {
 	private final GameNode parent;
 	private final int depth;
 	private final GameAction gameAction;
+	private final int idx;
 	private ArrayList<GameNode> kids;
 	private int visitCount;
+	
+	private int chanceVisits[];
 
-	public GameNode(GameNode parent, GameAction gameAction) {
+	public GameNode(GameNode parent, GameAction gameAction, Sequence seq) {
 		super();
 		this.parent = parent;
 		
@@ -27,6 +32,8 @@ public class GameNode {
 		this.gameAction = gameAction;
 		this.kids = new ArrayList<GameNode>();
 		this.visitCount = 1;
+		this.idx = seq.getNext();
+		this.chanceVisits = new int[gameAction.getChanceSize()];
 	}
 
 	public ArrayList<GameNode> getKids() {
@@ -53,19 +60,46 @@ public class GameNode {
 		this.visitCount = visitCount;
 	}
 
-	public void visit() {
-		this.visitCount++;
+	public int[] getChanceVisits() {
+		return chanceVisits;
 	}
 
-	public GameNode addChild(GameAction gameAction) {
+	public void setChanceVisits(int[] chanceVisits) {
+		this.chanceVisits = chanceVisits;
+	}
+
+	public void visit(int chanceIdx) {
+		this.chanceVisits[chanceIdx]++;
+		this.visitCount++;
+	}
+	
+	public GameNode getNode(int idx) {
+		GameNode node = null;
+		
+		if (this.idx == idx) {
+			return this;
+		}
+		
+		for (GameNode kid: this.kids) {
+			node = kid.getNode(idx);
+			if (null != node) {
+				return node;
+			}
+		}
+		
+		return node;
+	}
+
+	public GameNode addChild(GameAction gameAction, int chanceIdx, Sequence seq) {
 		for (GameNode kid: this.kids) {
 			if (kid.gameAction.isEqualTo(gameAction)) {
-				kid.visit();
+				System.out.println("her" + gameAction.getActionType());
+				kid.visit(chanceIdx);
 				return kid;
 			}
 		}
 		
-		GameNode newChild = new GameNode(this, gameAction);
+		GameNode newChild = new GameNode(this, gameAction, seq);
 		this.kids.add(newChild);
 		return newChild;
 	}
@@ -79,5 +113,12 @@ public class GameNode {
 		}
 		
 		return numDesc;
+	}
+	
+	public void printDescendants() {
+		for (GameNode kid: this.kids) {
+			kid.printDescendants();
+		}
+		logger.info(depth+",idx="+idx+",parent="+((parent == null)?-1:parent.idx));
 	}
 }
