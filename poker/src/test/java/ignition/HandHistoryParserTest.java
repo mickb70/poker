@@ -62,8 +62,7 @@ public class HandHistoryParserTest extends TestCase {
 		Assert.assertEquals("3hQh", table.getPlayer("UTG[ME]").getPair().toString());
 		
 		Assert.assertEquals(16, table.getActions().size());
-	} 
-
+	}
 	
 	public void testParseHandRiverShowdown() throws FileNotFoundException, IOException, HandHistoryInvalidException {
 		HashMap<String, Table> hands = HandHistoryParser.extractHands("resources/testHandHistory.txt", false);
@@ -115,6 +114,49 @@ public class HandHistoryParserTest extends TestCase {
 		GameNode tree = HandHistoryParser.createPreFlopTreeEff(tables,player,minEff,maxEff);
 		
 		Assert.assertEquals(5, tables.size());
+		Assert.assertEquals(2, tree.getKids().get(0).getVisitCount());
+	}
+	
+	public void testCreatePreFlopTreeDlrMeEffStack11to14Many() throws FileNotFoundException, IOException, HandHistoryInvalidException {
+		HashMap<String, Table> tables = 
+				HandHistoryParser.extractHandsFromDir("resources/testHands","ZONE - $0.10-$0.25 - HOLDEM", false);
+		double minEff = 11;
+		double maxEff = 14;
+		String player = "Dealer[ME]";
+		
+		GameNode tree = HandHistoryParser.createPreFlopTreeEff(tables,player,minEff,maxEff);
+		
+		Assert.assertEquals(6231, tables.size());
+		Assert.assertEquals(294, tree.getKids().get(0).getVisitCount());
+	}
+	
+	public void testTripleBarrelTree() throws FileNotFoundException, IOException, HandHistoryInvalidException {
+		HashMap<String, Table> tables = 
+			HandHistoryParser.extractHandsFromDir("resources/moreTestHH","tripleBarrel", false);
+
+		double minEff = 11;
+		double maxEff = 14;
+		String player = "Dealer[ME]";
+		
+		GameNode tree = HandHistoryParser.createFullTreeEff(tables,player,minEff,maxEff);
+		
+		Assert.assertEquals(2, tables.size());
+		Assert.assertEquals(2, tree.getKids().get(0).getVisitCount());
+	}
+	
+	public void testNutsOrNothingRiver() throws FileNotFoundException, IOException, HandHistoryInvalidException {
+		HashMap<String, Table> tables = 
+			HandHistoryParser.extractHandsFromDir("resources/moreTestHH","NutsOrNothing", false);
+
+		double minEff = 11;
+		double maxEff = 14;
+		String player = "Dealer[ME]";
+		
+		GameNode tree = HandHistoryParser.createFullTreeEff(tables,player,minEff,maxEff);
+		
+		tree.printDescendants();
+		
+		Assert.assertEquals(2, tables.size());
 		Assert.assertEquals(2, tree.getKids().get(0).getVisitCount());
 	}
 }
